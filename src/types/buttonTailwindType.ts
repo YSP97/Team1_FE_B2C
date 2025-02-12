@@ -3,6 +3,7 @@ export const tailwindColors = [
   "text-navy-dark",
   "text-gray-100",
   "bg-primary",
+  "bg-bg-primary",
   "bg-navy-dark",
 ] as const;
 
