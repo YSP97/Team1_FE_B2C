@@ -8,7 +8,6 @@ body:
     attributes:
       label: "기능 요약"
       placeholder: "기능에 대한 간단한 설명"
-      required: true
   - type: textarea
     id: details
     attributes:
