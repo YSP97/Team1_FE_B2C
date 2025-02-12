@@ -8,16 +8,13 @@ body:
     attributes:
       label: "재현 방법"
       placeholder: "버그를 재현할 수 있는 단계"
-      required: true
   - type: input
     id: expected
     attributes:
       label: "예상 동작"
       placeholder: "예상했던 동작"
-      required: true
   - type: input
     id: actual
     attributes:
       label: "실제 동작"
       placeholder: "실제로 발생한 동작"
-      required: true
