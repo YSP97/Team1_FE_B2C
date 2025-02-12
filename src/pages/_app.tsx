@@ -1,5 +1,5 @@
-import localFont from 'next/font/local';
 import '@/styles/globals.css';
+import localFont from 'next/font/local';
 import type { AppProps } from 'next/app';
 
 const pretendard = localFont({
@@ -11,7 +11,7 @@ const pretendard = localFont({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${pretendard.className} font-pretendard`}>
+    <main className={`${pretendard.variable} font-pretendard`}>
       <Component {...pageProps} />
     </main>
   );
