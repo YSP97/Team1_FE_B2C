@@ -30,16 +30,16 @@ export default function MobileMenu() {
         } transition-transform duration-300 ease-in-out`}>
         {/* 닫기 버튼 */}
         <button className="absolute top-3 right-4" onClick={handleClick}>
-          <svg className="w-6 h-6">
+          <svg className="w-6 h-6 text-gray-100">
             <use href="assets/sprite.svg#cancel" />
           </svg>
         </button>
 
-        <div className="flex-col mt-16 pl-6">
+        <div className="flex-col mt-16 px-6">
           <nav className="text-gray-100 mb-10">
             <NavLinks onClick={handleClick} />
           </nav>
-          <Button />
+          <Button textColor='text-navy-dark'>다운로드</Button>
         </div>
       </div>
     </>

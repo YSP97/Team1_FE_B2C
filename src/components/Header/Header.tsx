@@ -23,11 +23,19 @@ export default function Header() {
       </h1>
 
       {/* 데스크톱 네비게이션 */}
-      <div className="hidden md:flex gap-3 lg:gap-10 flex-wrap">
+      <div className="hidden md:flex gap-3 lg:gap-10 items-center h-full">
         <nav className="text-gray-100 text-base">
           <NavLinks />
         </nav>
-        <Button />
+        <div className="h-full flex items-center">
+          <Button
+            rounded="rounded-3xl"
+            textColor="text-navy-dark"
+            bgColor="bg-primary"
+          >
+            다운로드
+          </Button>
+        </div>
       </div>
 
       {/* 모바일 햄버거 버튼 */}
