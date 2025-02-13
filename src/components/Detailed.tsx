@@ -1,4 +1,4 @@
-import { RefObject, useRef, useState, WheelEvent } from "react";
+import { RefObject, useRef, useState, WheelEvent, TouchEvent } from "react";
 
 export default function Detailed() {
   const sectionRefs: RefObject<HTMLElement | null>[] = [
@@ -6,6 +6,7 @@ export default function Detailed() {
     useRef(null),
     useRef(null),
   ];
+  const touchStartY = useRef(0);
 
   console.log(sectionRefs);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
@@ -30,6 +31,8 @@ export default function Detailed() {
       bg: "bg-red",
     },
   ];
+
+  //데탑용
   const scrollToNextSection = () => {
     scrollToSection(currentSectionIndex + 1);
   };
@@ -60,14 +63,43 @@ export default function Detailed() {
     }
   };
 
+  // ** Touch Event (모바일용) **
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
+    if (isScrolling.current) return;
+    const touchEndY = e.touches[0].clientY;
+    const deltaY = touchStartY.current - touchEndY;
+
+    if (Math.abs(deltaY) > 50) {
+      isScrolling.current = true;
+      setTimeout(() => {
+        isScrolling.current = false;
+      }, 400);
+
+      if (deltaY > 0) {
+        scrollToNextSection(); // 아래로 스크롤
+      } else {
+        scrollToPrevSection(); // 위로 스크롤
+      }
+    }
+  };
+
   return (
-    <div onWheel={handleWheel} className="h-screen overflow-hidden">
+    <div
+      onWheel={handleWheel}
+      className="h-screen overflow-hidden snap-none"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+    >
       {sections.map((data, index) => {
         return (
           <section
             ref={sectionRefs[index]}
             id={`section-${index}`}
-            className={`h-screen flex flex-col justify-center items-center ${data.bg} snap-start`}
+            className={`h-screen flex flex-col justify-center items-center ${data.bg} snap-start overflow-hidden`}
             key={data.id}
           >
             <div className="flex flex-col gap-6 justify-center items-center">
