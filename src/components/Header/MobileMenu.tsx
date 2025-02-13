@@ -14,8 +14,8 @@ export default function MobileMenu() {
     <>
       {/* 모바일 햄버거 버튼 */}
       <button onClick={handleClick} className="relative z-50">
-        <svg className="w-6 h-6 bg-white">
-          <use href="#menu" />
+        <svg className="w-6 h-6">
+          <use href="assets/sprite.svg#hamburger" />
         </svg>
       </button>
 
@@ -30,8 +30,8 @@ export default function MobileMenu() {
         } transition-transform duration-300 ease-in-out`}>
         {/* 닫기 버튼 */}
         <button className="absolute top-3 right-4" onClick={handleClick}>
-          <svg className="w-6 h-6 bg-white">
-            <use href="#cancel" />
+          <svg className="w-6 h-6">
+            <use href="assets/sprite.svg#cancel" />
           </svg>
         </button>
 
