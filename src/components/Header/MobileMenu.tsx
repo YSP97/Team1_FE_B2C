@@ -37,7 +37,7 @@ export default function MobileMenu() {
 
         <div className="flex-col mt-16 pl-6">
           <nav className="text-gray-100 mb-10">
-            <NavLinks onClick={() => setIsOpen(false)} />
+            <NavLinks onClick={handleClick} />
           </nav>
           <Button />
         </div>
