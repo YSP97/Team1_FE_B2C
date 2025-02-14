@@ -1,27 +1,5 @@
+import { SVGIconProp } from '@/types/svgIconTypes';
 import { memo } from "react";
-
-export type IconName =
-  | "cancel"
-  | "checkedBold"
-  | "checked"
-  | "checkedBox"
-  | "checkedThin"
-  | "email"
-  | "emptyStar"
-  | "hamburger"
-  | "hr"
-  | "instagram"
-  | "radio-checked"
-  | "radio-unchecked"
-  | "unchecked"
-  | "atSign"
-  | "calendar";
-
-type SVGIconProp = {
-  name: IconName;
-  size?: number;
-  className?: string;
-};
 
 function SVGIcon({ name, size = 32, className }: SVGIconProp) {
   return (
