@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SVGIcon from "../SVGIcon";
 
 type ReviewProps = {
   id: string;
@@ -7,7 +8,7 @@ type ReviewProps = {
   content: string;
 };
 
-export default function ReviewCard({ id, img, rating, content }: ReviewProps) {
+function ReviewCard({ id, img, rating, content }: ReviewProps) {
   return (
     <article className=" bg-gray-500 rounded-lg flex p-4 flex-col gap-2 self-stretch ">
       <div className="flex justify-between gap-1 items-center self-stretch">
@@ -19,13 +20,16 @@ export default function ReviewCard({ id, img, rating, content }: ReviewProps) {
             {id}
           </span>
         </div>
-
-        {/* 별점 아이콘 추후 수정 예정 */}
-        <div className=" w-[3.64156rem] h-[0.61319rem] flex items-center gap-1">
-          {Array.from({ length: rating }).map((_, index) => (
-            <div
+        <div
+          className=" w-[3.64156rem] h-[0.61319rem] flex items-center gap-1"
+          aria-label={`5점 만점에 ${rating}점`}>
+          {[...Array(5)].map((_, index) => (
+            <SVGIcon
               key={index}
-              className="w-[10px] h-[10px] bg-black rounded-full"></div>
+              name="emptyStar"
+              size={11}
+              className={index < rating ? "text-yellow-400" : "text-gray-300"}
+            />
           ))}
         </div>
       </div>
@@ -36,3 +40,5 @@ export default function ReviewCard({ id, img, rating, content }: ReviewProps) {
     </article>
   );
 }
+
+export default ReviewCard;
