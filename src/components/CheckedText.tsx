@@ -1,6 +1,6 @@
 interface CheckedTextProps {
   text: string;
-  subText?: string[];
+  subText?: string | string[];
 }
 
 export default function CheckedText({ text, subText }: CheckedTextProps) {
@@ -12,13 +12,17 @@ export default function CheckedText({ text, subText }: CheckedTextProps) {
         </svg>
         <span className='text-white text-md'>{text}</span>
       </p>
-      {subText?.length && (
+      {subText && (
         <ul className='pl-8 flex flex-col gap-1'>
-          {subText.map((item, index) => (
-            <li key={index} className='text-gray-100 text-base'>
-              {item}
-            </li>
-          ))}
+          {Array.isArray(subText) ? (
+            subText.map((item, index) => (
+              <li key={index} className='text-gray-100 text-base'>
+                {item}
+              </li>
+            ))
+          ) : (
+            <li className='text-gray-100 text-base'>{subText}</li>
+          )}
         </ul>
       )}
     </li>
