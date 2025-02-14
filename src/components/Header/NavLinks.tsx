@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import navigation from './navigation';
+import { memo } from 'react';
 
-export default function NavLinks({ onClick }: { onClick?: () => void }) {
+function NavLinks({ onClick }: { onClick?: () => void }) {
   return (
     <ul className="flex flex-col md:flex-row gap-10 font-medium">
       {navigation.map((item, index) => (
@@ -26,3 +27,6 @@ export default function NavLinks({ onClick }: { onClick?: () => void }) {
     </ul>
   );
 }
+
+
+export default memo(NavLinks)
