@@ -1,49 +1,62 @@
-import { TailwindColor, TailwindRounded } from "@/types/buttonTailwindType";
+import {
+  TailwindColor,
+  TailwindFontSize,
+  TailwindRounded,
+} from "@/types/buttonTailwindType";
 import { ReactNode, useState } from "react";
 
 type ButtonProps = {
+  type: "primary" | "secondary";
   rounded?: TailwindRounded;
   textColor?: TailwindColor;
   bgColor?: TailwindColor;
-  isClickTextColor?: TailwindColor;
-  isClickBg?: TailwindColor;
+  fontSize?: TailwindFontSize;
+  hoverBgColor?: TailwindColor;
+  hoverTextColor?: TailwindColor;
   children: ReactNode;
   onClick?: () => void;
 };
 
 export default function Button({
-  rounded = "rounded-[3rem]",
-  textColor = "text-primary",
+  textColor = "text-navy-dark",
   bgColor = "bg-primary",
-  isClickTextColor,
-  isClickBg,
+  type = "primary",
+  fontSize = "text-[1.125rem]",
+  hoverBgColor = "bg-navy-dark",
+  hoverTextColor = "text-white",
   children,
   onClick,
 }: ButtonProps) {
   const [isClick, setIsClick] = useState(false);
-
   const handleCLick = () => {
-    if (onClick) onClick();
     setIsClick(!isClick);
+    console.log(isClick);
+
+    if (onClick) {
+      onClick();
+    }
   };
+
+  let buttonClass;
+  switch (type) {
+    case "primary":
+      buttonClass = `text-center ${bgColor} ${textColor} px-6 py-[0.72rem] rounded-[3rem] active:opacity-80 hover:${hoverBgColor} hover:${hoverTextColor}`;
+      break;
+    case "secondary":
+      buttonClass = isClick
+        ? `text-center bg-primary text-navy-dark p-4 rounded-lg border-[1px] border-solid border-gray-100`
+        : `text-center ${bgColor} ${textColor} p-4 rounded-lg border-[1px] border-solid border-gray-100`;
+  }
 
   return (
     <div>
-      {isClick ? (
-        <button
-          className={`text-center ${isClickBg} ${isClickTextColor} py-6 px-6 ${rounded} font-bold text-lg w-full active:opacity-80 trasition-all duration-300 ease-out`}
-          onClick={handleCLick}
-        >
-          {children}
-        </button>
-      ) : (
-        <button
-          className={`text-center ${bgColor} ${textColor} py-6 px-6 ${rounded} font-bold text-lg w-full active:opacity-80 trasition-all duration-300 ease-out`}
-          onClick={handleCLick}
-        >
-          {children}
-        </button>
-      )}
+      <button
+        type="button"
+        className={`font-bold ${fontSize} w-full  transition-all duration-300 ${buttonClass}`}
+        onClick={handleCLick}
+      >
+        {children}
+      </button>
     </div>
   );
 }
