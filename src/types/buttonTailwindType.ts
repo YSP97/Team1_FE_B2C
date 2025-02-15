@@ -2,6 +2,7 @@ export const tailwindColors = [
   "text-primary",
   "text-navy-dark",
   "text-gray-100",
+  "text-white",
   "bg-primary",
   "bg-bg-primary",
   "bg-navy-dark",
@@ -19,5 +20,15 @@ export const tailwindRounded = [
   "rounded-[3rem]",
 ] as const;
 
+export const tailwindFontSize = [
+  "text-xs",
+  "text-sm",
+  "text-base",
+  "text-md",
+  "text-lg",
+  "text-xl",
+];
+
 export type TailwindColor = (typeof tailwindColors)[number];
 export type TailwindRounded = (typeof tailwindRounded)[number];
+export type TailwindFontSize = (typeof tailwindFontSize)[number];
