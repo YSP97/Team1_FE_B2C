@@ -27,20 +27,21 @@ export default {
         "navy-dark": "rgba(0, 60, 90, 1)",
       },
       fontSize: {
-        "text-xs": "0.8125rem", // 13px
-        "text-sm": "0.875rem", // 14px
-        "text-base": "1rem", // 16px
-        "text-md": "1.125rem", // 18px
-        "text-lg": "1.5rem", // 24px
-        "text-xl": "2rem", // 32px
+        xs: "0.8125rem", // 13px
+        sm: "0.875rem", // 14px
+        base: "1rem", // 16px
+        md: "1.125rem", // 18px
+        lg: "1.5rem", // 24px
+        xl: "2rem", // 32px
+        "2xl": "2.5rem", // 40px
       },
       borderRadius: {
-        "rounded-sm": "0.5rem", // 8px
-        "rounded-base": "1rem", // 16px
-        "rounded-md": "2rem", // 32px
-        "rounded-lg": "2.5rem", // 40px
-        "rounded-xl": "3rem", // 48px
-        "rounded-2xl": "3.5rem", // 56px
+        sm: "0.5rem", // 8px
+        base: "1rem", // 16px
+        md: "2rem", // 32px
+        lg: "2.5rem", // 40px
+        xl: "3rem", // 48px
+        "2xl": "3.5rem", // 56px
       },
     },
   },
