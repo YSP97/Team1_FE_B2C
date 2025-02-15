@@ -17,7 +17,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #9ca3af;
+  background: rgba(52, 52, 52, 1);
   border-radius: 20px;
   max-height: 200px; /* 스크롤바 thumb의 최대 높이 */
 }
