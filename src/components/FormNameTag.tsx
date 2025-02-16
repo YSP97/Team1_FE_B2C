@@ -1,21 +1,21 @@
 import { memo } from "react";
 
 interface FormNameTagProps {
-  label: string;
+  name: string;
   children: React.ReactNode;
   type?: "input";
 }
-function FormNameTag({ label, children, type }: FormNameTagProps) {
+function FormNameTag({ name, children, type }: FormNameTagProps) {
   return (
     <div className="flex flex-col px-0 py-2 w-full">
       {type === "input" ? (
         <label className="w-full text-gray-100 text-[1.125rem] font-normal">
-          {label}
+          {name}
           {children}
         </label>
       ) : (
         <div className="w-full text-gray-100 text-[1.125rem] font-normal">
-          {label}
+          {name}
           {children}
         </div>
       )}
