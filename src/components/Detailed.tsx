@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, TouchEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import BundleText from "./BundleText";
 
 type Section = {
   title: string;
   caption1: string;
   caption2: string;
   bg: string;
+  img: string;
 };
 
 const SECTIONS: Section[] = [
@@ -15,6 +17,7 @@ const SECTIONS: Section[] = [
       "핏큘레이터의 포인트 시스템은\n세계보건기구(WHO)의 신체활동 가이드라인에\n 근거해 만들어졌어요.",
     caption2: "스마트워치를 가지고 있다면\n누구나 사용할 수 있어요.",
     bg: "bg-primary",
+    img: "/assets/calculater.png",
   },
   {
     title: "운동기록을 올리면\n실시간으로\n운동량이 계산돼요.",
@@ -22,6 +25,7 @@ const SECTIONS: Section[] = [
       "나의 운동이 부족한지, 과한지 한 눈에 확인하고\n피드백을 받을 수 있어요.",
     caption2: "",
     bg: "bg-white",
+    img: "/assets/bike.png",
   },
   {
     title: "운동량 그래프와 피로도 분석을 통한\n자기 관리",
@@ -29,6 +33,7 @@ const SECTIONS: Section[] = [
       "일별, 주제별 그래프를 통해 나의 운동 패턴을 이해하고\n 컨디션에 맞게 조절할 수 있어요.",
     caption2: "",
     bg: "bg-gray-200",
+    img: "/assets/pieGraph.png",
   },
 ];
 
@@ -36,6 +41,8 @@ function Detailed() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const stickyRef = useRef<HTMLDivElement | null>(null);
+  const [isSnapping, setIsSnapping] = useState(false);
+  const touchStartYRef = useRef<number | null>(null);
 
   useEffect(() => {
     console.log(sectionRefs.current);
@@ -81,13 +88,116 @@ function Detailed() {
     };
   }, []);
 
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const sectionHeight =
+      sectionRefs.current[0]?.getBoundingClientRect().height;
+
+    if (!sectionHeight) return; // sectionHeight가 정의되지 않으면 함수 종료
+
+    console.log("currentY", currentScrollY, "sectionHeight", sectionHeight * 3);
+
+    const snapToPosition = (targetY: number) => {
+      setIsSnapping(true);
+      window.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+
+      setTimeout(() => {
+        setIsSnapping(false);
+      }, 500); //
+    };
+
+    if (
+      currentScrollY > sectionHeight &&
+      currentScrollY < sectionHeight + 100 &&
+      !isSnapping
+    ) {
+      snapToPosition(sectionHeight);
+    }
+
+    if (
+      currentScrollY > sectionHeight * 2 &&
+      currentScrollY < sectionHeight * 2 + 100 &&
+      !isSnapping
+    ) {
+      snapToPosition(sectionHeight * 2);
+    }
+  };
+
+  // 터치 시작 이벤트 핸들러
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  // 터치 이동 이벤트 핸들러 (스크롤과 동일한 방식으로 처리)
+  const handleTouchMove = (e: TouchEvent) => {
+    const currentScrollY = window.scrollY;
+    const sectionHeight =
+      sectionRefs.current[0]?.getBoundingClientRect().height;
+
+    if (!sectionHeight || isSnapping) return;
+
+    const touchEndY = e.touches[0].clientY;
+    const touchDiff = touchStartYRef.current! - touchEndY;
+
+    if (Math.abs(touchDiff) > 50) {
+      // 최소 스와이프 거리 (필요에 따라 조정)
+      const currentSection = Math.round(currentScrollY / sectionHeight);
+      let targetSection;
+
+      if (touchDiff > 0) {
+        // 위로 스와이프 (다음 섹션)
+        targetSection = Math.min(currentSection + 1, SECTIONS.length);
+      } else {
+        // 아래로 스와이프 (이전 섹션)
+        targetSection = Math.max(currentSection - 1, 0);
+      }
+
+      setIsSnapping(true);
+      window.scrollTo({
+        top: targetSection * sectionHeight,
+        behavior: "smooth",
+      });
+
+      setTimeout(() => {
+        setIsSnapping(false);
+      }, 200);
+
+      touchStartYRef.current = null;
+    }
+  };
+
+  // 터치 종료 이벤트 핸들러
+  const handleTouchEnd = () => {
+    touchStartYRef.current = null;
+  };
+
   return (
-    <div className="relative w-full">
+    <div
+      className="relative w-full"
+      onWheel={handleScroll}
+      onTouchMove={handleTouchMove}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* 고정 컨텐츠 박스 */}
       <div
         className="sticky top-0 z-10 h-screen flex items-center justify-center overflow-hidden bg-bg-primary"
         ref={stickyRef}
       >
+        <ul className="flex flex-col gap-1 p-1 absolute right-7 top-16 z-20">
+          {sectionRefs.current.map((_, index) => {
+            return (
+              <li
+                key={index}
+                className={`w-2 h-2 rounded-full ${activeIndex === index ? "bg-white" : "bg-gray-100 "}`}
+              ></li>
+            );
+          })}
+        </ul>
+
         <div className="w-full max-w-4xl px-4 sm:px-6 lg:px-8">
           <AnimatePresence mode="wait">
             <motion.div
@@ -99,10 +209,18 @@ function Detailed() {
               className="text-center bg-bg-primary h-screen flex flex-col justify-center gap-6 items-center"
             >
               <img
-                src="https://fastly.picsum.photos/id/356/200/200.jpg?hmac=Pd7TXMbO4gSTwhtmub1DcSo1vPpeCVRsuY_BRE_llmU"
+                src={SECTIONS[activeIndex].img}
                 className="object-cotain w-96 h-96 object-center"
               ></img>
-              <h2 className="text-2xl font-bold text-white mb-4 whitespace-pre-line">
+
+              <BundleText
+                text={{
+                  title1: SECTIONS[activeIndex].title,
+                  sub1: SECTIONS[activeIndex].caption1,
+                  sub2: SECTIONS[activeIndex].caption2,
+                }}
+              />
+              {/* <h2 className="text-lg font-bold text-white whitespace-pre-line">
                 {SECTIONS[activeIndex].title}
               </h2>
               <div className="space-y-2">
@@ -112,7 +230,7 @@ function Detailed() {
                 <p className="text-base text-gray-200 whitespace-pre-line">
                   {SECTIONS[activeIndex].caption2}
                 </p>
-              </div>
+              </div> */}
             </motion.div>
           </AnimatePresence>
         </div>
