@@ -32,7 +32,8 @@ function DeviceSelect({ selectedDevices, onChange }: DeviceSelectProps) {
             key={d}
             name={d}
             isChecked={selectedDevices.includes(d)}
-            onChange={onChange}></CheckBox>
+            onChange={onChange}
+            width="w-[9.96875rem] md:w-[14.666875rem]"></CheckBox>
         ))}
       </div>
     </div>
