@@ -6,6 +6,7 @@ type Section = {
   caption1: string;
   caption2: string;
   bg: string;
+  h?: number;
 };
 
 const SECTIONS: Section[] = [
@@ -36,6 +37,7 @@ function Detailed() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const stickyRef = useRef<HTMLDivElement | null>(null);
+  const [isSnapping, setIsSnapping] = useState(false);
 
   useEffect(() => {
     console.log(sectionRefs.current);
@@ -81,8 +83,46 @@ function Detailed() {
     };
   }, []);
 
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const sectionHeight =
+      sectionRefs.current[0]?.getBoundingClientRect().height;
+
+    if (!sectionHeight) return; // sectionHeight가 정의되지 않으면 함수 종료
+
+    console.log("currentY", currentScrollY, "sectionHeight", sectionHeight * 3);
+
+    const snapToPosition = (targetY: number) => {
+      setIsSnapping(true);
+      window.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+
+      setTimeout(() => {
+        setIsSnapping(false);
+      }, 500); //
+    };
+
+    if (
+      currentScrollY > sectionHeight &&
+      currentScrollY < sectionHeight + 100 &&
+      !isSnapping
+    ) {
+      snapToPosition(sectionHeight);
+    }
+
+    if (
+      currentScrollY > sectionHeight * 2 &&
+      currentScrollY < sectionHeight * 2 + 100 &&
+      !isSnapping
+    ) {
+      snapToPosition(sectionHeight * 2);
+    }
+  };
+
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" onWheel={handleScroll}>
       {/* 고정 컨텐츠 박스 */}
       <div
         className="sticky top-0 z-10 h-screen flex items-center justify-center overflow-hidden bg-bg-primary"
@@ -137,3 +177,10 @@ function Detailed() {
 }
 
 export default Detailed;
+
+// 정확한 스크롤 위치로 이동해야됨
+// 정확한 스크롤 위치로 이동하기위해서는 전체높이를 알아야됨.
+// 전체높이에서 섹션의 탑으로 이동?
+// 섹션의탑? scollinView 로 사용가능할까?
+// 음수양수값 확인해서 아래인지 위인지 확인하고 해당 스크롤로 이동.
+// 현재 애니메이션은 유지됨.
