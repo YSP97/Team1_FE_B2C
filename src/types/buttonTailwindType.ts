@@ -28,7 +28,27 @@ export const tailwindFontSize = [
   "text-lg",
   "text-xl",
 ];
+export const tailwindFontBold = [
+  "font-thin",
+  "font-weight",
+  "font-extralight",
+  "font-weight",
+  "font-light",
+  "font-weight",
+  "font-normal",
+  "font-weight",
+  "font-medium",
+  "font-weight",
+  "font-semibold",
+  "font-weight",
+  "font-bold",
+  "font-weight",
+  "font-extrabold",
+  "font-weight",
+  "font-black",
+];
 
 export type TailwindColor = (typeof tailwindColors)[number];
 export type TailwindRounded = (typeof tailwindRounded)[number];
 export type TailwindFontSize = (typeof tailwindFontSize)[number];
+export type TailwindFontBold = (typeof tailwindFontBold)[number];

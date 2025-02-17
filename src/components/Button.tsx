@@ -1,5 +1,6 @@
 import {
   TailwindColor,
+  TailwindFontBold,
   TailwindFontSize,
   TailwindRounded,
 } from "@/types/buttonTailwindType";
@@ -11,8 +12,7 @@ type ButtonProps = {
   textColor?: TailwindColor;
   bgColor?: TailwindColor;
   fontSize?: TailwindFontSize;
-  hoverBgColor?: TailwindColor;
-  hoverTextColor?: TailwindColor;
+  fontBold?: TailwindFontBold;
   children: ReactNode;
   onClick?: () => void;
 };
@@ -21,9 +21,8 @@ export default function Button({
   textColor = "text-navy-dark",
   bgColor = "bg-primary",
   type = "primary",
-  fontSize = "text-[1.125rem]",
-  hoverBgColor = "bg-navy-dark",
-  hoverTextColor = "text-white",
+  fontSize = "text-[1rem]",
+  fontBold = "font-bold",
   children,
   onClick,
 }: ButtonProps) {
@@ -40,19 +39,19 @@ export default function Button({
   let buttonClass;
   switch (type) {
     case "primary":
-      buttonClass = `text-center ${bgColor} ${textColor} px-6 py-[0.72rem] rounded-[3rem] active:opacity-80 hover:${hoverBgColor} hover:${hoverTextColor}`;
+      buttonClass = `text-center ${bgColor} ${textColor} px-6 py-[0.72rem] rounded-[3rem]`;
       break;
     case "secondary":
       buttonClass = isClick
-        ? `text-center bg-primary text-navy-dark p-4 rounded-lg border-[1px] border-solid border-gray-100`
-        : `text-center ${bgColor} ${textColor} p-4 rounded-lg border-[1px] border-solid border-gray-100`;
+        ? `text-center bg-primary text-navy-dark p-4 rounded-lg border-[1px] border-solid border-primary`
+        : `text-center bg-bg-primary text-gray-100 p-4 rounded-lg border-[1px] border-solid border-gray-100`;
   }
 
   return (
     <div>
       <button
         type="button"
-        className={`font-bold ${fontSize} w-full  transition-all duration-300 ${buttonClass}`}
+        className={`${fontBold} ${fontSize} w-full hover:brightness-[80%] transition-all duration-300 ${buttonClass}`}
         onClick={handleCLick}
       >
         {children}
