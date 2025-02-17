@@ -1,13 +1,13 @@
-name: "🚀 Feature"
-description: "새로운 기능을 제안하세요."
-title: "[Feature] 제안할 기능"
-labels: ["feature"]
+name: "Modify"
+description: "수정할내용 을 입력하세요."
+title: "[Modify] 수정할내용"
+labels: ["modify"]
 body:
   - type: input
     id: summary
     attributes:
-      label: "기능 요약"
-      placeholder: "기능에 대한 간단한 설명"
+      label: "수정할내용"
+      placeholder: "수정한 내용에 대한 간단한 설명"
   - type: textarea
     id: details
     attributes:

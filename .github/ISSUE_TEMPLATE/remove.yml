@@ -1,0 +1,20 @@
+name: "Remove"
+description: "수정할내용 을 입력하세요."
+title: "[Remove] 삭제한 코드나 파일"
+labels: ["remove"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: "삭제한 코드나 파일"
+      placeholder: "삭제한 코드나 파일 에 대한 간단한 설명"
+  - type: textarea
+    id: details
+    attributes:
+      label: "세부 설명"
+      placeholder: "삭제한 코드나 파일 에 대한 간단한 설명"
+  - type: input
+    id: purpose
+    attributes:
+      label: "삭제한 이유"
+      placeholder: "왜 삭제 하셨나요?"
