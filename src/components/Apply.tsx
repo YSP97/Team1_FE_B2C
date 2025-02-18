@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import BundleText from '@/components/BundleText';
+import BundleText from './BundleText';
 import CheckedText from './CheckedText';
+import Button from './Button';
 
 export default function Apply() {
   const TEXT = {
@@ -16,20 +17,33 @@ export default function Apply() {
     '커뮤니티 활동',
   ];
 
+  const handleOnClick = () => {};
+
   return (
-    <div className="flex h-[36.25rem] flex-col border border-black px-6 py-8 md:max-w-[80rem] md:flex-row">
-      <Image
-        src={'/assets/bike.png'}
-        alt=""
-        width={280}
-        height={280}
-        className="mx-auto md:mx-0 md:h-[26.25rem] md:w-[26.25rem]"
-      />
-      <div className="flex flex-col gap-2">
-        <BundleText type="blue" text={TEXT} />
-        {CheckedTextArray.map((Text) => (
-          <CheckedText text={Text} key={Text} />
-        ))}
+    <div className="w-full bg-bg-secondary">
+      <div className="flex flex-col gap-2 py-8 md:mx-auto md:max-w-[80rem] md:flex-row md:items-center md:py-16">
+        <Image
+          src={'/assets/bike.png'}
+          alt=""
+          width={280}
+          height={280}
+          className="mx-auto aspect-square md:mx-auto md:max-w-[26.25rem]"
+        />
+        <div className="mx-auto flex min-w-[20.4375rem] flex-col items-center gap-4 md:max-w-[36.25rem] md:items-start md:gap-14">
+          <BundleText type="blue" text={TEXT} />
+          <div className="mb-4 flex w-full flex-col gap-2 md:mb-0 md:gap-4">
+            {CheckedTextArray.map((Text) => (
+              <CheckedText text={Text} key={Text} />
+            ))}
+          </div>
+          <Button
+            type="primary"
+            fontSize="text-md md:text-[1.25rem]"
+            onClick={handleOnClick}
+          >
+            더 알아보기
+          </Button>
+        </div>
       </div>
     </div>
   );
