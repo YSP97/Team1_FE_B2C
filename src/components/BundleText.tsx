@@ -6,12 +6,12 @@ type BundleTextProps = {
 function BundleText({ type, text }: BundleTextProps) {
   const textColor = type === "blue" ? "text-primary" : "text-white";
   const baseTitleStyle =
-    "text-center lg:text-start text-[1.5rem] lg:text-[3.5rem] font-bold leading-[140%]";
+    "text-center md:text-start text-[1.5rem] md:text-[2.5rem] font-bold leading-[140%]";
   const baseSubStyle =
-    "text-gray-100 text-[0.875rem] lg:text-[1.5rem] text-center lg:text-start font-normal leading-[140%]";
+    "text-gray-100 text-[0.875rem] md:text-[1.5rem] text-center md:text-start font-normal leading-[140%]";
 
   return (
-    <div className="flex flex-col px-8 py-6 mx-auto w-[23.4375rem] lg:w-[53.75rem] lg:items-start gap-4 lg:gap-8">
+    <div className="flex flex-col mx-auto px-8 py-6 w-[23.4375rem] md:w-[53.75rem] md:items-start gap-4 md:gap-8">
       {/* 제목 부분 */}
       <div>
         <div className={`${baseTitleStyle} text-white`}>{text.title1}</div>
