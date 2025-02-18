@@ -6,16 +6,16 @@ import { memo } from 'react';
 
 function Footer() {
   return (
-    <footer className="w-full bg-bg-secondary p-6 xl:px-[320px] md:px-[180px] md:py-[80px] flex flex-col md:flex-row md:justify-between md:items-start text-gray-200">
+    <footer className="w-full bg-bg-secondary p-6 xl:px-[320px] md:px-[100px] md:py-[80px] flex flex-col md:flex-row md:justify-between md:items-start text-gray-200">
       
       {/* 로고 + 회사 정보 */}
       <div className="flex flex-col items-center md:items-start text-center md:text-left">
         <Logo />
 
         {/* 고객센터 정보 */}
-        <div className="mt-4 text-gray-100 text-sm lg:text-lg">
+        <div className="mt-4 text-gray-100 text-sm lg:text-base">
           <div>고객센터</div>
-          <div className="text-lg md:text-2xl font-bold mt-1">010-7977-1101</div>
+          <div className="text-base md:text-lg font-bold mt-1">010-7977-1101</div>
           <div className="flex gap-3 justify-center md:justify-start font-semibold mt-2">
             <Link href="/privacy-policy" className="hover:underline">개인정보 처리방침</Link>
             <span className="text-gray-400">|</span>
@@ -24,7 +24,7 @@ function Footer() {
         </div>
 
         {/* 회사 정보 */}
-        <div className="text-[13px] mt-4">
+        <div className="text-[12px] mt-4">
           <span>(주) Fitculator (핏큘레이터) | 대표 류현지</span><br />
           <span>사업자등록번호: 262-67-00523</span><br />
           <span>통신판매신고 제2023-서울서대문-0576</span><br />
