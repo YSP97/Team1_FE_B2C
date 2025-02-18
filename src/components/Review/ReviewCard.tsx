@@ -10,13 +10,13 @@ type ReviewProps = {
 
 function ReviewCard({ id, img, rating, content }: ReviewProps) {
   return (
-    <article className=" bg-gray-500 rounded-lg flex p-4 flex-col gap-2 self-stretch ">
+    <article className="flex lg:max-w-[35.125rem] p-4 flex-col rounded-xs bg-gray-50 gap-4 self-stretch">
       <div className="flex justify-between gap-1 items-center self-stretch">
         <div className="flex gap-2">
           <div className="w-8 h-8 bg-gray-400 rounded-full relative overflow-hidden">
             <Image src="/" alt={img} fill className="object-cover absolute" />
           </div>
-          <span className="overflow-hidden text-white overflow-ellipsis text-[1rem] font-normal leading-[140%]">
+          <span className="overflow-hidden text-white overflow-ellipsis text-base font-normal leading-[140%]">
             {id}
           </span>
         </div>
@@ -26,7 +26,7 @@ function ReviewCard({ id, img, rating, content }: ReviewProps) {
           {[...Array(5)].map((_, index) => (
             <SVGIcon
               key={index}
-              name="emptyStar"
+              name="icon-favorite"
               size={11}
               className={index < rating ? "text-yellow-400" : "text-gray-300"}
             />
