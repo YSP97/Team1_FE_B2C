@@ -1,17 +1,17 @@
 type BundleTextProps = {
-  type?: "blue";
+  type?: 'blue';
   text: { title1: string; title2?: string; sub1?: string; sub2?: string };
 };
 
 function BundleText({ type, text }: BundleTextProps) {
-  const textColor = type === "blue" ? "text-primary" : "text-white";
+  const textColor = type === 'blue' ? 'text-primary' : 'text-white';
   const baseTitleStyle =
-    "text-center md:text-start text-[1.5rem] md:text-[2.5rem] font-bold leading-[140%]";
+    'text-center md:text-start text-[1.5rem] md:text-[2.5rem] font-bold leading-[140%]';
   const baseSubStyle =
-    "text-gray-100 text-[0.875rem] md:text-[1.5rem] text-center md:text-start font-normal leading-[140%]";
+    'text-gray-100 text-[0.875rem] md:text-[1.5rem] text-center md:text-start font-normal leading-[140%]';
 
   return (
-    <div className="flex flex-col mx-auto px-8 py-6 w-[23.4375rem] md:w-[53.75rem] md:items-start gap-4 md:gap-8">
+    <div className="mx-auto flex w-[20.4375rem] flex-col gap-2 md:w-full md:max-w-[53.75rem] md:items-start md:gap-8">
       {/* 제목 부분 */}
       <div>
         <div className={`${baseTitleStyle} text-white`}>{text.title1}</div>
