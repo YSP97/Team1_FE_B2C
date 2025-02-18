@@ -1,5 +1,5 @@
 export const mockReviewList = [
-  { id: 'user1', img: 'img', rating: 4, content: '좋아여' },
+  { id: 'user1', img: 'img', rating: 4, content: '너무너무 좋아여' },
   { id: 'user2', img: 'img', rating: 4, content: '핏큘레이터 짱짱' },
   {
     id: 'user3',
