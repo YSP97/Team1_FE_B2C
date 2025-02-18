@@ -1,6 +1,6 @@
 import { memo, useState, useRef, useEffect } from 'react';
 import CustomCalendar from './CustomCalendar';
-import SVGIcon from './SVGIcon';
+import SVGIcon from '../SVGIcon';
 
 type SelectedDateProps = {
   selectedDate: Date | null;
