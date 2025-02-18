@@ -2,6 +2,7 @@
 import { useCallback, useState } from 'react';
 import NavLinks from './NavLinks';
 import Button from '../Button';
+import SVGIcon from '../SVGIcon';
 
 function MobileMenu  ()  {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -15,9 +16,7 @@ function MobileMenu  ()  {
     <>
       {/* 모바일 햄버거 버튼 */}
       <button onClick={handleClick} className="relative z-50" aria-label='메뉴 열기'>
-        <svg className="w-6 h-6">
-          <use href="assets/sprite.svg#hamburger" />
-        </svg>
+         <SVGIcon name='icon-menu' className='text-gray-100' size={24}/>
       </button>
 
       {isOpen && (
@@ -32,9 +31,7 @@ function MobileMenu  ()  {
       >
         {/* 닫기 버튼 */}
         <button className="absolute top-3 right-4" onClick={handleClick} aria-label='메뉴 닫기'>
-          <svg className="w-6 h-6 text-gray-100">
-            <use href="assets/sprite.svg#cancel" />
-          </svg>
+          <SVGIcon name='icon-close' className='text-gray-100' size={24}/>
         </button>
 
         <div className="flex-col mt-16 px-6">

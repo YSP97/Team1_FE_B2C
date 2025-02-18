@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Social } from './socialList';
 import { memo } from 'react';
+import SVGIcon from '../SVGIcon';
 
 
 export type SocialLinkProps = {
@@ -15,10 +16,7 @@ const SocialLink = ({social}:SocialLinkProps) => {
                     "
                     href={social.href}
                     aria-label={`핏큘레이터 ${social.label} 바로가기`}>
-      <svg className="w-8 h-8">
-        <use href={`/assets/sprite.svg#${social.svgId}`} />
-
-      </svg>
+      <SVGIcon name={social.svgId} className='text-gray-100'/>
     </Link>
     </li>
   );
