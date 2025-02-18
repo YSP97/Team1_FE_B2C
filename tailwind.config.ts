@@ -36,6 +36,7 @@ export default {
         "2xl": "2.5rem", // 40px
       },
       borderRadius: {
+        xs: "0.375rem", // 6px
         sm: "0.5rem", // 8px
         base: "1rem", // 16px
         md: "2rem", // 32px
