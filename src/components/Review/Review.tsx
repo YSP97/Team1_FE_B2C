@@ -9,20 +9,22 @@ function Review() {
   };
 
   return (
-    <div className="m-4 my-8 flex h-[592px] flex-col md:mx-auto md:mb-28 md:mt-16 md:h-[31.5rem] md:max-w-[80rem] md:flex-row md:items-center md:gap-[3.75rem]">
-      <BundleText text={TEXT} />
-      <div className="custom-scrollbar flex h-[500px] w-full flex-col gap-4 py-4 pr-2 lg:max-w-[35.125rem]">
-        {mockReviewList.map((d) => (
-          <ReviewCard
-            key={d.id}
-            id={d.id}
-            img={d.img}
-            rating={d.rating}
-            content={d.content}
-          />
-        ))}
+    <section className="w-full bg-bg-primary">
+      <div className="md:px-auto mx-auto flex flex-col gap-4 px-6 py-8 md:max-w-[80rem] md:flex-row md:items-center md:gap-[3.75rem] md:pb-28 md:pt-16">
+        <BundleText text={TEXT} />
+        <div className="custom-scrollbar flex h-[31.25rem] w-full flex-col gap-4 py-4 pr-2 md:max-w-[35.125rem]">
+          {mockReviewList.map((d) => (
+            <ReviewCard
+              key={d.id}
+              id={d.id}
+              img={d.img}
+              rating={d.rating}
+              content={d.content}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
