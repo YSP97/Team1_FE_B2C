@@ -10,7 +10,7 @@ type ReviewProps = {
 
 function ReviewCard({ id, img, rating, content }: ReviewProps) {
   return (
-    <article className="flex flex-col gap-4 self-stretch rounded-xs bg-gray-50 p-4 md:max-w-[35.125rem]">
+    <article className="flex max-h-[9.5rem] flex-col gap-4 self-stretch rounded-xs bg-gray-50 p-4 md:max-w-[35.125rem]">
       <div className="flex items-center justify-between gap-1 self-stretch">
         <div className="flex gap-2">
           <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gray-400">
@@ -35,7 +35,7 @@ function ReviewCard({ id, img, rating, content }: ReviewProps) {
         </div>
       </div>
 
-      <span className="overflow-hidden overflow-ellipsis text-[1.125rem] font-normal leading-[140%] text-white">
+      <span className="overflow-hidden text-[1.125rem] font-normal leading-[140%] text-white">
         {content}
       </span>
     </article>
