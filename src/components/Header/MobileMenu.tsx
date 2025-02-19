@@ -38,7 +38,7 @@ function MobileMenu  ()  {
           <nav className="text-gray-100 mb-10">
             <NavLinks onClick={handleClick} />
           </nav>
-          <Button textColor='text-navy-dark'>앱 다운로드</Button>
+          <Button type="primary">앱 다운로드</Button>
         </div>
       </div>
     </>
