@@ -1,21 +1,21 @@
-import CheckBox from "./CheckBox";
+import CheckBox from './CheckBox';
 
-type DeviceSelectProps = {
+type WearableDeviceProps = {
   selectedDevices: string[];
   onChange: (name: string, isChecked: boolean) => void;
 };
 
 const DeviceArray = [
-  "애플워치",
-  "갤럭시 워치",
-  "가민 워치",
-  "샤오미 밴드",
-  "핏빗(Fitbit)",
-  "기타",
-  "없음",
+  '애플워치',
+  '갤럭시 워치',
+  '가민 워치',
+  '샤오미 밴드',
+  '핏빗(Fitbit)',
+  '기타',
+  '없음',
 ];
 
-function DeviceSelect({ selectedDevices, onChange }: DeviceSelectProps) {
+function WearableDevice({ selectedDevices, onChange }: WearableDeviceProps) {
   return (
     <div className="mx-auto flex w-[20.4375rem] flex-col items-start gap-4 self-stretch md:w-[45rem]">
       <div className="flex items-center gap-2 self-stretch">
@@ -33,11 +33,12 @@ function DeviceSelect({ selectedDevices, onChange }: DeviceSelectProps) {
             name={d}
             isChecked={selectedDevices.includes(d)}
             onChange={onChange}
-            width="w-[9.96875rem] md:w-[14.666875rem]"></CheckBox>
+            width="w-[9.96875rem] md:w-[14.666875rem]"
+          ></CheckBox>
         ))}
       </div>
     </div>
   );
 }
 
-export default DeviceSelect;
+export default WearableDevice;

@@ -1,52 +1,55 @@
-import { memo, useState } from "react";
-import SVGIcon from "./SVGIcon";
+import { memo, useState } from 'react';
+import SVGIcon from '../SVGIcon';
 
 type DropBoxProps = {
   list: string[];
+  isSelected: string;
+  onSelect: (value: string) => void;
 };
 
-function DropBox({ list }: DropBoxProps) {
-  const [isSelected, setIsSelected] = useState("옵션을 선택해 주세요.");
+function DropBox({ list, isSelected, onSelect }: DropBoxProps) {
   const [isOpened, setIsOpened] = useState(false);
 
-  const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    setIsSelected(e.currentTarget.textContent || "");
-    setIsOpened(!isOpened);
+  const handleToggle = () => {
+    setIsOpened((prev) => !prev);
   };
 
-  const handleBtnClick = () => {
-    setIsOpened(!isOpened);
+  const handleSelect = (value: string) => {
+    onSelect(value); // 선택한 값 부모에게 전달
+    setIsOpened(false); // 선택 후 드롭다운 닫기
   };
 
   return (
     <div className="w-full">
+      {/* 버튼 */}
       <button
-        onClick={handleBtnClick}
-        className="w-full border-b-2 outline-none border-gray-400 rounded-sm flex justify-between py-2 items-center gap-2.5 self-stretch "
+        onClick={handleToggle}
+        className="flex w-full items-center justify-between gap-2.5 self-stretch border-b-2 border-gray-400 py-2 outline-none"
       >
-        <span className=" text-white text-2xl font-normal">{isSelected}</span>
-        <span className="p-2">
-          <SVGIcon
-            name="checkedBold"
-            size={18}
-            className={`text-gray-100 transition-transform ${isOpened ? "rotate-180" : ""}`}
-          />
+        <span className="text-[1.375rem] font-normal text-white">
+          {isSelected}
         </span>
+        <SVGIcon
+          name="icon-arrow-bottom"
+          size={18}
+          className={`text-gray-100 transition-transform ${isOpened ? 'rotate-180' : ''}`}
+        />
       </button>
 
-      <ul
-        className={`w-full custom-scrollbar mt-1 rounded-sm bg-bg-secondary overflow-hidden ${isOpened ? "h-60" : "hidden"}`}
-      >
-        {list.map((d, index) => (
-          <li
-            className=" px-6 py-3 cursor-pointer text-gray-100 text-2xl font-normal flex flex-row justify-between hover:bg-gray-200 hover:text-gray-50 items-center"
-            onClick={handleClick}
-            key={index}
-          >
-            {d}
-          </li>
-        ))}
-      </ul>
+      {/* 드롭다운 리스트 */}
+      {isOpened && (
+        <ul className="custom-scrollbar mt-1 w-full rounded-sm bg-bg-secondary">
+          {list.map((item, index) => (
+            <li
+              key={index}
+              className="flex cursor-pointer flex-col justify-between px-4 py-2.5 text-[1.375rem] font-normal text-white hover:bg-gray-400 md:text-lg"
+              onClick={() => handleSelect(item)}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
