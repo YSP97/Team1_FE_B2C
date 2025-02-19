@@ -4,18 +4,27 @@ import {
   TailwindFontSize,
   TailwindRounded,
 } from "@/types/buttonTailwindType";
-import { ReactNode, useState } from "react";
+import Link from "next/link";
+import { ReactNode } from "react";
 
-type ButtonProps = {
-  type: "primary" | "secondary";
+// 타입 조건 적용
+type ButtonBaseProps = {
+  type: "primary" | "secondary" | "invisible";
   rounded?: TailwindRounded;
   textColor?: TailwindColor;
   bgColor?: TailwindColor;
   fontSize?: TailwindFontSize;
   fontBold?: TailwindFontBold;
+  className?: string;
+  isClick?: boolean;
   children: ReactNode;
   onClick?: () => void;
 };
+
+// 조건부 타입 적용: isLink가 true이면 href 필수
+type ButtonProps =
+  | (ButtonBaseProps & { isLink: true; href: string }) // isLink가 true이면 href 필수
+  | (ButtonBaseProps & { isLink?: false; href?: never }); // isLink가 false면 href 필요 없음
 
 export default function Button({
   textColor = "text-navy-dark",
@@ -23,14 +32,15 @@ export default function Button({
   type = "primary",
   fontSize = "text-[1rem]",
   fontBold = "font-bold",
+  rounded = "rounded-sm",
+  className = "",
+  isLink,
+  isClick,
+  href,
   children,
   onClick,
 }: ButtonProps) {
-  const [isClick, setIsClick] = useState(false);
-  const handleCLick = () => {
-    setIsClick(!isClick);
-    console.log(isClick);
-
+  const handleClick = () => {
     if (onClick) {
       onClick();
     }
@@ -39,23 +49,28 @@ export default function Button({
   let buttonClass;
   switch (type) {
     case "primary":
-      buttonClass = `text-center ${bgColor} ${textColor} px-6 py-[0.72rem] rounded-[3rem]`;
+      buttonClass = `${bgColor} ${textColor} ${rounded} hover:brightness-[80%]`;
       break;
     case "secondary":
-      buttonClass = isClick
-        ? `text-center bg-primary text-navy-dark p-4 rounded-lg border-[1px] border-solid border-primary`
-        : `text-center bg-bg-primary text-gray-100 p-4 rounded-lg border-[1px] border-solid border-gray-100`;
+      buttonClass = `${rounded} border-[1px] border-solid ${
+        type === "secondary" && "border-gray-100 text-gray-100"
+      } hover:border-primary hover:text-primary ${isClick ? "bg-primary text-navy-dark hover:brightness-[80%] hover:text-navy-dark border-primary" : ""}`;
+      break;
+    case "invisible":
+      buttonClass =
+        "border-none bg-inherit hover:border-primary hover:text-primary text-gray-100";
+      break;
   }
 
-  return (
-    <div>
-      <button
-        type="button"
-        className={`${fontBold} ${fontSize} w-full hover:brightness-[80%] transition-all duration-300 ${buttonClass}`}
-        onClick={handleCLick}
-      >
-        {children}
-      </button>
-    </div>
+  const commonClass = `${fontBold} ${fontSize} transition-all px-6 py-[0.72rem] duration-300 text-center ${buttonClass} ${className}`;
+
+  return isLink ? (
+    <Link href={href!} className={commonClass}>
+      {children}
+    </Link>
+  ) : (
+    <button type="button" className={commonClass} onClick={handleClick}>
+      {children}
+    </button>
   );
 }
