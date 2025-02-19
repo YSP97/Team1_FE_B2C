@@ -8,7 +8,9 @@ import BackButton from './BackButton';
 
 function Header() {
   const router = useRouter();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const isRegisterPage = router.pathname === '/pricing/register';
 
   useEffect(() => {
@@ -21,6 +23,21 @@ function Header() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isMobile && window.scrollY > lastScrollY) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile, lastScrollY]);
+
+  /* 신청하기 모바일 헤더 */
   if (isRegisterPage && isMobile) {
     return (
       <header className="relative flex h-12 items-center justify-center bg-bg-primary">
@@ -32,8 +49,13 @@ function Header() {
     );
   }
 
+  /* 일반 헤더 */
   return (
-    <header className="flex h-[48px] items-center justify-between bg-bg-primary px-3 md:h-[60px] lg:px-8">
+    <header
+      className={`fixed left-0 top-0 z-30 w-full transform transition-transform duration-300 ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      } flex h-[48px] items-center justify-between bg-bg-primary px-3 md:h-[60px] lg:px-8`}
+    >
       <h1
         aria-label="핏큘레이터 메인 페이지로 이동"
         className="h-[24px] md:h-[32px]"
