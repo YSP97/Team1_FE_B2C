@@ -1,14 +1,14 @@
-type TextAreaProps = {
+type ExerciseConcernProps = {
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   value: string;
 };
 
-function TextArea({
+function ExerciseConcern({
   placeholder = '자유롭게 작성해 주세요',
   onChange,
   value,
-}: TextAreaProps) {
+}: ExerciseConcernProps) {
   return (
     <div className="mx-auto flex w-[20.4375rem] flex-col gap-4 md:w-[45rem]">
       <div className="text-md text-gray-100">
@@ -26,4 +26,4 @@ function TextArea({
   );
 }
 
-export default TextArea;
+export default ExerciseConcern;

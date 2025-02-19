@@ -1,9 +1,9 @@
-type AbilityProps = {
+type ExerciseLevelProps = {
   currentStep: number;
   onClick: (step: number) => void;
 };
 
-function Ability({ currentStep, onClick }: AbilityProps) {
+function ExerciseLevel({ currentStep, onClick }: ExerciseLevelProps) {
   const totalSteps = 7;
   return (
     <div className="mx-auto flex h-80 w-[20.4375rem] flex-col items-start gap-4 self-stretch md:w-[45rem]">
@@ -62,4 +62,4 @@ function Ability({ currentStep, onClick }: AbilityProps) {
   );
 }
 
-export default Ability;
+export default ExerciseLevel;
