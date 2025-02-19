@@ -46,7 +46,7 @@ function ExerciseLevel({ currentStep, onClick }: ExerciseLevelProps) {
             return (
               <div
                 key={i}
-                className={`w-5 text-center text-md ${i < currentStep ? 'text-primary' : 'text-gray-100'}`}
+                className={`w-5 text-center text-md ${i + 1 === currentStep ? 'text-primary' : 'text-gray-100'}`}
               >
                 {i + 1}
               </div>
