@@ -1,17 +1,17 @@
-import CheckBox from "./CheckBox";
-type GoalSelectProps = {
+import CheckBox from './CheckBox';
+type ExerciseGoalProps = {
   selectedGoals: string[];
   onChange: (name: string, isChecked: boolean) => void;
 };
 
-function GoalSelect({ selectedGoals, onChange }: GoalSelectProps) {
+function ExerciseGoal({ selectedGoals, onChange }: ExerciseGoalProps) {
   const GoalArray = [
-    "재미 또는 흥미",
-    "운동 수행 능력 향상",
-    "다이어트",
-    "건강 및 질병 예방",
-    "근력/근육량 향상",
-    "운동 습관 형성",
+    '재미 또는 흥미',
+    '운동 수행 능력 향상',
+    '다이어트',
+    '건강 및 질병 예방',
+    '근력/근육량 향상',
+    '운동 습관 형성',
   ];
 
   return (
@@ -31,11 +31,12 @@ function GoalSelect({ selectedGoals, onChange }: GoalSelectProps) {
             name={d}
             isChecked={selectedGoals.includes(d)}
             onChange={onChange}
-            width="w-[20.4375rem] md:w-[22.25rem]"></CheckBox>
+            width="w-[20.4375rem] md:w-[22.25rem]"
+          ></CheckBox>
         ))}
       </div>
     </div>
   );
 }
 
-export default GoalSelect;
+export default ExerciseGoal;
