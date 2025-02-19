@@ -42,7 +42,9 @@ export default function NotFound() {
           입력하신주소가 정확한지 다시한번 확인해주세요
         </span>
       </div>
-      <Button type="invisible">이전 페이지로 돌아가기</Button>
+      <Button type="primary" isLink={true} href="/">
+        이전 페이지로 돌아가기
+      </Button>
     </div>
   );
 }
