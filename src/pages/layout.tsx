@@ -11,7 +11,7 @@ const pretendard = localFont({
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className={`${pretendard.variable} font-pretendard`}>
+    <main className={`${pretendard.variable} bg-bg-primary font-pretendard`}>
       <Header />
       {children}
       <Footer />
