@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  width: 100%;
+}
+
 .custom-scrollbar {
   overflow: auto;
 }
@@ -17,7 +22,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(52, 52, 52, 1);
+  background: rgba(66, 66, 66, 1);
   border-radius: 20px;
   max-height: 200px; /* 스크롤바 thumb의 최대 높이 */
 }
@@ -27,8 +32,8 @@
 }
 
 @layer base {
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
