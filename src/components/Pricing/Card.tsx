@@ -1,4 +1,4 @@
-import CheckedText from './CheckedText';
+import CheckedText from '@/components/CheckedText';
 import SVGIcon from '@/components/SVGIcon';
 
 interface CardProps {
