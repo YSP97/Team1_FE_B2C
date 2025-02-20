@@ -17,8 +17,8 @@ const DeviceArray = [
 
 function WearableDevice({ selectedDevices, onChange }: WearableDeviceProps) {
   return (
-    <div className="mx-auto box-content flex max-w-[20.4375rem] flex-col items-start gap-4 self-stretch px-6 md:max-w-[45rem]">
-      <div className="flex items-center gap-2 self-stretch">
+    <div className="mx-auto flex w-full flex-col items-start gap-4">
+      <div className="flex items-center gap-2">
         <span className="text-md font-normal text-gray-100">
           사용 중인 웨어러블 디바이스
         </span>
@@ -26,14 +26,13 @@ function WearableDevice({ selectedDevices, onChange }: WearableDeviceProps) {
           복수 선택 가능
         </span>
       </div>
-      <div className="flex flex-wrap content-center items-center gap-2 self-stretch">
+      <div className="grid w-full grid-cols-2 items-center gap-2 md:grid-cols-3 md:gap-x-2 md:gap-y-4">
         {DeviceArray.map((d) => (
           <CheckBox
             key={d}
             name={d}
             isChecked={selectedDevices.includes(d)}
             onChange={onChange}
-            width="w-[9.96875rem] md:w-[14.666875rem]"
           ></CheckBox>
         ))}
       </div>

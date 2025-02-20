@@ -15,7 +15,7 @@ function ReferralSource({ selectedOption, onSelect }: ReferralSourceProps) {
     '이전 기수 참여자',
   ];
   return (
-    <div className="mx-auto box-content flex max-w-[20.4375rem] flex-col gap-4 px-6 md:max-w-[45rem]">
+    <div className="mx-auto flex w-full flex-col items-start gap-4">
       <div className="text-md font-normal text-gray-100">
         Fitculator를 알게된 경로
       </div>
