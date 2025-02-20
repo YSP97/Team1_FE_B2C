@@ -4,7 +4,7 @@ export type FormState = {
   form: {
     program_id: string;
     name: string;
-    birth: Date;
+    birth: Date | null;
     phone_number: string;
     email: string;
     gender: '남성' | '여성' | '선택안함';
