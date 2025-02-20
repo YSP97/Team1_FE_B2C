@@ -21,7 +21,7 @@ export default function Apply() {
 
   return (
     <div className="w-full bg-bg-secondary">
-      <div className="flex flex-col gap-2 py-8 md:mx-auto md:max-w-[80rem] md:flex-row md:items-center md:py-16">
+      <div className="flex flex-col gap-2 px-4 py-8 md:mx-auto md:max-w-[80rem] md:flex-row md:items-center md:py-16">
         <Image
           src={'/assets/bike.png'}
           alt=""
@@ -29,7 +29,7 @@ export default function Apply() {
           height={280}
           className="mx-auto aspect-square md:mx-auto md:max-w-[26.25rem]"
         />
-        <div className="mx-auto flex min-w-[20.4375rem] flex-col items-center gap-4 md:max-w-[36.25rem] md:items-start md:gap-14">
+        <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[36.25rem] md:items-start md:gap-14">
           <BundleText type="blue" text={TEXT} />
           <div className="mb-4 flex w-full flex-col gap-2 md:mb-0 md:gap-4">
             {CheckedTextArray.map((Text) => (
@@ -39,7 +39,10 @@ export default function Apply() {
           <Button
             type="primary"
             fontSize="text-md md:text-[1.25rem]"
+            rounded="rounded-xl"
             onClick={handleOnClick}
+            isLink={true}
+            href="./pricing"
           >
             더 알아보기
           </Button>
