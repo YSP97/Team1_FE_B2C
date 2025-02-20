@@ -15,11 +15,9 @@ function ExerciseGoal({ selectedGoals, onChange }: ExerciseGoalProps) {
   ];
 
   return (
-    <div className="mx-auto flex w-[20.4375rem] flex-col items-start gap-4 self-stretch md:w-[45rem]">
+    <div className="mx-auto box-content flex max-w-[20.4375rem] flex-col items-start gap-4 self-stretch px-6 md:max-w-[45rem]">
       <div className="flex items-center gap-2 self-stretch">
-        <span className="text-md font-normal text-gray-100">
-          사용중인 디바이스
-        </span>
+        <span className="text-md font-normal text-gray-100">운동 목표</span>
         <span className="text-sm font-normal text-gray-200 md:text-md">
           복수 선택 가능
         </span>
