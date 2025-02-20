@@ -5,6 +5,7 @@ export type FormState = {
     program_id: string;
     name: string;
     birth: Date;
+    phone_number: string;
     email: string;
     gender: '남성' | '여성' | '선택안함';
     start_date: string;
@@ -28,7 +29,8 @@ export const defaultInitState: FormState = {
   form: {
     program_id: '',
     name: '',
-    birth: new Date(),
+    birth: null,
+    phone_number: '',
     email: '',
     gender: '선택안함',
     start_date: '',
@@ -54,3 +56,5 @@ export const createFormStore = (initState: FormState = defaultInitState) =>
 
     resetForm: () => set(defaultInitState),
   }));
+
+export const formStore = createFormStore();
