@@ -58,6 +58,7 @@ export default function Pricing() {
       <CardList />
       <Button
         type="primary"
+        className="md:m-auto md:px-20"
         onClick={() => {
           console.log('선택한 플랜으로 신청하기');
         }}
