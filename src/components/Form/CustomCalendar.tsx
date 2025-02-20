@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import SVGIcon from './SVGIcon';
+import SVGIcon from '../SVGIcon';
 
 type SelectedDateProps = {
   selectedDate: Date | null;
