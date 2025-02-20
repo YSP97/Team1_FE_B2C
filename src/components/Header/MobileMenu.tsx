@@ -15,7 +15,14 @@ function MobileMenu() {
   return (
     <>
       <div className="flex gap-3">
-        <Button type="primary">앱 다운로드</Button>
+        <Button
+          type="primary"
+          rounded="rounded-xl"
+          fontSize="max-md:text-[10px]"
+          className="max-md:px-3 max-md:py-2"
+        >
+          앱 다운로드
+        </Button>
         {/* 햄버거 버튼 */}
         <button
           onClick={handleClick}
@@ -44,7 +51,9 @@ function MobileMenu() {
           <nav className="mb-10 text-gray-100">
             <NavLinks onClick={handleClick} />
           </nav>
-          <Button type="primary">앱 다운로드</Button>
+          <Button type="primary" rounded="rounded-xl">
+            앱 다운로드
+          </Button>
         </div>
       </div>
     </>
