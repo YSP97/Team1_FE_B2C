@@ -68,7 +68,9 @@ function Header() {
           <NavLinks />
         </nav>
         <div className="flex h-full items-center">
-          <Button type="primary">앱 다운로드</Button>
+          <Button type="primary" rounded="rounded-2xl">
+            앱 다운로드
+          </Button>
         </div>
       </div>
 
