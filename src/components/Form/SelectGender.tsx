@@ -6,7 +6,7 @@ type SelectGenderProps = {
 function SelectGender({ isChecked, onChange }: SelectGenderProps) {
   const genderSelectArray = ['남성', '여성', '선택안함'];
   return (
-    <div className="mx-auto flex w-[20.4375rem] flex-col items-start gap-4 self-stretch md:w-[45rem]">
+    <div className="mx-auto box-content flex max-w-[20.4375rem] flex-col items-start gap-4 self-stretch px-6 md:max-w-[45rem]">
       <span className="text-md font-normal text-gray-100">성별</span>
       <div className="flex w-full flex-row gap-2">
         {genderSelectArray.map((gender) => (

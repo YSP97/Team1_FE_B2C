@@ -11,7 +11,7 @@ function BundleText({ type, text }: BundleTextProps) {
     'text-gray-100 text-[0.875rem] md:text-[1.5rem] text-center md:text-start font-normal leading-[140%]';
 
   return (
-    <div className="mx-auto flex w-[20.4375rem] flex-col gap-2 md:w-full md:max-w-[53.75rem] md:items-start md:gap-8">
+    <div className="mx-auto flex w-full flex-col gap-2 md:max-w-[53.75rem] md:items-start md:gap-8">
       {/* 제목 부분 */}
       <div>
         <div className={`${baseTitleStyle} text-white`}>{text.title1}</div>
