@@ -14,12 +14,12 @@ function Faq() {
   return (
     <section className="py-18 bg-bg-primary px-4 py-8 md:py-16">
       <div className="m-auto flex w-full flex-col gap-6 md:max-w-screen-lg md:gap-12">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-center text-lg font-bold text-white">
+        <div className="flex flex-col gap-2 md:gap-6">
+          <h3 className="text-center text-lg font-bold text-white md:text-2xl">
             <strong className="pr-2 font-bold text-primary">FAQ.</strong>더
             궁금한 점이 있으신가요?
           </h3>
-          <p className="text-center text-gray-100">
+          <p className="text-center text-sm text-gray-100 md:text-lg">
             자주 물어보신 질문들만 모아둔 FAQ를 참고해 주세요.
           </p>
         </div>

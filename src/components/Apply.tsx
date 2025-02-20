@@ -31,11 +31,16 @@ export default function Apply() {
         />
         <div className="mx-auto flex flex-col items-center gap-4 md:max-w-[36.25rem] md:items-start md:gap-14">
           <BundleText type="blue" text={TEXT} />
-          <div className="mb-4 flex w-full flex-col gap-2 md:mb-0 md:gap-4">
+          <ul className="mb-4 flex w-full flex-1 flex-col gap-2 md:mb-0 md:gap-4">
             {CheckedTextArray.map((Text) => (
-              <CheckedText text={Text} key={Text} />
+              <CheckedText
+                text={Text}
+                key={Text}
+                className={'text-md md:text-lg'}
+                iconSize={'w-8 h-8 md:w-8 md:h-8'}
+              />
             ))}
-          </div>
+          </ul>
           <Button
             type="primary"
             fontSize="text-md md:text-[1.25rem]"
