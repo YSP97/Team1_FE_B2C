@@ -13,7 +13,7 @@ function CardList() {
   );
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 md:m-auto md:max-w-[80rem] md:flex-row">
       {mockDataCardList.map((card) => (
         <Card
           key={card.id}
