@@ -68,12 +68,12 @@ export default function Pricing() {
     const recommendedPlan = getRecommendedPlan(answers);
 
     // 추천 플랜에 맞는 카드 결정
-    if (recommendedPlan === 'Pro 플랜을 추천드립니다.') {
-      recommendedCardId = 1;
+    if (recommendedPlan === 'Basic 플랜을 추천드립니다.') {
+      recommendedCardId = 1; // Basic 카드
     } else if (recommendedPlan === 'Plus 플랜을 추천드립니다.') {
-      recommendedCardId = 2;
-    } else if (recommendedPlan === 'Basic 플랜을 추천드립니다.') {
-      recommendedCardId = 3;
+      recommendedCardId = 2; // Plus 카드
+    } else if (recommendedPlan === 'Pro 플랜을 추천드립니다.') {
+      recommendedCardId = 3; // Pro 카드
     }
 
     setSelectedCard(recommendedCardId);
