@@ -1,9 +1,21 @@
 import { memo } from 'react';
 import ProgressBar from '../ProgresBar';
 
-function ProgressSection({ currentStep, plan }: { currentStep: number, plan:string }) {
-
-
+function ProgressSection({
+  currentStep,
+  plan,
+}: {
+  currentStep: number;
+  plan: string;
+}) {
+  const subscr =
+    currentStep === 1
+      ? '개인정보를 작성해 주세요.'
+      : currentStep === 2
+        ? '운동정보를 작성해 주세요.'
+        : currentStep === 3
+          ? '운동 고민 또는 바라는 점을 작성해 주세요.'
+          : '';
   return (
     <>
       <div className="mb-6">
@@ -16,11 +28,10 @@ function ProgressSection({ currentStep, plan }: { currentStep: number, plan:stri
         <h2>총 3단계로 이루어져 있습니다.</h2>
         <div className="mb-2 flex items-center gap-4 max-md:flex-col max-md:items-start max-md:gap-1">
           <span className="text-xl font-bold text-primary max-md:text-lg">
-            {`${currentStep}/3`}
+            {`${currentStep}`}
+            <span className='text-gray-100 text-lg max-md:text-base'>/3</span>
           </span>
-          <span className="text-lg text-white max-md:text-base">
-            운동 정보를 작성해주세요.
-          </span>
+          <span className="text-lg text-white max-md:text-base">{subscr}</span>
         </div>
         <div className="mb-4">
           <ProgressBar page={currentStep} totalPages={3} />
