@@ -1,6 +1,6 @@
 type SelectGenderProps = {
   isChecked: string | null;
-  onChange: (gender: string) => void;
+  onChange?: (gender: string) => void;
 };
 
 function SelectGender({ isChecked, onChange }: SelectGenderProps) {
@@ -21,7 +21,7 @@ function SelectGender({ isChecked, onChange }: SelectGenderProps) {
             ></input>
             <label
               htmlFor={gender}
-              className={`relative flex flex-[1_0_0] cursor-pointer items-center justify-center gap-[0.625rem] rounded-xs border-2 border-gray-400 px-0 py-2 text-[14px] font-normal text-gray-200 peer-checked:border-primary peer-checked:text-primary md:text-base`}
+              className={`flex flex-[1_0_0] cursor-pointer items-center justify-center rounded-xs border border-gray-100 py-1 text-base text-gray-100 hover:border-primary hover:text-primary md:text-base ${isChecked ? 'border-primary bg-primary font-bold text-navy-dark hover:text-navy-dark hover:brightness-[80%]' : ''} `}
             >
               {gender}
             </label>
