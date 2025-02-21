@@ -3,13 +3,13 @@ import {
   TailwindFontBold,
   TailwindFontSize,
   TailwindRounded,
-} from "@/types/buttonTailwindType";
-import Link from "next/link";
-import { ReactNode } from "react";
+} from '@/types/buttonTailwindType';
+import Link from 'next/link';
+import { ReactNode } from 'react';
 
 // 타입 조건 적용
 type ButtonBaseProps = {
-  type: "primary" | "secondary" | "invisible";
+  type: 'primary' | 'secondary' | 'invisible';
   rounded?: TailwindRounded;
   textColor?: TailwindColor;
   bgColor?: TailwindColor;
@@ -27,13 +27,13 @@ type ButtonProps =
   | (ButtonBaseProps & { isLink?: false; href?: never }); // isLink가 false면 href 필요 없음
 
 export default function Button({
-  textColor = "text-navy-dark",
-  bgColor = "bg-primary",
-  type = "primary",
-  fontSize = "text-[1rem]",
-  fontBold = "font-bold",
-  rounded = "rounded-sm",
-  className = "",
+  textColor = 'text-navy-dark',
+  bgColor = 'bg-primary',
+  type = 'primary',
+  fontSize = 'text-[1rem]',
+  fontBold = 'font-bold',
+  rounded = 'rounded-sm',
+  className = '',
   isLink,
   isClick,
   href,
@@ -48,17 +48,17 @@ export default function Button({
 
   let buttonClass;
   switch (type) {
-    case "primary":
+    case 'primary':
       buttonClass = `${bgColor} ${textColor} ${rounded} hover:brightness-[80%]`;
       break;
-    case "secondary":
+    case 'secondary':
       buttonClass = `${rounded} border-[1px] border-solid ${
-        type === "secondary" && "border-gray-100 text-gray-100"
-      } hover:border-primary hover:text-primary ${isClick ? "bg-primary text-navy-dark hover:brightness-[80%] hover:text-navy-dark border-primary" : ""}`;
+        type === 'secondary' && 'border-gray-100 text-gray-100'
+      }  ${isClick ? 'bg-primary text-navy-dark hover:brightness-[80%] hover:text-navy-dark border-primary' : 'hover:border-primary hover:text-primary'}`;
       break;
-    case "invisible":
+    case 'invisible':
       buttonClass =
-        "border-none bg-inherit hover:border-primary hover:text-primary text-gray-100";
+        'border-none bg-inherit hover:border-primary hover:text-primary text-gray-100';
       break;
   }
 
