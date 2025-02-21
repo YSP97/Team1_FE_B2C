@@ -3,7 +3,7 @@ import ExerciseLevel from './ExerciseLevel';
 import ReferralSource from './ReferralSource';
 import WearableDevice from './WearableDevice';
 
-export default function FormStep2() {
+function Step2() {
   return (
     <div className="mx-auto mt-12 flex max-w-[20.4375rem] flex-col gap-12 md:mt-[60px] md:max-w-[45rem]">
       <WearableDevice />
@@ -13,3 +13,5 @@ export default function FormStep2() {
     </div>
   );
 }
+
+export default Step2;
