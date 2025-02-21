@@ -7,13 +7,14 @@ type InputTypes = {
     | 'year'
     | 'month'
     | 'day'
-    | 'tel-first'
-    | 'tel-second';
+    | 'telFirst'
+    | 'telSecond';
   placeholder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: 'text' | 'number';
   className?: string;
+  maxLength?: number;
 };
 
 function InputBox({
@@ -23,18 +24,32 @@ function InputBox({
   onChange,
   type = 'text',
   className,
+  maxLength,
 }: InputTypes) {
-  const inputId = `input-${name}`; // 고유 아이디 설정
+  const inputId = `input-${name}`;
+
+  const inputNum = ['day', 'year', 'month', 'tel-first', 'tel-second'].includes(
+    name,
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (inputNum && !/^\d*$/.test(value)) return;
+    onChange(e);
+  };
 
   return (
     <input
       id={inputId}
-      type={type}
+      type={inputNum ? 'number' : type}
       name={name}
       placeholder={placeholder}
       value={value}
-      onChange={onChange}
-      className={`appearance-none text-[20px] w-full outline-none border-b-2 border-gray-400 focus:border-primary placeholder-gray-100 text-white bg-bg-primary ${className}`}
+      onChange={handleChange}
+      maxLength={maxLength}
+      inputMode={inputNum ? 'numeric' : undefined}
+      pattern={inputNum ? '\\d*' : undefined}
+      className={`w-full appearance-none border-b-2 border-gray-400 bg-bg-primary text-[20px] text-white placeholder-gray-100 outline-none focus:border-primary ${className}`}
     />
   );
 }
