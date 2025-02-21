@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import Modal from '@/components/Modal/Modal';
 import CardList from '@/components/Pricing/CardList';
 import Refund from '@/components/Pricing/Refund';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 const questions = [
   {
@@ -58,8 +58,10 @@ export default function Pricing() {
       </div>
       <CardList />
       <Button
+        isLink={true}
+        href={'/'}
         type="primary"
-        className="md:m-auto md:mb-6 md:mt-4 md:px-20"
+        className="mb-6 md:m-auto md:mb-8 md:mt-4 md:px-20"
         onClick={() => {
           console.log('선택한 플랜으로 신청하기');
         }}
@@ -76,20 +78,28 @@ export default function Pricing() {
       >
         <div className="flex flex-col gap-12 overflow-auto px-6 md:gap-[3rem] md:px-10">
           {questions.map(({ id, question, description, options, planType }) => (
-            <dl key={id} className="flex flex-col gap-6">
-              <dt className="flex flex-1 flex-col text-md">
-                {planType ? planType.Basic : question}{' '}
-                <span className="text-base text-gray-100">{description}</span>
-              </dt>
-              <dd className="flex flex-1 flex-col gap-4 md:flex-row">
-                {options.map((option) => (
-                  <Button key={option} type="secondary" className="md:flex-1">
-                    {option}
-                  </Button>
-                ))}
-              </dd>
-              {id !== question.length && <hr className="border-gray-400" />}
-            </dl>
+            <React.Fragment key={id}>
+              <dl
+                className={
+                  id === 1
+                    ? 'flex flex-col gap-6'
+                    : 'flex flex-col gap-6 md:flex-row'
+                }
+              >
+                <dt className="flex flex-1 flex-col gap-1 text-md font-semibold">
+                  {planType ? planType.Basic : question}{' '}
+                  <span className="text-base text-gray-100">{description}</span>
+                </dt>
+                <dd className="flex flex-1 flex-col gap-4 md:flex-row">
+                  {options.map((option) => (
+                    <Button key={option} type="secondary" className="md:flex-1">
+                      {option}
+                    </Button>
+                  ))}
+                </dd>
+              </dl>
+              {id !== questions.length && <hr className="border-gray-400" />}
+            </React.Fragment>
           ))}
         </div>
       </Modal>
