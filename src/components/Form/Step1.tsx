@@ -5,7 +5,7 @@ import CalendarInput from './CalendarInput';
 import SelectGender from './SelectGender';
 import DropBox from './DropBox';
 import { useStore } from 'zustand';
-import { formStore  } from '../../stores/useFormStore';
+import { formStore } from '../../stores/useFormStore';
 
 type BirthInputType = {
   year: string;
@@ -24,7 +24,11 @@ type EmailInputType = {
   domain: string;
 };
 
-function Step1() {
+type ErrorPropsType = {
+  errors: { [key: string]: string };
+};
+
+function Step1({ errors }: ErrorPropsType) {
   const { form, updateForm } = useStore(formStore);
 
   const [birthInput, setBirthInput] = useState<BirthInputType>({
@@ -118,17 +122,27 @@ function Step1() {
     updateForm('end_date', endDate);
   };
 
-
   return (
     <>
       <fieldset>
-        <label className="block pb-4 text-md">이름</label>
-        <InputBox name="name" value={form.name ?? ''} onChange={handleInput} />
+        <label className="block pb-4 text-md" htmlFor="input-name">
+          이름
+        </label>
+        <InputBox
+          name="name"
+          value={form.name ?? ''}
+          onChange={handleInput}
+          placeholder="예) 홍길동"
+        />
+        <span className="mt-2 text-sm text-primary-red">{errors.name}</span>
       </fieldset>
 
       <fieldset>
-        <label className="mb-4 block text-md">생년월일</label>
+        <legend className="mb-4 block text-md">생년월일</legend>
         <div className="flex items-center gap-2 text-gray-400">
+          <label className="sr-only" htmlFor="input-year">
+            연도
+          </label>
           <InputBox
             name="year"
             placeholder="YYYY"
@@ -137,6 +151,9 @@ function Step1() {
             onChange={handleInput}
           />
           /
+          <label className="sr-only" htmlFor="input-month">
+            월
+          </label>
           <InputBox
             name="month"
             placeholder="MM"
@@ -145,6 +162,9 @@ function Step1() {
             onChange={handleInput}
           />
           /
+          <label className="sr-only" htmlFor="input-day">
+            일일
+          </label>
           <InputBox
             name="day"
             placeholder="DD"
@@ -153,14 +173,18 @@ function Step1() {
             onChange={handleInput}
           />
         </div>
+        <span className="mt-2 text-sm text-primary-red">{errors.birth}</span>
       </fieldset>
 
       <fieldset>
-        <label className="mb-4 block text-md">이메일</label>
+        <legend className="mb-4 block text-md">이메일</legend>
         <div className="flex items-center gap-2">
+          <label className="sr-only" htmlFor="input-email">
+            이메일 아이디
+          </label>
           <InputBox
             name="email"
-            placeholder="example"
+            placeholder="아이디"
             value={emailInput.localPart}
             onChange={handleInput}
           />
@@ -177,10 +201,11 @@ function Step1() {
             onSelect={handleMailDomain}
           />
         </div>
+        <span className="mt-2 text-sm text-primary-red">{errors.email}</span>
       </fieldset>
 
       <fieldset>
-        <label className="mb-4 block text-md">휴대폰 번호</label>
+        <legend className="mb-4 block text-md">휴대폰 번호</legend>
         <div className="flex gap-2">
           <DropBox
             list={['010', '011', '016', '017', '019']}
@@ -188,24 +213,36 @@ function Step1() {
             onSelect={handlePhonePrefix}
           />
           -
+          <label className="sr-only" htmlFor="input-telFirst">
+            휴대전화 앞자리 숫자
+          </label>
           <InputBox
             name="telFirst"
+            placeholder="0000"
             maxLength={4}
             value={phoneInput.telFirst}
             onChange={handleInput}
           />
           -
+          <label className="sr-only" htmlFor="input-telSecond">
+            휴대전화 뒷자리 숫자
+          </label>
           <InputBox
             name="telSecond"
             maxLength={4}
+            placeholder="0000"
             value={phoneInput.telSecond}
             onChange={handleInput}
           />
         </div>
+        <span className="mt-2 text-sm text-primary-red">
+          {errors.phone_number}
+        </span>
       </fieldset>
 
       <div>
         <SelectGender onChange={handleGender} isChecked={form.gender} />
+        <span className="mt-2 text-sm text-primary-red">{errors.gender}</span>
       </div>
 
       <fieldset>
@@ -214,9 +251,10 @@ function Step1() {
           setSelectedDate={handleCalendar}
           selectedDate={form.start_date}
         />
+        <span className="mt-2 text-sm text-primary-red">
+          {errors.start_date}
+        </span>
       </fieldset>
-
-      
     </>
   );
 }
