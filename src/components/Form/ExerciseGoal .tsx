@@ -2,18 +2,14 @@ import CheckBox from './CheckBox';
 type ExerciseGoalProps = {
   selectedGoals: string[];
   onChange: (name: string, isChecked: boolean) => void;
+  checkBoxList: string[];
 };
 
-function ExerciseGoal({ selectedGoals, onChange }: ExerciseGoalProps) {
-  const GoalArray = [
-    '재미 또는 흥미',
-    '운동 수행 능력 향상',
-    '다이어트',
-    '건강 및 질병 예방',
-    '근력/근육량 향상',
-    '운동 습관 형성',
-  ];
-
+function ExerciseGoal({
+  checkBoxList,
+  selectedGoals,
+  onChange,
+}: ExerciseGoalProps) {
   return (
     <div className="mx-auto flex w-full flex-col items-start gap-4">
       <div className="flex items-center gap-2">
@@ -23,11 +19,11 @@ function ExerciseGoal({ selectedGoals, onChange }: ExerciseGoalProps) {
         </span>
       </div>
       <div className="grid w-full grid-cols-1 items-center gap-2 self-stretch md:grid-cols-2 md:gap-x-2 md:gap-y-4">
-        {GoalArray.map((d) => (
+        {checkBoxList.map((d) => (
           <CheckBox
             key={d}
             name={d}
-            isChecked={selectedGoals.includes(d)}
+            isChecked={selectedGoals?.includes(d)}
             onChange={onChange}
           ></CheckBox>
         ))}
