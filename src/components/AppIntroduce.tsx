@@ -87,7 +87,7 @@ function AppIntroduce() {
       </h1>
 
       <div
-        className="no-scrollbar flex gap-10 sm:flex-col"
+        className="no-scrollbar flex gap-10 sm:flex-col max-sm:max-w-[400px]"
         ref={imageContainerRef}
         style={{
           transform: `translateX(${-scrollProgress * 100}%)`,
