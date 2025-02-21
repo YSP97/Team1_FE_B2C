@@ -18,7 +18,12 @@ function BackButton() {
   };
 
   return (
-    <button onClick={handleBack} className="absolute left-4">
+    <button
+      onClick={handleBack}
+      className="absolute left-4"
+      aria-label="뒤로가기"
+      title="뒤로 가기"
+    >
       <SVGIcon name="icon-arrow-left" size={24} className="text-gray-100" />
     </button>
   );
