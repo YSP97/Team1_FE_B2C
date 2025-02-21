@@ -40,7 +40,8 @@ export default function Button({
   children,
   onClick,
 }: ButtonProps) {
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (onClick) {
       onClick();
     }

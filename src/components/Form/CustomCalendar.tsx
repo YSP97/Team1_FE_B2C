@@ -79,7 +79,7 @@ function CustomCalendar({ selectedDate, setSelectedDate }: SelectedDateProps) {
   const days = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
-    <div className="p-6 bg-bg-secondary shadow-lg rounded-lg w-full max-w-md text-white">
+    <div className="p-6 bg-bg-secondary shadow-lg rounded-sm w-full max-w-md text-white">
       <div className="flex justify-between items-center mb-4">
         <button onClick={() => changeMonth(-1)} className="px-4 py-2 rounded">
           <SVGIcon name="icon-arrow-left" size={20} />
