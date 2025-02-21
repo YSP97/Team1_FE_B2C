@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import NavLinks from './NavLinks';
 import Button from '../Button';
 import SVGIcon from '../SVGIcon';
@@ -12,8 +12,17 @@ function MobileMenu() {
     setIsOpen((prev) => !prev);
   }, []);
 
+  useEffect(()=>{
+    if (isOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+  },[isOpen])
+
   return (
     <>
+     {isOpen && <div className="fixed h-screen bg-black z-[99] opacity-70 inset-0"/>}
       <div className="flex gap-3">
         <Button
           type="primary"
