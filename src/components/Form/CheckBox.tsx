@@ -17,7 +17,7 @@ function CheckBox({ name, isChecked, onChange }: CheckBoxProps) {
       />
       <label
         htmlFor={name}
-        className={`flex flex-[1_0_0] cursor-pointer items-center justify-center rounded-xs border-2 border-gray-400 px-0 py-3 text-[1.25rem] font-normal text-gray-200 peer-checked:border-primary peer-checked:text-primary md:text-lg`}
+        className={`flex flex-[1_0_0] cursor-pointer items-center justify-center rounded-xs border border-gray-100 py-1 text-base text-gray-100 hover:border-primary hover:text-primary md:text-base ${isChecked ? 'border-primary bg-primary font-bold text-navy-dark hover:text-navy-dark hover:brightness-[80%]' : ''} `}
       >
         {name}
       </label>
