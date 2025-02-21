@@ -1,6 +1,7 @@
 import Button from '@/components/Button';
 import Modal from '@/components/Modal/Modal';
 import CardList from '@/components/Pricing/CardList';
+import Refund from '@/components/Pricing/Refund';
 import { useCallback, useState } from 'react';
 
 const questions = [
@@ -58,13 +59,15 @@ export default function Pricing() {
       <CardList />
       <Button
         type="primary"
-        className="md:m-auto md:px-20"
+        className="md:m-auto md:mb-6 md:mt-4 md:px-20"
         onClick={() => {
           console.log('선택한 플랜으로 신청하기');
         }}
       >
         선택한 플랜으로 신청하기
       </Button>
+
+      <Refund />
 
       <Modal
         title="어떤 플랜을 선택할지 고민되시나요?"
