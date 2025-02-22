@@ -1,3 +1,8 @@
+import AppBanner from '@/components/AppBanner';
+import Apply from '@/components/Apply';
+import Detailed from '@/components/Detailed';
+import Faq from '@/components/Faq/Faq';
+import Review from '@/components/Review/Review';
 import dynamic from 'next/dynamic';
 
 const AppIntroduce = dynamic(() => import('../components/AppIntroduce'), {
@@ -6,10 +11,13 @@ const AppIntroduce = dynamic(() => import('../components/AppIntroduce'), {
 
 export default function Home() {
   return (
-    <h1 className="text-3xl">
-      <div className="h-auto">
-        <AppIntroduce />
-      </div>
-    </h1>
+    <>
+      <AppBanner />
+      <AppIntroduce />
+      <Detailed />
+      <Review />
+      <Apply />
+      <Faq />
+    </>
   );
 }
