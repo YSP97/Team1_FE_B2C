@@ -1,6 +1,7 @@
 import localFont from 'next/font/local';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
+import React from 'react';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -11,11 +12,11 @@ const pretendard = localFont({
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className={`${pretendard.variable} bg-bg-primary font-pretendard`}>
+    <div className={`${pretendard.variable} bg-bg-primary font-pretendard`}>
       <Header />
-      {children}
+      <main className="mt-[3rem] md:mt-[3.75rem]">{children}</main>
       <Footer />
-    </main>
+    </div>
   );
 };
 

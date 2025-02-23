@@ -1,15 +1,19 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { mockDataCardList } from '@/mockData/mockCardList';
 import Card from '@/components/Pricing/Card';
 
-function CardList() {
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+interface CardListProps {
+  selectedCard: number | null;
+  setSelectedCard: React.Dispatch<React.SetStateAction<number | null>>;
+}
 
+function CardList({ selectedCard, setSelectedCard }: CardListProps) {
   const handleCardClick = useCallback(
     (id: number) => {
       setSelectedCard(id === selectedCard ? null : id);
+      console.log(id === selectedCard ? '카드 선택 해제' : '카드 선택됨', id);
     },
-    [selectedCard],
+    [selectedCard, setSelectedCard],
   );
 
   return (

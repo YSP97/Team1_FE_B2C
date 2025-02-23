@@ -55,7 +55,7 @@ export default function Button({
     case 'secondary':
       buttonClass = `${rounded} border-[1px] border-solid ${
         type === 'secondary' && 'border-gray-100 text-gray-100'
-      } hover:border-primary hover:text-primary ${isClick ? 'bg-primary text-navy-dark hover:brightness-[80%] hover:text-navy-dark border-primary' : ''}`;
+      }  ${isClick ? 'bg-primary text-navy-dark hover:brightness-[80%] hover:text-navy-dark border-primary' : 'hover:border-primary hover:text-primary'}`;
       break;
     case 'invisible':
       buttonClass =
