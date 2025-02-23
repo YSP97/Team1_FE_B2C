@@ -1,5 +1,5 @@
 'use client';
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback, useEffect } from 'react';
 import InputBox from './InputBox';
 import CalendarInput from './CalendarInput';
 import SelectGender from './SelectGender';
@@ -34,8 +34,36 @@ function Step1({ errors }: ErrorPropsType) {
     localPart: '',
     domain: 'domain.com',
   });
+  useEffect(() => {
+    if (form.birth) {
+      const date = new Date(form.birth);
+      setBirthInput({
+        year: date.getFullYear().toString(),
+        month: (date.getMonth() + 1).toString().padStart(2, '0'),
+        day: date.getDate().toString().padStart(2, '0'),
+      });
+    } else {
+      setBirthInput({ year: '', month: '', day: '' });
+    }
 
-  // ✅ `useCallback`을 사용하여 debounce된 함수 생성
+    if (form.phone_number && form.phone_number.length === 11) {
+      setPhoneInput({
+        telPrefix: form.phone_number.substring(0, 3),
+        telFirst: form.phone_number.substring(3, 7),
+        telSecond: form.phone_number.substring(7, 11),
+      });
+    } else {
+      setPhoneInput({ telPrefix: '010', telFirst: '', telSecond: '' });
+    }
+
+    if (form.email) {
+      const [localPart, domain] = form.email.split('@');
+      setEmailInput({ localPart, domain });
+    } else {
+      setEmailInput({ localPart: '', domain: '' });
+    }
+  }, [form]);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const updatePhoneNumber = useCallback(
     debounce((updatedPhoneInput: PhoneInputType) => {
@@ -107,6 +135,7 @@ function Step1({ errors }: ErrorPropsType) {
   };
 
   const handleGender = (selectedGender: string) => {
+    console.log(selectedGender);
     updateForm('gender', selectedGender);
   };
 
@@ -116,6 +145,7 @@ function Step1({ errors }: ErrorPropsType) {
     updateForm('start_date', selectedDate);
     updateForm('end_date', endDate);
   };
+
 
   return (
     <>
@@ -174,7 +204,7 @@ function Step1({ errors }: ErrorPropsType) {
           @
           <DropBox
             list={['gmail.com', 'naver.com', 'daum.net', 'kakao.com']}
-            isSelected={emailInput.domain}
+            isSelected={emailInput.domain || '도메인 선택'}
             onSelect={handleMailDomain}
           />
         </div>
@@ -185,7 +215,7 @@ function Step1({ errors }: ErrorPropsType) {
         <legend className="mb-4 block text-md">휴대폰 번호</legend>
         <div className="flex gap-2">
           <DropBox
-            list={['010', '011', '016']}
+            list={['010', '011', '016', '019']}
             isSelected={phoneInput.telPrefix}
             onSelect={handlePhonePrefix}
           />

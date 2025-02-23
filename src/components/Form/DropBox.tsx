@@ -56,11 +56,16 @@ function DropBox({ list, isSelected, onSelect }: DropBoxProps) {
       <button
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
-        className="flex w-full items-center justify-between gap-2.5 border-b-2 border-gray-400"
+        className={`flex w-full items-center justify-between gap-2.5 border-b-2 py-0 ${isOpened ? 'border-primary' : 'border-gray-400'}`}
         aria-haspopup="listbox"
         aria-expanded={isOpened}
       >
-        <span className="text-[20px] font-normal text-white">{isSelected}</span>
+        <span
+          className={`text-[20px] font-normal ${isSelected ? 'text-white' : 'text-gray-100'}`}
+        >
+          {isSelected}
+        </span>
+
         <SVGIcon
           name="icon-arrow-bottom"
           size={20}
