@@ -10,9 +10,9 @@ export type FormState = {
     gender: '남성' | '여성' | '선택안함' | null;
     start_date: Date | null;
     end_date: Date | null;
-    wearable_device: string;
-    exercise_goal: string;
-    exercise_level: string;
+    wearable_device: string[];
+    exercise_goal: string[];
+    exercise_level: number | null;
     exercise_concern: string;
     referral_source: string;
   };
@@ -39,9 +39,9 @@ export const defaultInitState: FormState = {
     gender: null,
     start_date: null,
     end_date: null,
-    wearable_device: '',
-    exercise_goal: '',
-    exercise_level: '',
+    wearable_device: [],
+    exercise_goal: [],
+    exercise_level: null,
     exercise_concern: '',
     referral_source: '',
   },
@@ -74,9 +74,9 @@ export const createFormStore = (initState: FormState = defaultInitState) =>
           updatedForm.start_date = null;
           updatedForm.end_date = null;
         } else if (step === 2) {
-          updatedForm.wearable_device = '';
-          updatedForm.exercise_goal = '';
-          updatedForm.exercise_level = '';
+          updatedForm.wearable_device = [];
+          updatedForm.exercise_goal = [];
+          updatedForm.exercise_level = null;
           updatedForm.referral_source = '';
         } else if (step === 3) {
           updatedForm.exercise_concern = '';
