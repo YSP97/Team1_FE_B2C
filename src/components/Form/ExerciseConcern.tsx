@@ -10,7 +10,7 @@ function ExerciseConcern({
   value,
 }: ExerciseConcernProps) {
   return (
-    <div className="mx-auto box-content flex max-w-[20.4375rem] flex-col gap-4 px-6 md:max-w-[45rem]">
+    <div className="flex flex-col gap-4">
       <div className="text-md text-gray-100">
         평소 갖고 있었던 운동 관련 고민, 또는 저희 Fitculator 팀에게 하고 싶은
         말이 있다면 작성해주세요.
