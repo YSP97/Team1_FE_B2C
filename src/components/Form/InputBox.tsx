@@ -1,14 +1,7 @@
 import { memo } from 'react';
 
 type InputTypes = {
-  name:
-    | 'name'
-    | 'email'
-    | 'year'
-    | 'month'
-    | 'day'
-    | 'telFirst'
-    | 'telSecond';
+  name: 'name' | 'email' | 'year' | 'month' | 'day' | 'telFirst' | 'telSecond';
   placeholder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -41,7 +34,7 @@ function InputBox({
   return (
     <input
       id={inputId}
-      type={inputNum ? 'number' : type}
+      type={inputNum ? 'text' : type}
       name={name}
       placeholder={placeholder}
       value={value}

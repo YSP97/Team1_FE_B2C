@@ -33,8 +33,17 @@ function Header() {
       setLastScrollY(window.scrollY);
     };
 
+    const handleClick = () => {
+      setIsVisible(true);
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClick);
+    };
   }, [isMobile, lastScrollY]);
 
   /* 신청하기 모바일 헤더 */

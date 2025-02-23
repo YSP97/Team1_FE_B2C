@@ -1,30 +1,23 @@
 'use client';
-import { memo, useState } from 'react';
+import { memo, useState, useCallback } from 'react';
 import InputBox from './InputBox';
 import CalendarInput from './CalendarInput';
 import SelectGender from './SelectGender';
 import DropBox from './DropBox';
 import { useStore } from 'zustand';
-import { formStore  } from '../../stores/useFormStore';
+import { formStore } from '../../stores/useFormStore';
+import { debounce } from 'lodash-es';
 
-type BirthInputType = {
-  year: string;
-  month: string;
-  day: string;
-};
-
+type BirthInputType = { year: string; month: string; day: string };
 type PhoneInputType = {
   telPrefix: string;
   telFirst: string;
   telSecond: string;
 };
+type EmailInputType = { localPart: string; domain: string };
+type ErrorPropsType = { errors: { [key: string]: string } };
 
-type EmailInputType = {
-  localPart: string;
-  domain: string;
-};
-
-function Step1() {
+function Step1({ errors }: ErrorPropsType) {
   const { form, updateForm } = useStore(formStore);
 
   const [birthInput, setBirthInput] = useState<BirthInputType>({
@@ -32,33 +25,54 @@ function Step1() {
     month: '',
     day: '',
   });
-
   const [phoneInput, setPhoneInput] = useState<PhoneInputType>({
     telPrefix: '010',
     telFirst: '',
     telSecond: '',
   });
-
   const [emailInput, setEmailInput] = useState<EmailInputType>({
     localPart: '',
     domain: 'domain.com',
   });
 
-  const updatePhoneNumber = (updatedPhoneInput: PhoneInputType) => {
-    const { telPrefix, telFirst, telSecond } = updatedPhoneInput;
-    if (telPrefix && telFirst.length === 4 && telSecond.length === 4) {
-      const phoneNumber = `${telPrefix}${telFirst}${telSecond}`;
-      updateForm('phone_number', phoneNumber);
-    }
-  };
+  // ✅ `useCallback`을 사용하여 debounce된 함수 생성
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updatePhoneNumber = useCallback(
+    debounce((updatedPhoneInput: PhoneInputType) => {
+      const { telPrefix, telFirst, telSecond } = updatedPhoneInput;
+      if (telPrefix && telFirst.length === 4 && telSecond.length === 4) {
+        updateForm('phone_number', `${telPrefix}${telFirst}${telSecond}`);
+      }
+    }, 1000),
+    [updateForm],
+  );
 
-  const updateEmail = (updatedEmailInput: EmailInputType) => {
-    const { localPart, domain } = updatedEmailInput;
-    if (localPart && domain) {
-      const email = `${localPart}@${domain}`;
-      updateForm('email', email);
-    }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updateEmail = useCallback(
+    debounce((updatedEmailInput: EmailInputType) => {
+      const { localPart, domain } = updatedEmailInput;
+      if (localPart && domain) {
+        updateForm('email', `${localPart}@${domain}`);
+      }
+    }, 1000),
+    [updateForm],
+  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updateBirth = useCallback(
+    debounce((updatedBirthInput: BirthInputType) => {
+      const { year, month, day } = updatedBirthInput;
+      if (year.length === 4 && month.length === 2 && day.length === 2) {
+        const birthDate = new Date(
+          Number(year),
+          Number(month) - 1,
+          Number(day),
+        );
+        updateForm('birth', birthDate);
+      }
+    }, 1000),
+    [updateForm],
+  );
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -66,21 +80,7 @@ function Step1() {
     if (['year', 'month', 'day'].includes(name)) {
       const newBirthInput = { ...birthInput, [name]: value };
       setBirthInput(newBirthInput);
-
-      if (
-        newBirthInput.year.length === 4 &&
-        newBirthInput.month.length === 2 &&
-        newBirthInput.day.length === 2
-      ) {
-        const { year, month, day } = newBirthInput;
-        const birthDate = new Date(
-          Number(year),
-          Number(month) - 1,
-          Number(day),
-        );
-
-        updateForm('birth', birthDate);
-      }
+      updateBirth(newBirthInput);
     } else if (['telFirst', 'telSecond'].includes(name)) {
       const newPhoneInput = { ...phoneInput, [name]: value };
       setPhoneInput(newPhoneInput);
@@ -113,21 +113,27 @@ function Step1() {
   const handleCalendar = (selectedDate: Date) => {
     const endDate = new Date(selectedDate);
     endDate.setMonth(endDate.getMonth() + 1);
-
     updateForm('start_date', selectedDate);
     updateForm('end_date', endDate);
   };
 
-
   return (
     <>
       <fieldset>
-        <label className="block pb-4 text-md">이름</label>
-        <InputBox name="name" value={form.name ?? ''} onChange={handleInput} />
+        <label className="block pb-4 text-md" htmlFor="input-name">
+          이름
+        </label>
+        <InputBox
+          name="name"
+          value={form.name ?? ''}
+          onChange={handleInput}
+          placeholder="예) 홍길동"
+        />
+        <span className="mt-2 text-sm text-primary-red">{errors.name}</span>
       </fieldset>
 
       <fieldset>
-        <label className="mb-4 block text-md">생년월일</label>
+        <legend className="mb-4 block text-md">생년월일</legend>
         <div className="flex items-center gap-2 text-gray-400">
           <InputBox
             name="year"
@@ -153,43 +159,40 @@ function Step1() {
             onChange={handleInput}
           />
         </div>
+        <span className="mt-2 text-sm text-primary-red">{errors.birth}</span>
       </fieldset>
 
       <fieldset>
-        <label className="mb-4 block text-md">이메일</label>
+        <legend className="mb-4 block text-md">이메일</legend>
         <div className="flex items-center gap-2">
           <InputBox
             name="email"
-            placeholder="example"
+            placeholder="아이디"
             value={emailInput.localPart}
             onChange={handleInput}
           />
           @
           <DropBox
-            list={[
-              'gmail.com',
-              'naver.com',
-              'daum.net',
-              'kakao.com',
-              'nate.com',
-            ]}
+            list={['gmail.com', 'naver.com', 'daum.net', 'kakao.com']}
             isSelected={emailInput.domain}
             onSelect={handleMailDomain}
           />
         </div>
+        <span className="mt-2 text-sm text-primary-red">{errors.email}</span>
       </fieldset>
 
       <fieldset>
-        <label className="mb-4 block text-md">휴대폰 번호</label>
+        <legend className="mb-4 block text-md">휴대폰 번호</legend>
         <div className="flex gap-2">
           <DropBox
-            list={['010', '011', '016', '017', '019']}
+            list={['010', '011', '016']}
             isSelected={phoneInput.telPrefix}
             onSelect={handlePhonePrefix}
           />
           -
           <InputBox
             name="telFirst"
+            placeholder="0000"
             maxLength={4}
             value={phoneInput.telFirst}
             onChange={handleInput}
@@ -198,25 +201,21 @@ function Step1() {
           <InputBox
             name="telSecond"
             maxLength={4}
+            placeholder="0000"
             value={phoneInput.telSecond}
             onChange={handleInput}
           />
         </div>
+        <span className="mt-2 text-sm text-primary-red">
+          {errors.phone_number}
+        </span>
       </fieldset>
 
-      <div>
-        <SelectGender onChange={handleGender} isChecked={form.gender} />
-      </div>
-
-      <fieldset>
-        <label className="mb-4 block text-md">프로그램 시작일</label>
-        <CalendarInput
-          setSelectedDate={handleCalendar}
-          selectedDate={form.start_date}
-        />
-      </fieldset>
-
-      
+      <SelectGender onChange={handleGender} isChecked={form.gender} />
+      <CalendarInput
+        setSelectedDate={handleCalendar}
+        selectedDate={form.start_date}
+      />
     </>
   );
 }

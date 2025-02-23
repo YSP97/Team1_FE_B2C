@@ -25,7 +25,8 @@ export type FormActions = {
   ) => void;
   resetForm: () => void;
   resetFormStep: (step: number) => void;
-  isFormComplete: () => string | null;
+  isFormComplete: () => boolean;
+  isStepComplete: (step: number) => boolean;
 };
 
 export const defaultInitState: FormState = {
@@ -70,37 +71,48 @@ export const createFormStore = (initState: FormState = defaultInitState) =>
           updatedForm.phone_number = '';
           updatedForm.email = '';
           updatedForm.gender = null;
-        } else if (step === 2) {
           updatedForm.start_date = null;
           updatedForm.end_date = null;
+        } else if (step === 2) {
           updatedForm.wearable_device = '';
-        } else if (step === 3) {
           updatedForm.exercise_goal = '';
           updatedForm.exercise_level = '';
-          updatedForm.exercise_concern = '';
           updatedForm.referral_source = '';
+        } else if (step === 3) {
+          updatedForm.exercise_concern = '';
         }
 
         return { form: updatedForm };
       });
     },
 
+    isStepComplete: (step: number) => {
+      const { form } = get();
+
+      if (step === 1) {
+        return !!(
+          form.name &&
+          form.birth &&
+          form.phone_number &&
+          form.email &&
+          form.gender &&
+          form.start_date
+        );
+      } else if (step === 2) {
+        return !!(
+          form.wearable_device &&
+          form.exercise_goal &&
+          form.exercise_level &&
+          form.referral_source
+        );
+      }
+
+      return false;
+    },
+
     isFormComplete: () => {
       const { form } = get();
-      return (
-        form.name &&
-        form.birth &&
-        form.phone_number &&
-        form.email &&
-        form.gender &&
-        form.start_date &&
-        form.end_date &&
-        form.wearable_device &&
-        form.exercise_goal &&
-        form.exercise_level &&
-        form.exercise_concern &&
-        form.referral_source
-      );
+      return Object.values(form).every((value) => Boolean(value));
     },
   }));
 
