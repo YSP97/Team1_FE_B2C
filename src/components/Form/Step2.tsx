@@ -86,37 +86,45 @@ function Step2({ errors }: ErrorPropsType) {
   console.log(form);
   return (
     <>
-      <WearableDevice
-        checkBoxList={DeviceArray}
-        selectedDevices={form.wearable_device}
-        onChange={handleCheckboxChange}
-      />
-      <span className="mt-2 text-sm text-primary-red">
-        {errors.wearable_device}
-      </span>
-      <ExerciseGoal
-        checkBoxList={GoalArray}
-        selectedGoals={form.exercise_goal}
-        onChange={handleCheckboxChange}
-      />
-      <span className="mt-2 text-sm text-primary-red">
-        {errors.exercise_goal}
-      </span>
-      <ExerciseLevel
-        currentStep={form.exercise_level}
-        onClick={handleExerciseLevel}
-      />
-      <span className="mt-2 text-sm text-primary-red">
-        {errors.exercise_level}
-      </span>
-      <ReferralSource
-        DropBoxList={ReferralSourceArray}
-        selectedOption={form.referral_source || '옵션을 선택해주세요'}
-        onSelect={handleReferralSource}
-      />
-      <span className="mt-2 text-sm text-primary-red">
-        {errors.referral_source}
-      </span>
+      <div>
+        <WearableDevice
+          checkBoxList={DeviceArray}
+          selectedDevices={form.wearable_device}
+          onChange={handleCheckboxChange}
+        />
+        <div className="mt-2 text-sm text-primary-red md:mt-4">
+          {errors.wearable_device}
+        </div>
+      </div>
+      <div>
+        <ExerciseGoal
+          checkBoxList={GoalArray}
+          selectedGoals={form.exercise_goal}
+          onChange={handleCheckboxChange}
+        />
+        <div className="mt-2 text-sm text-primary-red md:mt-4">
+          {errors.exercise_goal}
+        </div>
+      </div>
+      <div>
+        <ExerciseLevel
+          currentStep={form.exercise_level}
+          onClick={handleExerciseLevel}
+        />
+        <div className="mt-2 text-sm text-primary-red md:mt-4">
+          {errors.exercise_level}
+        </div>
+      </div>
+      <div>
+        <ReferralSource
+          DropBoxList={ReferralSourceArray}
+          selectedOption={form.referral_source || '옵션을 선택해주세요'}
+          onSelect={handleReferralSource}
+        />
+        <div className="mt-2 text-sm text-primary-red md:mt-4">
+          {errors.referral_source}
+        </div>
+      </div>
     </>
   );
 }

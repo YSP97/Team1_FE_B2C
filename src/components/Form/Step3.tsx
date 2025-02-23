@@ -27,7 +27,7 @@ function Step3({ errors }: ErrorPropsType) {
   return (
     <div>
       <ExerciseConcern onChange={handleExerciseConcern} value={concern} />
-      <div className="mt-4 text-sm text-primary-red">
+      <div className="mt-2 text-sm text-primary-red md:mt-4">
         {errors.exercise_concern}
       </div>
     </div>
