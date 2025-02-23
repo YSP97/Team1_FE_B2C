@@ -1,5 +1,5 @@
 type ExerciseLevelProps = {
-  currentStep: number;
+  currentStep: number | null;
   onClick: (step: number) => void;
 };
 
