@@ -1,10 +1,12 @@
 'use client';
-import Step1 from '@/components/Form/Step1';
 import Button from '@/components/Button';
+import Step1 from '@/components/Form/Step1';
+import Step2 from '@/components/Form/Step2';
+import Step3 from '@/components/Form/Step3';
+import { formStore } from '@/stores/useFormStore';
+import { usePathname, useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 import { useStore } from 'zustand';
-import { formStore } from '@/stores/useFormStore';
-import { useRouter, usePathname } from 'next/navigation';
 
 interface FormProps {
   currentStep: number;
@@ -44,6 +46,22 @@ function Form({ currentStep }: FormProps) {
     if (!form.start_date) {
       newErrors.start_date = '프로그램 시작일을 선택해 주세요.';
     }
+    if (form.wearable_device.length === 0) {
+      newErrors.wearable_device =
+        '사용중인 웨어러블 디바이스를 한개 이상 선택해주세요.';
+    }
+    if (form.exercise_goal.length === 0) {
+      newErrors.exercise_goal = '운동목표를 한개 이상 선택해주세요.';
+    }
+    if (!form.exercise_level) {
+      newErrors.exercise_level = '운동 레벨을 선택해주세요.';
+    }
+    if (!form.referral_source) {
+      newErrors.referral_source = '추천경로를 선택해주세요.';
+    }
+    if (!form.exercise_concern) {
+      newErrors.exercise_concern = '고민을 작성해 주세요.';
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -59,9 +77,8 @@ function Form({ currentStep }: FormProps) {
   return (
     <form className="my-12 flex flex-col gap-12 text-gray-100">
       {currentStep === 1 && <Step1 errors={errors} />}
-      {/* {currentStep === 2 && <Step2 errors={errors} />} */}
-      {/* {currentStep === 3 && <Step3 errors={errors} />} */}
-
+      {currentStep === 2 && <Step2 errors={errors} />}
+      {currentStep === 3 && <Step3 errors={errors} />}
       <div className="flex flex-grow gap-2">
         {currentStep < 3 && (
           <>
