@@ -38,8 +38,13 @@ function Step2() {
   const { form, updateForm } = useStore(formStore);
   const [devices, setDevices] = useState<string[]>(form.wearable_device || []);
   const [goals, setGoals] = useState<string[]>(form.exercise_goal || []);
+  const [exerciseLevel, setExerciseLevel] = useState<number | null>(
+    form.exercise_level || null,
+  );
+  const [referralSource, setReferralSource] = useState<string>(
+    form.referral_source || '',
+  );
 
-  // `devices` 상태가 변경될 때만 `updateForm` 실행
   useEffect(() => {
     updateForm('wearable_device', devices);
   }, [devices, updateForm]);
@@ -48,7 +53,13 @@ function Step2() {
     updateForm('exercise_goal', goals);
   }, [goals, updateForm]);
 
-  console.log(form);
+  useEffect(() => {
+    updateForm('exercise_level', exerciseLevel);
+  }, [exerciseLevel, updateForm]);
+
+  useEffect(() => {
+    updateForm('referral_source', referralSource);
+  }, [referralSource, updateForm]);
 
   const handleCheckboxChange = (name: string, isChecked: boolean) => {
     if (DeviceArray.includes(name)) {
@@ -63,11 +74,11 @@ function Step2() {
   };
 
   const handleExerciseLevel = (selectLevel: number) => {
-    updateForm('exercise_level', selectLevel);
+    setExerciseLevel(selectLevel);
   };
 
   const handleReferralSource = (selectReferralSource: string) => {
-    updateForm('referral_source', selectReferralSource);
+    setReferralSource(selectReferralSource);
   };
 
   return (
