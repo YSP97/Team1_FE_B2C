@@ -1,14 +1,14 @@
 type ExerciseLevelProps = {
-  currentStep: number;
+  currentStep: number | null;
   onClick: (step: number) => void;
 };
 
 function ExerciseLevel({ currentStep, onClick }: ExerciseLevelProps) {
   const totalSteps = 7;
   return (
-    <div className="mx-auto box-content flex max-w-[20.4375rem] flex-col items-start gap-4 self-stretch px-6 md:max-w-[45rem]">
+    <div className="mx-auto flex w-full flex-col items-start gap-4">
       {/* 네임택 */}
-      <div className="flex flex-col items-start gap-2 self-stretch">
+      <div className="flex flex-col items-start gap-2">
         <span className="text-md font-normal text-gray-100">
           운동 수행 능력 (1-7)
         </span>
@@ -54,7 +54,7 @@ function ExerciseLevel({ currentStep, onClick }: ExerciseLevelProps) {
           })}
         </div>
       </div>
-      <div className="flex w-full flex-row justify-between text-xs font-normal leading-[140%] text-gray-100 md:text-base">
+      <div className="flex w-full flex-row justify-between text-xs font-normal text-gray-100 md:text-base">
         <span>많은 노력이 필요해요.</span>
         <span>매우 수월해요!</span>
       </div>
