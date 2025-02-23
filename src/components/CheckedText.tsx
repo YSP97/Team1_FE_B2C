@@ -1,4 +1,5 @@
 import SVGIcon from '@/components/SVGIcon';
+import { memo } from 'react';
 
 interface CheckedTextProps {
   text: string;
@@ -7,12 +8,7 @@ interface CheckedTextProps {
   iconSize?: string;
 }
 
-export default function CheckedText({
-  text,
-  subText,
-  className,
-  iconSize,
-}: CheckedTextProps) {
+function CheckedText({ text, subText, className, iconSize }: CheckedTextProps) {
   return (
     <li className="flex flex-col gap-1">
       <p className="flex items-start gap-2">
@@ -42,3 +38,5 @@ export default function CheckedText({
     </li>
   );
 }
+
+export default memo(CheckedText);

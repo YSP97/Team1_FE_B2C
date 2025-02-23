@@ -27,7 +27,7 @@ const cardClassName = (isSelected: boolean) =>
     'hover:before:bg-primary hover:scale-105',
   ].join(' ');
 
-export default function Card({
+function Card({
   emoji,
   title,
   price,
@@ -70,3 +70,5 @@ export default function Card({
     </article>
   );
 }
+
+export default Card;

@@ -32,8 +32,8 @@ function Accordion({ title, content, isOpened, handleToggle }: AccordionProps) {
         {title}
         <SVGIcon
           name="icon-arrow-bottom"
-          size={20}
-          className={`transition-transform duration-300 ease-in-out ${
+          size={16}
+          className={`transition-transform duration-300 ease-in-out md:h-[1.25rem] md:w-[1.25rem] ${
             isOpened ? 'rotate-180' : ''
           }`}
         />
@@ -47,7 +47,10 @@ function Accordion({ title, content, isOpened, handleToggle }: AccordionProps) {
       >
         <div className="px-2 py-4 md:p-4">
           {content.map((item, index) => (
-            <p key={index} className="text-sm text-gray-100 md:text-md">
+            <p
+              key={index}
+              className="text-sm leading-[160%] text-gray-100 md:text-md"
+            >
               {item}
             </p>
           ))}

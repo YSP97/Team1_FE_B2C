@@ -1,6 +1,10 @@
-import { useState, useEffect, useRef, TouchEvent } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import BundleText from "./BundleText";
+'use client';
+
+import { useState, useEffect, useRef, TouchEvent } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import BundleText from './BundleText';
+import Lottie from 'lottie-react';
+import LottieData from '@/LottieData.json';
 
 type Section = {
   title: string;
@@ -12,28 +16,28 @@ type Section = {
 
 const SECTIONS: Section[] = [
   {
-    title: `운동량이 포인트로 계산되는 똑똑한\n운동량 계산기`,
+    title: `운동량이 포인트로 계산되는 똑똑한 운동량 계산기`,
     caption1:
-      "핏큘레이터의 포인트 시스템은\n세계보건기구(WHO)의 신체활동 가이드라인에\n 근거해 만들어졌어요.",
-    caption2: "스마트워치를 가지고 있다면\n누구나 사용할 수 있어요.",
-    bg: "bg-primary",
-    img: "/assets/calculater.png",
+      '핏큘레이터의 포인트 시스템은\n세계보건기구(WHO)의 신체활동 가이드라인에\n 근거해 만들어졌어요.',
+    caption2: '스마트워치를 가지고 있다면\n누구나 사용할 수 있어요.',
+    bg: 'bg-primary',
+    img: '/assets/calculater.png',
   },
   {
-    title: "운동기록을 올리면\n실시간으로\n운동량이 계산돼요.",
+    title: '운동기록을 올리면\n실시간으로\n운동량이 계산돼요.',
     caption1:
-      "나의 운동이 부족한지, 과한지 한 눈에 확인하고\n피드백을 받을 수 있어요.",
-    caption2: "",
-    bg: "bg-white",
-    img: "/assets/bike.png",
+      '나의 운동이 부족한지, 과한지 한 눈에 확인하고\n피드백을 받을 수 있어요.',
+    caption2: '',
+    bg: 'bg-white',
+    img: '/assets/bike.png',
   },
   {
-    title: "운동량 그래프와 피로도 분석을 통한\n자기 관리",
+    title: '운동량 그래프와 피로도 분석을 통한\n자기 관리',
     caption1:
-      "일별, 주제별 그래프를 통해 나의 운동 패턴을 이해하고\n 컨디션에 맞게 조절할 수 있어요.",
-    caption2: "",
-    bg: "bg-gray-200",
-    img: "/assets/pieGraph.png",
+      '일별, 주제별 그래프를 통해 나의 운동 패턴을 이해하고\n 컨디션에 맞게 조절할 수 있어요.',
+    caption2: '',
+    bg: 'bg-gray-200',
+    img: '/assets/pieGraph.png',
   },
 ];
 
@@ -43,6 +47,8 @@ function Detailed() {
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const [isSnapping, setIsSnapping] = useState(false);
   const touchStartYRef = useRef<number | null>(null);
+
+  console.log(LottieData);
 
   useEffect(() => {
     console.log(sectionRefs.current);
@@ -56,7 +62,7 @@ function Detailed() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionIndex = sectionRefs.current.findIndex(
-              (ref) => ref === entry.target
+              (ref) => ref === entry.target,
             );
             if (sectionIndex !== -1) {
               setActiveIndex(sectionIndex);
@@ -66,8 +72,8 @@ function Detailed() {
       },
       {
         threshold: 0.5, // 50% 이상 보일 때 감지
-        rootMargin: "-10% 0px", // 약간의 오프셋 적용
-      }
+        rootMargin: '-10% 0px', // 약간의 오프셋 적용
+      },
     );
 
     // IntersectionObserver 생성하면 콜백함수와 options 을받음 options은 선택적이고 3가지 속성이 있음
@@ -95,23 +101,23 @@ function Detailed() {
 
     if (!sectionHeight) return; // sectionHeight가 정의되지 않으면 함수 종료
 
-    console.log("currentY", currentScrollY, "sectionHeight", sectionHeight * 3);
+    console.log('currentY', currentScrollY, 'sectionHeight', sectionHeight);
 
     const snapToPosition = (targetY: number) => {
       setIsSnapping(true);
       window.scrollTo({
         top: targetY,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
 
       setTimeout(() => {
         setIsSnapping(false);
-      }, 500); //
+      }, 150); //
     };
 
     if (
       currentScrollY > sectionHeight &&
-      currentScrollY < sectionHeight + 100 &&
+      currentScrollY < sectionHeight + 150 &&
       !isSnapping
     ) {
       snapToPosition(sectionHeight);
@@ -119,10 +125,17 @@ function Detailed() {
 
     if (
       currentScrollY > sectionHeight * 2 &&
-      currentScrollY < sectionHeight * 2 + 100 &&
+      currentScrollY < sectionHeight * 2 + 150 &&
       !isSnapping
     ) {
       snapToPosition(sectionHeight * 2);
+    }
+    if (
+      currentScrollY > sectionHeight * 3 &&
+      currentScrollY < sectionHeight * 3 + 150 &&
+      !isSnapping
+    ) {
+      snapToPosition(sectionHeight * 3);
     }
   };
 
@@ -158,7 +171,7 @@ function Detailed() {
       setIsSnapping(true);
       window.scrollTo({
         top: targetSection * sectionHeight,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
 
       setTimeout(() => {
@@ -184,21 +197,21 @@ function Detailed() {
     >
       {/* 고정 컨텐츠 박스 */}
       <div
-        className="sticky top-0 z-10 h-screen flex items-center justify-center overflow-hidden bg-bg-primary"
+        className="sticky top-0 z-10 flex h-screen items-center justify-center overflow-hidden bg-bg-primary"
         ref={stickyRef}
       >
-        <ul className="flex flex-col gap-1 p-1 absolute right-7 top-16 z-20">
+        <ul className="absolute right-7 top-16 z-20 flex flex-col gap-1 p-1 md:right-10 md:top-1/2">
           {sectionRefs.current.map((_, index) => {
             return (
               <li
                 key={index}
-                className={`w-2 h-2 rounded-full ${activeIndex === index ? "bg-white" : "bg-gray-100 "}`}
+                className={`h-2 w-2 rounded-full ${activeIndex === index ? 'bg-white' : 'bg-gray-100'}`}
               ></li>
             );
           })}
         </ul>
 
-        <div className="w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-4xl px-4 sm:px-6 md:flex lg:px-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -206,31 +219,20 @@ function Detailed() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="text-center bg-bg-primary h-screen flex flex-col justify-center gap-6 items-center"
+              className="gap-10s flex h-screen flex-col items-center justify-center bg-bg-primary text-center md:flex-row-reverse"
             >
-              <img
-                src={SECTIONS[activeIndex].img}
-                className="object-cotain w-96 h-96 object-center"
-              ></img>
-
-              <BundleText
-                text={{
-                  title1: SECTIONS[activeIndex].title,
-                  sub1: SECTIONS[activeIndex].caption1,
-                  sub2: SECTIONS[activeIndex].caption2,
-                }}
-              />
-              {/* <h2 className="text-lg font-bold text-white whitespace-pre-line">
-                {SECTIONS[activeIndex].title}
-              </h2>
-              <div className="space-y-2">
-                <p className="text-base text-gray-200 whitespace-pre-line">
-                  {SECTIONS[activeIndex].caption1}
-                </p>
-                <p className="text-base text-gray-200 whitespace-pre-line">
-                  {SECTIONS[activeIndex].caption2}
-                </p>
-              </div> */}
+              <div className="max-w-[500px] flex-1">
+                <Lottie animationData={LottieData} loop></Lottie>
+              </div>
+              <div className="flex-1">
+                <BundleText
+                  text={{
+                    title1: SECTIONS[activeIndex].title,
+                    sub1: SECTIONS[activeIndex].caption1,
+                    sub2: SECTIONS[activeIndex].caption2,
+                  }}
+                />
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -245,7 +247,7 @@ function Detailed() {
               ref={(el: HTMLDivElement | null) => {
                 sectionRefs.current[i] = el;
               }}
-              className="h-screen relative scroll-snap-start"
+              className="scroll-snap-start relative h-screen"
             />
           );
         })}
