@@ -28,7 +28,7 @@ function ExerciseLevel({ currentStep, onClick }: ExerciseLevelProps) {
                 <button
                   type="button"
                   onClick={() => onClick(i + 1)}
-                  className={`flex h-5 w-5 items-center justify-center rounded-full md:h-6 md:w-6 ${isActive ? 'bg-primary' : 'bg-gray-200'}`}
+                  className={`flex h-5 w-5 items-center justify-center rounded-full md:h-6 md:w-6 ${isActive ? 'bg-primary' : 'bg-gray-200'} focus:outline-none focus:ring-2 focus:ring-primary`}
                 ></button>
                 {/* 막대기 */}
                 {i < totalSteps - 1 && (

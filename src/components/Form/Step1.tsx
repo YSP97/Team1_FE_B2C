@@ -146,7 +146,6 @@ function Step1({ errors }: ErrorPropsType) {
     updateForm('end_date', endDate);
   };
 
-
   return (
     <>
       <fieldset>
@@ -159,7 +158,9 @@ function Step1({ errors }: ErrorPropsType) {
           onChange={handleInput}
           placeholder="예) 홍길동"
         />
-        <span className="mt-2 text-sm text-primary-red">{errors.name}</span>
+        <div className="mt-2 text-sm text-primary-red md:mt-4">
+          {errors.name}
+        </div>
       </fieldset>
 
       <fieldset>
@@ -189,7 +190,9 @@ function Step1({ errors }: ErrorPropsType) {
             onChange={handleInput}
           />
         </div>
-        <span className="mt-2 text-sm text-primary-red">{errors.birth}</span>
+        <div className="mt-2 text-sm text-primary-red md:mt-4">
+          {errors.birth}
+        </div>
       </fieldset>
 
       <fieldset>
@@ -208,7 +211,9 @@ function Step1({ errors }: ErrorPropsType) {
             onSelect={handleMailDomain}
           />
         </div>
-        <span className="mt-2 text-sm text-primary-red">{errors.email}</span>
+        <div className="mt-2 text-sm text-primary-red md:mt-4">
+          {errors.email}
+        </div>
       </fieldset>
 
       <fieldset>
@@ -236,9 +241,9 @@ function Step1({ errors }: ErrorPropsType) {
             onChange={handleInput}
           />
         </div>
-        <span className="mt-2 text-sm text-primary-red">
+        <div className="mt-2 text-sm text-primary-red md:mt-4">
           {errors.phone_number}
-        </span>
+        </div>
       </fieldset>
 
       <SelectGender onChange={handleGender} isChecked={form.gender} />
