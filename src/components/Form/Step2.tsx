@@ -34,7 +34,9 @@ const ReferralSourceArray = [
   '이전 기수 참여자',
 ];
 
-function Step2() {
+type ErrorPropsType = { errors: { [key: string]: string } };
+
+function Step2({ errors }: ErrorPropsType) {
   const { form, updateForm } = useStore(formStore);
   const [devices, setDevices] = useState<string[]>(form.wearable_device || []);
   const [goals, setGoals] = useState<string[]>(form.exercise_goal || []);
@@ -81,6 +83,7 @@ function Step2() {
     setReferralSource(selectReferralSource);
   };
 
+  console.log(form);
   return (
     <>
       <WearableDevice
@@ -88,20 +91,32 @@ function Step2() {
         selectedDevices={form.wearable_device}
         onChange={handleCheckboxChange}
       />
+      <span className="mt-2 text-sm text-primary-red">
+        {errors.wearable_device}
+      </span>
       <ExerciseGoal
         checkBoxList={GoalArray}
         selectedGoals={form.exercise_goal}
         onChange={handleCheckboxChange}
       />
+      <span className="mt-2 text-sm text-primary-red">
+        {errors.exercise_goal}
+      </span>
       <ExerciseLevel
         currentStep={form.exercise_level}
         onClick={handleExerciseLevel}
       />
+      <span className="mt-2 text-sm text-primary-red">
+        {errors.exercise_level}
+      </span>
       <ReferralSource
         DropBoxList={ReferralSourceArray}
         selectedOption={form.referral_source || '옵션을 선택해주세요'}
         onSelect={handleReferralSource}
       />
+      <span className="mt-2 text-sm text-primary-red">
+        {errors.referral_source}
+      </span>
     </>
   );
 }
