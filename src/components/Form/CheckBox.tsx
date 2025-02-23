@@ -17,7 +17,13 @@ function CheckBox({ name, isChecked, onChange }: CheckBoxProps) {
       />
       <label
         htmlFor={name}
-        className={`flex flex-[1_0_0] cursor-pointer items-center justify-center rounded-xs border border-gray-100 py-1 text-base text-gray-100 hover:border-primary hover:text-primary md:text-base ${isChecked ? 'border-primary bg-primary font-bold text-navy-dark hover:text-navy-dark hover:brightness-[80%]' : ''} `}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            onChange(name, !isChecked);
+          }
+        }}
+        className={`flex flex-[1_0_0] cursor-pointer items-center justify-center rounded-xs border border-gray-100 py-1 text-base text-gray-100 md:text-base ${isChecked ? 'border-primary bg-primary font-bold text-navy-dark hover:text-navy-dark hover:brightness-[80%]' : 'hover:border-primary hover:text-primary'} focus:border-primary focus:outline-none`}
       >
         {name}
       </label>
