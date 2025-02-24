@@ -8,20 +8,21 @@ function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    setMounted(true); // 클라이언트에서만 렌더링
   }, []);
 
-  const currentTheme = theme ?? 'dark';
+  // 클라이언트에서만 theme 값 처리
+  const currentTheme = mounted && theme ? theme : 'dark';
 
   const handleToggle = () => {
     setTheme(currentTheme === 'dark' ? 'light' : 'dark');
   };
 
   useEffect(() => {
-    console.log('현재 테마:', theme);
+    console.log('현재 테마:', theme); // 테마 변경 후 콘솔 출력
   }, [theme]);
 
-  if (!mounted) return null; // 클라이언트에서만 렌더링
+  if (!mounted) return null; // mounted가 false일 때는 렌더링 안 함
 
   return (
     <button
@@ -31,13 +32,13 @@ function ThemeToggle() {
     >
       {currentTheme === 'dark' ? (
         <>
-          <span>☀️</span>
-          <span>Light</span>
+          <span className="text-lg">☀️</span>
+          <span className="text-xs">Light</span>
         </>
       ) : (
         <>
-          <span>🌙</span>
-          <span>Dark</span>
+          <span className="text-lg">🌙</span>
+          <span className="text-xs">Dark</span>
         </>
       )}
     </button>
