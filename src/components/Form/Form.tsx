@@ -25,42 +25,48 @@ function Form({ currentStep }: FormProps) {
   };
 
   /* 유효성 검사 */
-  const validateAllFields = () => {
+  const validateAllFields = (currentStep: number) => {
     const newErrors: { [key: string]: string } = {};
 
-    if (!form.name?.trim() || form.name.length < 2) {
-      newErrors.name = '이름은 최소 두 글자 이상이어야 합니다.';
+    if (currentStep === 1) {
+      if (!form.name?.trim() || form.name.length < 2) {
+        newErrors.name = '이름은 최소 두 글자 이상이어야 합니다.';
+      }
+      if (!form.birth) {
+        newErrors.birth = '올바른 생년월일을 입력해 주세요.';
+      }
+      if (!form.email) {
+        newErrors.email = '이메일을 입력해 주세요.';
+      }
+      if (!form.phone_number) {
+        newErrors.phone_number = '전화번호를 입력해 주세요.';
+      }
+      if (!form.gender) {
+        newErrors.gender = '성별을 선택해 주세요.';
+      }
+      if (!form.start_date) {
+        newErrors.start_date = '프로그램 시작일을 선택해 주세요.';
+      }
     }
-    if (!form.birth) {
-      newErrors.birth = '올바른 생년월일을 입력해 주세요.';
+    if (currentStep === 2) {
+      if (form.wearable_device.length === 0) {
+        newErrors.wearable_device =
+          '사용중인 웨어러블 디바이스를 한개 이상 선택해주세요.';
+      }
+      if (form.exercise_goal.length === 0) {
+        newErrors.exercise_goal = '운동목표를 한개 이상 선택해주세요.';
+      }
+      if (!form.exercise_level) {
+        newErrors.exercise_level = '운동 레벨을 선택해주세요.';
+      }
+      if (!form.referral_source) {
+        newErrors.referral_source = '추천경로를 선택해주세요.';
+      }
     }
-    if (!form.email) {
-      newErrors.email = '이메일을 입력해 주세요.';
-    }
-    if (!form.phone_number) {
-      newErrors.phone_number = '전화번호를 입력해 주세요.';
-    }
-    if (!form.gender) {
-      newErrors.gender = '성별을 선택해 주세요.';
-    }
-    if (!form.start_date) {
-      newErrors.start_date = '프로그램 시작일을 선택해 주세요.';
-    }
-    if (form.wearable_device.length === 0) {
-      newErrors.wearable_device =
-        '사용중인 웨어러블 디바이스를 한개 이상 선택해주세요.';
-    }
-    if (form.exercise_goal.length === 0) {
-      newErrors.exercise_goal = '운동목표를 한개 이상 선택해주세요.';
-    }
-    if (!form.exercise_level) {
-      newErrors.exercise_level = '운동 레벨을 선택해주세요.';
-    }
-    if (!form.referral_source) {
-      newErrors.referral_source = '추천경로를 선택해주세요.';
-    }
-    if (!form.exercise_concern) {
-      newErrors.exercise_concern = '고민을 작성해 주세요.';
+    if (currentStep === 3) {
+      if (!form.exercise_concern) {
+        newErrors.exercise_concern = '고민을 작성해 주세요.';
+      }
     }
 
     setErrors(newErrors);
@@ -69,7 +75,7 @@ function Form({ currentStep }: FormProps) {
 
   /* 다음 단계 이동 */
   const handleApply = () => {
-    if (validateAllFields() && isStepComplete(currentStep)) {
+    if (validateAllFields(currentStep) && isStepComplete(currentStep)) {
       router.push(`${pathname}?step=${currentStep + 1}`);
     }
   };
