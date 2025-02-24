@@ -4,11 +4,12 @@ import Step1 from '@/components/Form/Step1';
 import Step2 from '@/components/Form/Step2';
 import Step3 from '@/components/Form/Step3';
 import { formStore } from '@/stores/useFormStore';
+import { sendFormToSlack } from '@/utils/sendSlack';
+import { createClient } from '@/utils/supabase/client';
 import { usePathname, useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
-import { useStore } from 'zustand';
-import { createClient } from '@/utils/supabase/client';
 import { v4 as uuidv4 } from 'uuid';
+import { useStore } from 'zustand';
 
 interface FormProps {
   currentStep: number;
@@ -154,7 +155,11 @@ function Form({ currentStep, plan }: FormProps) {
         router.push(`${pathname}?step=${currentStep + 1}`);
       }
     } else {
-      const success = await postToDb();
+      const dbSuccess = await postToDb();
+      const slackSuccess = dbSuccess ? await sendFormToSlack(form) : false;
+
+      const success = dbSuccess && slackSuccess;
+
       if (success) {
         router.push('/pricing/done');
       }
