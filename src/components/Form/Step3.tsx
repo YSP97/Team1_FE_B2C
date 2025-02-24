@@ -1,9 +1,8 @@
+import { formStore } from '@/stores/useFormStore';
+import { debounce } from 'lodash-es';
+import { useCallback, useState } from 'react';
 import { useStore } from 'zustand';
 import ExerciseConcern from './ExerciseConcern';
-import { formStore } from '@/stores/useFormStore';
-import { useState, useCallback } from 'react';
-import { debounce } from 'lodash-es';
-
 
 function Step3() {
   const { form, updateForm } = useStore(formStore);
@@ -23,7 +22,6 @@ function Step3() {
     updateStore(newValue); // debounce된 store 업데이트
   };
 
-  console.log(form.exercise_concern);
   return (
     <div>
       <ExerciseConcern onChange={handleExerciseConcern} value={concern} />
