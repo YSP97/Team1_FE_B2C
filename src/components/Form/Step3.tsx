@@ -4,12 +4,12 @@ import { formStore } from '@/stores/useFormStore';
 import { useState, useCallback } from 'react';
 import { debounce } from 'lodash-es';
 
-type ErrorPropsType = { errors: { [key: string]: string } };
 
-function Step3({ errors }: ErrorPropsType) {
+function Step3() {
   const { form, updateForm } = useStore(formStore);
   const [concern, setConcern] = useState<string>(form.exercise_concern || '');
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStore = useCallback(
     debounce((value: string) => {
       updateForm('exercise_concern', value);
@@ -27,9 +27,6 @@ function Step3({ errors }: ErrorPropsType) {
   return (
     <div>
       <ExerciseConcern onChange={handleExerciseConcern} value={concern} />
-      <div className="mt-2 text-sm text-primary-red md:mt-4">
-        {errors.exercise_concern}
-      </div>
     </div>
   );
 }

@@ -63,11 +63,6 @@ function Form({ currentStep }: FormProps) {
         newErrors.referral_source = '추천경로를 선택해주세요.';
       }
     }
-    if (currentStep === 3) {
-      if (!form.exercise_concern) {
-        newErrors.exercise_concern = '고민을 작성해 주세요.';
-      }
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -75,8 +70,12 @@ function Form({ currentStep }: FormProps) {
 
   /* 다음 단계 이동 */
   const handleApply = () => {
-    if (validateAllFields(currentStep) && isStepComplete(currentStep)) {
-      router.push(`${pathname}?step=${currentStep + 1}`);
+    if (currentStep < 3) {
+      if (validateAllFields(currentStep) && isStepComplete(currentStep)) {
+        router.push(`${pathname}?step=${currentStep + 1}`);
+      }
+    } else {
+      console.log('제출');
     }
   };
 
@@ -84,7 +83,7 @@ function Form({ currentStep }: FormProps) {
     <form className="my-12 flex flex-col gap-12 text-gray-100">
       {currentStep === 1 && <Step1 errors={errors} />}
       {currentStep === 2 && <Step2 errors={errors} />}
-      {currentStep === 3 && <Step3 errors={errors} />}
+      {currentStep === 3 && <Step3 />}
       <div className="flex flex-grow gap-2">
         {currentStep < 3 && (
           <>
