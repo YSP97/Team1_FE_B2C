@@ -7,12 +7,16 @@ import { formStore } from '@/stores/useFormStore';
 import { usePathname, useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 import { useStore } from 'zustand';
+import { createClient } from '@/utils/supabase/client';
+import { v4 as uuidv4 } from 'uuid';
 
 interface FormProps {
   currentStep: number;
+  plan: string;
 }
 
-function Form({ currentStep }: FormProps) {
+function Form({ currentStep, plan }: FormProps) {
+  const supabase = createClient();
   const { resetFormStep, isStepComplete, form } = useStore(formStore);
   const router = useRouter();
   const pathname = usePathname();
@@ -22,6 +26,81 @@ function Form({ currentStep }: FormProps) {
   const resetCurrentStep = () => {
     resetFormStep(currentStep);
     setErrors({});
+  };
+
+  const postToDb = async () => {
+    const userId = uuidv4();
+    const exerciseId = uuidv4();
+    const subscriptionId = uuidv4();
+    const genderMap: { [key: string]: string } = {
+      남성: 'male',
+      여성: 'female',
+      선택안함: 'other',
+    };
+    const gender = form.gender ? (genderMap[form.gender] ?? 'other') : 'other';
+
+    const userData = {
+      id: userId,
+      name: form.name,
+      email: form.email,
+      birth: form.birth,
+      phone_number: form.phone_number,
+      gender: gender,
+    };
+
+    const exerciseData = {
+      id: exerciseId,
+      user_id: userId,
+      wearable_device: form.wearable_device.join(','),
+      exercise_goal: form.exercise_goal.join(','),
+      exercise_level: form.exercise_level,
+      referral_source: form.referral_source,
+      exercise_concern: form.exercise_concern || null,
+    };
+
+    const subscriptionData = {
+      id: subscriptionId,
+      program_id: `program-${plan}`,
+      user_id: userId,
+      start_date: form.start_date,
+      end_date: form.end_date,
+    };
+
+    try {
+      /* 가입된 회원인지 확인 */
+      const { data: existingUser, error: findError } = await supabase
+        .from('users')
+        .select('id')
+        .or(`email.eq.${form.email},phone_number.eq.${form.phone_number}`);
+
+      if (findError) throw findError;
+      if (existingUser && existingUser.length > 0) {
+        alert('이미 가입된 회원입니다.');
+        return false;
+      }
+
+      const { error: userError } = await supabase
+        .from('users')
+        .insert([userData]);
+      if (userError) throw userError;
+
+      const { error: exerciseError } = await supabase
+        .from('exercise_preferences')
+        .insert([exerciseData]);
+      if (exerciseError) throw exerciseError;
+
+      const { error: subscriptionError } = await supabase
+        .from('user_subscriptions')
+        .insert([subscriptionData]);
+      if (subscriptionError) throw subscriptionError;
+
+      router.push(`${pathname}/`);
+
+      return true;
+    } catch (error) {
+      console.error('데이터 저장 실패', error);
+      return false;
+    }
   };
 
   /* 유효성 검사 */
@@ -69,13 +148,16 @@ function Form({ currentStep }: FormProps) {
   };
 
   /* 다음 단계 이동 */
-  const handleApply = () => {
+  const handleApply = async () => {
     if (currentStep < 3) {
       if (validateAllFields(currentStep) && isStepComplete(currentStep)) {
         router.push(`${pathname}?step=${currentStep + 1}`);
       }
     } else {
-      console.log('제출');
+      const success = await postToDb();
+      if (success) {
+        router.push('/pricing/done');
+      }
     }
   };
 

@@ -2,6 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 다크모드 (기본) */
+html.dark {
+  --color-primary: rgba(38, 203, 254, 1);
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-primary-yellow: rgba(255, 199, 0, 1);
+  --color-primary-green: rgba(109, 190, 119, 1);
+  --color-primary-red: rgba(244, 67, 54, 1);
+  --color-bg-primary: rgba(36, 36, 36, 1);
+  --color-bg-secondary: rgba(46, 46, 46, 1);
+  --color-gray-50: rgba(255, 255, 255, 0.05);
+  --color-gray-100: rgba(176, 176, 176, 1);
+  --color-gray-200: rgba(108, 108, 108, 1);
+  --color-gray-300: rgba(100, 100, 100, 1);
+  --color-gray-400: rgba(66, 66, 66, 1);
+  --color-gray-500: rgba(52, 52, 52, 1);
+  --color-navy-dark: rgba(0, 60, 90, 1);
+}
+
+/* 라이트모드 */
+html.light {
+  --color-primary: rgba(38, 203, 254, 1);
+  --color-white: rgba(0, 0, 0, 1);
+  --color-black: rgba(255, 255, 255, 1);
+  --color-primary-yellow: rgba(255, 199, 0, 1);
+  --color-primary-green: rgba(109, 190, 119, 1);
+  --color-primary-red: rgba(244, 67, 54, 1);
+  --color-bg-primary: rgba(255, 255, 255, 1);
+  --color-bg-secondary: rgba(240, 240, 240, 1);
+  --color-gray-50: rgba(0, 0, 0, 0.05);
+  --color-gray-100: rgba(79, 79, 79, 1);
+  --color-gray-200: rgba(120, 120, 120, 1);
+  --color-gray-300: rgba(160, 160, 160, 1);
+  --color-gray-400: rgba(190, 190, 190, 1);
+  --color-gray-500: rgba(220, 220, 220, 1);
+  --color-navy-dark: rgba(0, 120, 180, 1);
+}
+
 html,
 body {
   width: 100%;
@@ -40,11 +78,11 @@ body {
 }
 
 @layer utilities {
-      .no-scrollbar::-webkit-scrollbar {
-          display: none;
-      }
-      .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
-    }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
