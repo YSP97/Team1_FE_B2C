@@ -46,9 +46,8 @@ export const sendFormToSlack = async (form: FormData) => {
     if (!response.ok) {
       throw new Error(`백엔드 API Error: ${response.statusText}`);
     }
-
-    console.log('✅ Slack 전송 성공!');
+    return true;
   } catch (error) {
-    console.error('❌ Slack 전송 실패:', error);
+    return false;
   }
 };
