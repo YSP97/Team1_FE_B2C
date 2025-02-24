@@ -19,7 +19,7 @@ function CustomCalendar({ selectedDate, setSelectedDate }: SelectedDateProps) {
   const lastDayOfCurrentMonth = new Date(currentYear, currentMonth + 1, 0);
   const endDayOfCurrentMonth = new Date(lastDayOfCurrentMonth);
   endDayOfCurrentMonth.setDate(
-    lastDayOfCurrentMonth.getDate() + (6 - lastDayOfCurrentMonth.getDay())
+    lastDayOfCurrentMonth.getDate() + (6 - lastDayOfCurrentMonth.getDay()),
   );
 
   const groupDatesByWeek = (startDate: Date, endDate: Date) => {
@@ -76,18 +76,33 @@ function CustomCalendar({ selectedDate, setSelectedDate }: SelectedDateProps) {
     return date < today;
   };
 
+  const handleMonth = (nextStep: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    changeMonth(nextStep);
+  };
+
   const days = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
-    <div className="p-6 bg-bg-secondary shadow-lg rounded-sm w-full max-w-md text-white">
-      <div className="flex justify-between items-center mb-4">
-        <button onClick={() => changeMonth(-1)} className="px-4 py-2 rounded">
+    <div className="w-full max-w-md rounded-sm bg-bg-secondary p-6 text-white shadow-lg">
+      <div className="mb-4 flex items-center justify-between">
+        <button
+          onClick={(e) => {
+            handleMonth(-1, e);
+          }}
+          className="rounded px-4 py-2"
+        >
           <SVGIcon name="icon-arrow-left" size={20} />
         </button>
         <h2 className="text-lg font-semibold">
           {formatDateHeader(currentDate)}
         </h2>
-        <button onClick={() => changeMonth(1)} className="px-4 py-2 rounded">
+        <button
+          onClick={(e) => {
+            handleMonth(1, e);
+          }}
+          className="rounded px-4 py-2"
+        >
           <SVGIcon name="icon-arrow-right" size={20} />
         </button>
       </div>
@@ -98,21 +113,20 @@ function CustomCalendar({ selectedDate, setSelectedDate }: SelectedDateProps) {
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-2 text-center mt-2">
+      <div className="mt-2 grid grid-cols-7 gap-2 text-center">
         {weeks.map((week, weekIndex) => (
           <div key={weekIndex} className="contents">
             {week.map((day, dayIndex) => (
               <button
                 key={dayIndex}
-                className={`py-2 rounded-full w-full  ${
+                className={`w-full rounded-full py-2 ${
                   isSameDay(day, selectedDate)
-                    ? 'bg-primary text-bg-primary font-bold'
+                    ? 'bg-primary font-bold text-bg-primary'
                     : 'hover:bg-gray-300'
-                }
-                ${isSameMonth(day, currentDate)? 'text-white': 'text-gray-100'}
-                ${isBeforeToday(day) ? 'hover:bg-transparent text-gray-300' : ''}`}
+                } ${isSameMonth(day, currentDate) ? 'text-white' : 'text-gray-100'} ${isBeforeToday(day) ? 'text-gray-300 hover:bg-transparent' : ''}`}
                 disabled={isBeforeToday(day) ? true : false}
-                onClick={() => setSelectedDate(day)}>
+                onClick={() => setSelectedDate(day)}
+              >
                 {day.getDate()}
               </button>
             ))}

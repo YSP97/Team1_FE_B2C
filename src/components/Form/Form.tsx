@@ -94,7 +94,7 @@ function Form({ currentStep, plan }: FormProps) {
         .insert([subscriptionData]);
       if (subscriptionError) throw subscriptionError;
 
-      router.push(`${pathname}/`);
+      router.push('/pricing/done');
 
       return true;
     } catch (error) {
@@ -151,7 +151,7 @@ function Form({ currentStep, plan }: FormProps) {
   const handleApply = async () => {
     if (currentStep < 3) {
       if (validateAllFields(currentStep) && isStepComplete(currentStep)) {
-        router.push(`${pathname}?step=${currentStep + 1}`);
+        router.push(`${pathname}?step=${currentStep + 1}&plan=${plan}`);
       }
     } else {
       const success = await postToDb();
