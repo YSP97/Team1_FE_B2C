@@ -8,6 +8,7 @@ import LottieData from '@/LottieData.json';
 
 type Section = {
   title: string;
+  title2: string;
   caption1: string;
   caption2: string;
   bg: string;
@@ -16,7 +17,9 @@ type Section = {
 
 const SECTIONS: Section[] = [
   {
-    title: `운동량이 포인트로 계산되는 똑똑한 운동량 계산기`,
+    title: `운동량이 포인트로 계산되는`,
+    title2: `똑똑한 운동량 계산기`,
+
     caption1:
       '핏큘레이터의 포인트 시스템은\n세계보건기구(WHO)의 신체활동 가이드라인에\n 근거해 만들어졌어요.',
     caption2: '스마트워치를 가지고 있다면\n누구나 사용할 수 있어요.',
@@ -24,7 +27,8 @@ const SECTIONS: Section[] = [
     img: '/assets/calculater.png',
   },
   {
-    title: '운동기록을 올리면\n실시간으로\n운동량이 계산돼요.',
+    title: '운동기록을 올리면 실시간으로',
+    title2: '운동량이 계산돼요.',
     caption1:
       '나의 운동이 부족한지, 과한지 한 눈에 확인하고\n피드백을 받을 수 있어요.',
     caption2: '',
@@ -32,7 +36,8 @@ const SECTIONS: Section[] = [
     img: '/assets/bike.png',
   },
   {
-    title: '운동량 그래프와 피로도 분석을 통한\n자기 관리',
+    title: '운동량 그래프와 피로도 분석을 통한',
+    title2: '자기 관리',
     caption1:
       '일별, 주제별 그래프를 통해 나의 운동 패턴을 이해하고\n 컨디션에 맞게 조절할 수 있어요.',
     caption2: '',
@@ -211,7 +216,7 @@ function Detailed() {
           })}
         </ul>
 
-        <div className="w-full max-w-4xl px-4 sm:px-6 md:flex lg:px-8">
+        <div className="w-full max-w-7xl px-4 sm:px-6 md:flex lg:px-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -219,15 +224,16 @@ function Detailed() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="gap-10s flex h-screen flex-col items-center justify-center bg-bg-primary text-center md:flex-row-reverse"
+              className="flex h-screen flex-col items-center justify-center gap-5 bg-bg-primary text-center md:flex-row-reverse"
             >
-              <div className="max-w-[500px] flex-1">
+              <div className="mt-10 max-w-[400px] flex-1">
                 <Lottie animationData={LottieData} loop></Lottie>
               </div>
               <div className="flex-1">
                 <BundleText
                   text={{
                     title1: SECTIONS[activeIndex].title,
+                    title2: SECTIONS[activeIndex].title2,
                     sub1: SECTIONS[activeIndex].caption1,
                     sub2: SECTIONS[activeIndex].caption2,
                   }}

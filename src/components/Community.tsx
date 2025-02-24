@@ -8,7 +8,7 @@ function Community() {
   // 스크롤 진행도에 따라 x 위치값 변환
   const cardX = useTransform(
     scrollYProgress,
-    [0.8, 0.83], // 스크롤 진행도 (0~1)
+    [0.85, 0.9], // 스크롤 진행도 (0~1)
     currentWindow < 1028 ? [0, -200] : [0, 0], // 이동할 x 좌표 (0px에서 -200px)
   );
 
@@ -21,9 +21,11 @@ function Community() {
   return (
     <div>
       {currentWindow < 1028 ? (
-        <div className="relative h-screen px-5">
-          <div className="flex flex-col gap-1 text-center">
-            <h3 className="font-bold text-gray-100">외로운 운동은 그만.</h3>
+        <div className="relative mt-10 h-screen overflow-hidden bg-[#2e2e2e] px-5">
+          <div className="flex flex-col gap-1 text-center text-[1.5rem]">
+            <h3 className="mt-10 text-[1.5rem] font-bold text-gray-100">
+              외로운 운동은 그만.
+            </h3>
             <h3 className="font-bold text-primary">즐거운 운동은 같이.</h3>
           </div>
           <div className="relative h-[300px] w-full overflow-hidden">
@@ -53,10 +55,14 @@ function Community() {
           </motion.div>
         </div>
       ) : (
-        <div className="relative h-screen overflow-hidden px-10">
+        <div className="relative mt-10 h-screen overflow-hidden bg-[#2e2e2e] px-10">
           <div className="mb-20 flex flex-col gap-1 text-center">
-            <h3 className="font-bold text-gray-100">외로운 운동은 그만.</h3>
-            <h3 className="font-bold text-primary">즐거운 운동은 같이.</h3>
+            <h3 className="mt-10 text-[2.5rem] font-bold text-gray-100">
+              외로운 운동은 그만.
+            </h3>
+            <h3 className="text-[2.5rem] font-bold text-primary">
+              즐거운 운동은 같이.
+            </h3>
           </div>
           <div className="mt-10 h-full">
             <div className="absolute left-60">
