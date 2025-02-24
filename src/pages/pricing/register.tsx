@@ -9,8 +9,15 @@ import { useEffect } from 'react';
 export default function Register() {
   const searchParams = useSearchParams();
   const step = Number(searchParams.get('step')) || 1;
-  const plan = 'Plus';
+  const plan = 'Plus'
+  
+  const planMap:{[key:string]: string} = {
+    Plus: 'plus',
+    Pro: 'pro',
+    Basic: 'basic'
+  }
 
+  const selectedPlan = plan? planMap[plan]:'';
   const supabase = createClient();
 
   useEffect(() => {
@@ -33,7 +40,7 @@ export default function Register() {
       </Head>
       <div className="mx-auto max-w-[20.4375rem] py-10 text-gray-100 md:max-w-[45rem] md:py-28">
         <ProgressSection currentStep={step} plan={plan} />
-        <Form currentStep={step} />
+        <Form currentStep={step} plan={selectedPlan} />
       </div>
     </>
   );
