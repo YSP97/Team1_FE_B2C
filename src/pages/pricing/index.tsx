@@ -163,6 +163,7 @@ export default function Pricing() {
         type="primary"
         className="mb-6 md:m-auto md:mb-8 md:mt-4 md:px-20"
         onClick={handlePushQuery}
+        disabled={selectedCard ? false : true}
       >
         선택한 플랜으로 신청하기
       </Button>
