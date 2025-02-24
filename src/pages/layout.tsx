@@ -2,6 +2,7 @@ import localFont from 'next/font/local';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import React from 'react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -16,6 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Header />
       <main className="mt-[3rem] md:mt-[3.75rem]">{children}</main>
       <Footer />
+      <ThemeToggle />
     </div>
   );
 };
