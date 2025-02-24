@@ -2,6 +2,7 @@ import Button from '@/components/Button';
 import Modal from '@/components/Modal/Modal';
 import CardList from '@/components/Pricing/CardList';
 import Refund from '@/components/Pricing/Refund';
+import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 
 type Question = {
@@ -41,12 +42,33 @@ export default function Pricing() {
   const [answers, setAnswers] = useState<Answers>({ 1: null, 2: null });
   const [finalQuestions, setFinalQuestions] = useState<Question[]>(questions); // 추천 플랜
   const [selectedCard, setSelectedCard] = useState<number | null>(null); // 선택된 카드 상태
+  const [selectedPlan, setSelectedPlan] = useState<string>('');
+  const router = useRouter();
 
   // '나에게 딱 맞는 플랜을 찾고 싶다면?' 버튼 클릭 시
   const handleToggleModal = useCallback(() => {
     setIsModalOpened((prev) => !prev);
   }, []);
 
+  useEffect(() => {
+    if (selectedCard === 1) {
+      setSelectedPlan('BASIC');
+    }
+    if (selectedCard === 2) {
+      setSelectedPlan('PLUS');
+    }
+    if (selectedCard === 3) {
+      setSelectedPlan('PRO');
+    }
+  }, [selectedCard, selectedPlan]);
+  const handlePushQuery = () => {
+    const plan = selectedPlan;
+    if (!plan) alert('플랜을 선택해주세요');
+    if (plan) {
+      setSelectedPlan(plan); // 상태 업데이트
+      router.push(`pricing/register?q=${selectedPlan}`);
+    }
+  };
   // 선택 시 state 업데이트
   const handleAnswerSelect = (questionId: number, option: string) => {
     setAnswers((prev) => ({
@@ -129,20 +151,18 @@ export default function Pricing() {
           type="secondary"
           rounded="rounded-lg"
           className="font-normal"
-          onClick={handleToggleModal}
+          onClick={() => {
+            console.log('클릭');
+          }}
         >
           나에게 딱 맞는 플랜을 찾고 싶다면?
         </Button>
       </div>
       <CardList selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
       <Button
-        isLink={true}
-        href={'/'}
         type="primary"
         className="mb-6 md:m-auto md:mb-8 md:mt-4 md:px-20"
-        onClick={() => {
-          console.log('선택한 플랜으로 신청하기');
-        }}
+        onClick={handlePushQuery}
       >
         선택한 플랜으로 신청하기
       </Button>
