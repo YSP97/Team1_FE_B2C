@@ -5,6 +5,8 @@ import NavLinks from './NavLinks';
 import MobileMenu from './MobileMenu';
 import Button from '../Button';
 import BackButton from './BackButton';
+import Modal from '@/components/Modal/Modal';
+import QRCode from '@/components/QRCode';
 
 function Header() {
   const router = useRouter();
@@ -12,6 +14,7 @@ function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const isRegisterPage = router.pathname === '/pricing/register';
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -58,35 +61,60 @@ function Header() {
     );
   }
 
+  const handleToggleModal = () => {
+    setIsModalOpened((prev) => !prev);
+  };
+
+  const handleDownload = () => {
+    handleToggleModal();
+  };
+
   /* 일반 헤더 */
   return (
-    <header
-      className={`fixed left-0 top-0 z-30 w-full transform transition-transform duration-300 ${
-        isVisible ? 'translate-y-0' : '-translate-y-full'
-      } flex h-[48px] items-center justify-between bg-bg-primary px-3 md:h-[60px] lg:px-8`}
-    >
-      <h1
-        aria-label="핏큘레이터 메인 페이지로 이동"
-        className="h-[24px] md:h-[32px]"
+    <>
+      <header
+        className={`fixed left-0 top-0 z-30 w-full transform transition-transform duration-300 ${
+          isVisible ? 'translate-y-0' : '-translate-y-full'
+        } flex h-[48px] items-center justify-between bg-bg-primary px-3 md:h-[60px] lg:px-8`}
       >
-        <Logo />
-      </h1>
+        <h1
+          aria-label="핏큘레이터 메인 페이지로 이동"
+          className="h-[24px] md:h-[32px]"
+        >
+          <Logo />
+        </h1>
 
-      <div className="hidden h-full items-center gap-3 md:flex lg:gap-10">
-        <nav className="text-base text-gray-100">
-          <NavLinks />
-        </nav>
-        <div className="flex h-full items-center">
-          <Button type="primary" rounded="rounded-2xl">
-            앱 다운로드
-          </Button>
+        <div className="hidden h-full items-center gap-3 md:flex lg:gap-10">
+          <nav className="text-base text-gray-100">
+            <NavLinks />
+          </nav>
+          <div className="flex h-full items-center">
+            <Button
+              type="primary"
+              rounded="rounded-2xl"
+              onClick={handleDownload}
+            >
+              앱 다운로드
+            </Button>
+          </div>
         </div>
-      </div>
 
-      <div className="flex h-full items-center md:hidden">
-        <MobileMenu />
-      </div>
-    </header>
+        <div className="flex h-full items-center md:hidden">
+          <MobileMenu />
+        </div>
+      </header>
+      <Modal
+        title="핏큘레이터 앱 다운로드"
+        isOpened={isModalOpened}
+        onClose={() => {
+          handleToggleModal();
+        }}
+      >
+        <div className="flex flex-1 flex-col justify-between gap-12 overflow-auto px-6 md:flex-row md:gap-[3rem] md:px-10">
+          <QRCode />
+        </div>
+      </Modal>
+    </>
   );
 }
 
