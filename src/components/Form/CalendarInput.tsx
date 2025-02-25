@@ -1,3 +1,4 @@
+'use client';
 import { memo, useState, useRef, useEffect } from 'react';
 import CustomCalendar from './CustomCalendar';
 import SVGIcon from '../SVGIcon';
@@ -56,7 +57,9 @@ function CalendarInput({ selectedDate, setSelectedDate }: SelectedDateProps) {
       >
         <SVGIcon name="icon-calendar" className="text-gray-200" />
         <div className={selectedDate ? 'text-white' : ''}>
-          {selectedDate ? formatDate(selectedDate) : '시작 날짜를 선택해 주세요.'}
+          {selectedDate
+            ? formatDate(selectedDate)
+            : '시작 날짜를 선택해 주세요.'}
         </div>
       </button>
 
