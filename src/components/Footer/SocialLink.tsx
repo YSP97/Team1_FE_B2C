@@ -13,7 +13,7 @@ const SocialLink = ({ social }: SocialLinkProps) => {
   return (
     <li>
       <Link
-        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 p-2 hover:bg-white/20 md:h-10 md:w-10"
+        className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-400 p-2 hover:bg-gray-300 md:h-10 md:w-10"
         href={social.href}
         aria-label={`핏큘레이터 ${social.label} 바로가기`}
       >
