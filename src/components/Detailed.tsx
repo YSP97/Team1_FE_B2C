@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import BundleText from './BundleText';
-import Lottie from 'lottie-react';
-import LottieData from '@/mockData/LottieData.json';
+// import Lottie from 'lottie-react';
+// import LottieData from '@/mockData/LottieData.json';
 
 type Section = {
   title: string;
@@ -225,7 +225,7 @@ function Detailed() {
               className="flex h-screen flex-col items-center justify-center gap-5 bg-bg-primary text-center md:flex-row-reverse"
             >
               <div className="mt-10 max-w-[400px] flex-1">
-                <Lottie animationData={LottieData} loop></Lottie>
+                {/* <Lottie animationData={LottieData} loop></Lottie> */}
               </div>
               <div className="flex-1">
                 <BundleText
