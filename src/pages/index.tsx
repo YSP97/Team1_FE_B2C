@@ -11,6 +11,7 @@
 // });
 
 export default function Home() {
+  console.log('index');
   return (
     <>
       <div>안녕하세요</div>
