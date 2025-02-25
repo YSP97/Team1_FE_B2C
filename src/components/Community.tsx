@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import CommunityCard from './CommunityCard';
 import { motion, useScroll, useTransform } from 'motion/react';
@@ -14,8 +16,18 @@ function Community() {
   );
 
   useEffect(() => {
-    setCurrentWindow(window.innerWidth);
-  }, [currentWindow]);
+    // 브라우저 환경일 때만 window 접근
+    if (typeof window !== 'undefined') {
+      setCurrentWindow(window.innerWidth);
+
+      // 창 크기 변경 이벤트 리스너 추가
+      const handleResize = () => setCurrentWindow(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+
+      // 정리 함수
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []); // currentWindow 의존성 제거
 
   return (
     <div>
@@ -48,9 +60,10 @@ function Community() {
               alt=""
             />
 
-            <img
+            <Image
               src="/assets/appImage2.png"
               className="absolute left-[50%] top-[2%] h-[87%] max-w-[350px] translate-x-[-50%] rounded-[5rem]"
+              alt=""
             />
           </motion.div>
         </div>
@@ -77,14 +90,16 @@ function Community() {
               viewport={{ amount: 0.3 }}
               className="relative h-full w-full"
             >
-              <img
+              <Image
                 src="/assets/mobileDevice.png"
                 className="absolute left-[50%] top-[1%] z-10 h-[70%] translate-x-[-50%]"
+                alt=""
               />
 
-              <img
+              <Image
                 src="/assets/appImage2.png"
                 className="absolute left-[50%] top-[2%] h-[67%] translate-x-[-50%] rounded-[3rem]"
+                alt=""
               />
             </motion.div>
           </div>
