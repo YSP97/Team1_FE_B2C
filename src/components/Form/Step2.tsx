@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
 import { formStore } from '@/stores/useFormStore';
+import { useEffect, useState } from 'react';
 import { useStore } from 'zustand';
-import WearableDevice from './WearableDevice';
 import ExerciseGoal from './ExerciseGoal ';
 import ExerciseLevel from './ExerciseLevel';
+import WearableDevice from './WearableDevice';
 
 import ReferralSource from './ReferralSource';
 
@@ -83,7 +83,6 @@ function Step2({ errors }: ErrorPropsType) {
     setReferralSource(selectReferralSource);
   };
 
-  console.log(form);
   return (
     <>
       <div>
