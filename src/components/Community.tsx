@@ -8,19 +8,17 @@ function Community() {
   // 스크롤 진행도에 따라 x 위치값 변환
   const cardX = useTransform(
     scrollYProgress,
-    [0.85, 0.9], // 스크롤 진행도 (0~1)
-    currentWindow < 1028 ? [0, -200] : [0, 0], // 이동할 x 좌표 (0px에서 -200px)
+    [0.67, 0.7], // 스크롤 진행도 (0~1)
+    currentWindow < 726 ? [0, -200] : [0, 0], // 이동할 x 좌표 (0px에서 -200px)
   );
 
   useEffect(() => {
-    setCurrentWindow(window.screen.width);
-    console.log(currentWindow);
-  }, []);
-  console.log(currentWindow);
+    setCurrentWindow(window.innerWidth);
+  }, [currentWindow]);
 
   return (
     <div>
-      {currentWindow < 1028 ? (
+      {currentWindow < 726 ? (
         <div className="relative mt-10 h-screen overflow-hidden bg-[#2e2e2e] px-5">
           <div className="flex flex-col gap-1 text-center text-[1.5rem]">
             <h3 className="mt-10 text-[1.5rem] font-bold text-gray-100">
@@ -65,10 +63,10 @@ function Community() {
             </h3>
           </div>
           <div className="mt-10 h-full">
-            <div className="absolute left-60">
+            <div className="absolute left-[10%]">
               <CommunityCard />
             </div>
-            <div className="absolute bottom-0 right-60">
+            <div className="absolute bottom-0 right-[10%]">
               <CommunityCard />
             </div>
             <motion.div
@@ -79,12 +77,12 @@ function Community() {
             >
               <img
                 src="/assets/mobileDevice.png"
-                className="absolute left-[50%] top-[1%] z-10 h-[90%] translate-x-[-50%]"
+                className="absolute left-[50%] top-[1%] z-10 h-[70%] translate-x-[-50%]"
               />
 
               <img
                 src="/assets/appImage2.png"
-                className="absolute left-[50%] top-[2%] h-[87%] max-w-[350px] translate-x-[-50%] rounded-[5rem]"
+                className="absolute left-[50%] top-[2%] h-[67%] translate-x-[-50%] rounded-[3rem]"
               />
             </motion.div>
           </div>
