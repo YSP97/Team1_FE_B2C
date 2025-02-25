@@ -38,34 +38,8 @@ function Form({ currentStep, plan }: FormProps) {
       여성: 'female',
       선택안함: 'other',
     };
+
     const gender = form.gender ? (genderMap[form.gender] ?? 'other') : 'other';
-
-    const userData = {
-      id: userId,
-      name: form.name,
-      email: form.email,
-      birth: form.birth,
-      phone_number: form.phone_number,
-      gender: gender,
-    };
-
-    const exerciseData = {
-      id: exerciseId,
-      user_id: userId,
-      wearable_device: form.wearable_device.join(','),
-      exercise_goal: form.exercise_goal.join(','),
-      exercise_level: form.exercise_level,
-      referral_source: form.referral_source,
-      exercise_concern: form.exercise_concern || null,
-    };
-
-    const subscriptionData = {
-      id: subscriptionId,
-      program_id: `program-${plan}`,
-      user_id: userId,
-      start_date: form.start_date,
-      end_date: form.end_date,
-    };
 
     try {
       /* 가입된 회원인지 확인 */
@@ -80,6 +54,54 @@ function Form({ currentStep, plan }: FormProps) {
         return false;
       }
 
+      /* 기존 program_id 가져오기 */
+      const { data: userSubscriptions, error: fetchError } = await supabase
+        .from('programs')
+        .select('id, name');
+
+      if (fetchError) throw fetchError;
+
+      let programId = '';
+      if (userSubscriptions?.length > 0) {
+        const matchedSubscription = userSubscriptions.find(
+          (sub) => sub.name === plan,
+        );
+        if (matchedSubscription) {
+          programId = matchedSubscription.id;
+        }
+
+        console.log(programId);
+      }
+
+
+      const userData = {
+        id: userId,
+        name: form.name,
+        email: form.email,
+        birth: form.birth,
+        phone_number: form.phone_number,
+        gender: gender,
+      };
+
+      const exerciseData = {
+        id: exerciseId,
+        user_id: userId,
+        wearable_device: form.wearable_device.join(','),
+        exercise_goal: form.exercise_goal.join(','),
+        exercise_level: form.exercise_level,
+        referral_source: form.referral_source,
+        exercise_concern: form.exercise_concern || null,
+      };
+
+      const subscriptionData = {
+        id: subscriptionId,
+        program_id: programId,
+        user_id: userId,
+        start_date: form.start_date,
+        end_date: form.end_date,
+      };
+
+      /* 데이터 삽입 */
       const { error: userError } = await supabase
         .from('users')
         .insert([userData]);
@@ -152,7 +174,7 @@ function Form({ currentStep, plan }: FormProps) {
   const handleApply = async () => {
     if (currentStep < 3) {
       if (validateAllFields(currentStep) && isStepComplete(currentStep)) {
-        router.push(`${pathname}?step=${currentStep + 1}&plan=${plan}`);
+        router.push(`${pathname}?step=${currentStep + 1}&q=${plan}`);
       }
     } else {
       const dbSuccess = await postToDb();

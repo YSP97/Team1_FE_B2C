@@ -52,13 +52,13 @@ export default function Pricing() {
 
   useEffect(() => {
     if (selectedCard === 1) {
-      setSelectedPlan('BASIC');
+      setSelectedPlan('Basic');
     }
     if (selectedCard === 2) {
-      setSelectedPlan('PLUS');
+      setSelectedPlan('Plus');
     }
     if (selectedCard === 3) {
-      setSelectedPlan('PRO');
+      setSelectedPlan('Pro');
     }
   }, [selectedCard, selectedPlan]);
   const handlePushQuery = () => {
