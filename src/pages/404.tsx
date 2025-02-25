@@ -1,9 +1,9 @@
-import Button from "@/components/Button";
-import { motion } from "motion/react";
+import Button from '@/components/Button';
+import { motion } from 'motion/react';
 
 export default function NotFound() {
   return (
-    <div className="max-w-7xl flex flex-col items-center bg-bg-primary h-screen justify-center gap-6">
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-6 bg-bg-primary">
       <motion.div
         initial={{ x: 0 }}
         animate={{
@@ -11,9 +11,9 @@ export default function NotFound() {
         }}
         transition={{
           duration: 0.6, // 애니메이션 지속 시간
-          ease: "easeInOut",
+          ease: 'easeInOut',
           repeat: Infinity, // 무한 반복
-          repeatType: "loop",
+          repeatType: 'loop',
           repeatDelay: 2,
         }}
       >
@@ -30,11 +30,11 @@ export default function NotFound() {
           />
         </svg>
       </motion.div>
-      <h2 className="text-lg font-bold text-white whitespace-nowrap">
+      <h2 className="whitespace-nowrap text-lg font-bold text-white">
         페이지를 찾을 수 없습니다.
       </h2>
       <div className="text-center">
-        <span className="text-gray-100 text-sm">
+        <span className="text-sm text-gray-100">
           페이지가 존재하지않거나 사용하지 않는 페이지입니다.
         </span>
         <br />
