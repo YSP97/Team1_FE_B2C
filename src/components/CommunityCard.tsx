@@ -8,7 +8,7 @@ function CommunityCard() {
 
   return (
     <div>
-      <div className="border-gary-100 flex flex-col gap-5 rounded-[0.8rem] border-[1px] border-solid bg-white p-5">
+      <div className="border-gary-100 flex flex-col gap-5 rounded-[0.8rem] border-[1px] border-solid bg-white p-5 text-black">
         <div className="flex gap-[0.71rem]">
           {REVIEW.map((data, index) => {
             return (

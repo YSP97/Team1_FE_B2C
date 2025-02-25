@@ -151,9 +151,7 @@ export default function Pricing() {
           type="secondary"
           rounded="rounded-lg"
           className="font-normal"
-          onClick={() => {
-            console.log('클릭');
-          }}
+          onClick={handleToggleModal}
         >
           나에게 딱 맞는 플랜을 찾고 싶다면?
         </Button>
