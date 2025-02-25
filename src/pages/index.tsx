@@ -1,7 +1,7 @@
 import AppBanner from '@/components/AppBanner';
 // import Apply from '@/components/Apply';
 // import Community from '@/components/Community';
-// import Detailed from '@/components/Detailed';
+import Detailed from '@/components/Detailed';
 // import Faq from '@/components/Faq/Faq';
 // import Review from '@/components/Review/Review';
 import dynamic from 'next/dynamic';
@@ -16,8 +16,8 @@ export default function Home() {
     <>
       <AppBanner />
       <AppIntroduce />
-      {/* <Detailed />
-      <Community />
+      <Detailed />
+      {/* <Community />
       <Review />
       <Apply />
       <Faq /> */}
