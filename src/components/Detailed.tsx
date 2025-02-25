@@ -53,7 +53,7 @@ function Detailed() {
   const [isSnapping, setIsSnapping] = useState(false);
   const touchStartYRef = useRef<number | null>(null);
 
-  console.log(LottieData);
+  console.log('Detailed');
 
   useEffect(() => {
     console.log(sectionRefs.current);

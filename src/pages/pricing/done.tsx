@@ -1,12 +1,12 @@
 import Button from '@/components/Button';
-import Lottie from 'lottie-react';
-import LottieData from '@/mockData/checkAnimation.json';
+// import Lottie from 'lottie-react';
+// import LottieData from '@/mockData/checkAnimation.json';
 
 export default function done() {
   return (
     <div className="h-vh mb-[323px] flex w-full flex-col items-center justify-center gap-5 pt-[60px]">
       <div className="max-w-[300px]">
-        <Lottie animationData={LottieData} />
+        {/* <Lottie animationData={LottieData} /> */}
       </div>
       <h2 className="whitespace-nowrap text-lg font-bold text-white">
         신청이 완료되었습니다.
