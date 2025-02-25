@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import BundleText from './BundleText';
 import Lottie from 'lottie-react';
-import LottieData from '@/LottieData.json';
+import LottieData from '@/mockData/LottieData.json';
 
 type Section = {
   title: string;
@@ -105,8 +105,6 @@ function Detailed() {
       sectionRefs.current[0]?.getBoundingClientRect().height;
 
     if (!sectionHeight) return; // sectionHeight가 정의되지 않으면 함수 종료
-
-    console.log('currentY', currentScrollY, 'sectionHeight', sectionHeight);
 
     const snapToPosition = (targetY: number) => {
       setIsSnapping(true);
