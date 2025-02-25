@@ -59,12 +59,16 @@ function Community() {
             <Image
               src="/assets/mobileDevice.png"
               className="absolute left-[50%] top-[1%] z-10 h-[90%] translate-x-[-50%]"
+              width={200}
+              height={200}
               alt=""
             />
 
             <Image
               src="/assets/appImage2.png"
               className="absolute left-[50%] top-[2%] h-[87%] max-w-[350px] translate-x-[-50%] rounded-[5rem]"
+              width={200}
+              height={200}
               alt=""
             />
           </motion.div>
@@ -95,12 +99,16 @@ function Community() {
               <Image
                 src="/assets/mobileDevice.png"
                 className="absolute left-[50%] top-[1%] z-10 h-[70%] translate-x-[-50%]"
+                width={200}
+                height={200}
                 alt=""
               />
 
               <Image
                 src="/assets/appImage2.png"
                 className="absolute left-[50%] top-[2%] h-[67%] translate-x-[-50%] rounded-[3rem]"
+                width={200}
+                height={200}
                 alt=""
               />
             </motion.div>
