@@ -21,7 +21,7 @@ function ExerciseLevel({ currentStep, onClick }: ExerciseLevelProps) {
       <div className="flex w-full flex-col gap-[0.25rem]">
         <div className="flex w-full items-center">
           {Array.from({ length: totalSteps }, (_, i) => {
-            const isActive = i + 1 <= currentStep;
+            const isActive = i + 1 <= currentStep!;
             return (
               <div key={i} className="flex w-full items-center last:w-auto">
                 {/* 원 */}
@@ -33,7 +33,7 @@ function ExerciseLevel({ currentStep, onClick }: ExerciseLevelProps) {
                 {/* 막대기 */}
                 {i < totalSteps - 1 && (
                   <div
-                    className={`h-0.5 flex-1 ${i + 1 < currentStep ? 'bg-primary' : 'bg-gray-200'}`}
+                    className={`h-0.5 flex-1 ${i + 1 < currentStep! ? 'bg-primary' : 'bg-gray-200'}`}
                   />
                 )}
               </div>
@@ -46,7 +46,7 @@ function ExerciseLevel({ currentStep, onClick }: ExerciseLevelProps) {
             return (
               <div
                 key={i}
-                className={`w-5 text-center text-md ${i + 1 === currentStep ? 'text-primary' : 'text-gray-100'}`}
+                className={`w-5 text-center text-md ${i + 1 === currentStep! ? 'text-primary' : 'text-gray-100'}`}
               >
                 {i + 1}
               </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CommunityCard from './CommunityCard';
 import { motion, useScroll, useTransform } from 'motion/react';
+import Image from 'next/image';
 function Community() {
   const { scrollYProgress } = useScroll();
   const [currentWindow, setCurrentWindow] = useState(0);
@@ -41,9 +42,10 @@ function Community() {
             viewport={{ amount: 0.3 }}
             className="relative h-full w-full"
           >
-            <img
+            <Image
               src="/assets/mobileDevice.png"
               className="absolute left-[50%] top-[1%] z-10 h-[90%] translate-x-[-50%]"
+              alt=""
             />
 
             <img
