@@ -69,10 +69,7 @@ function Form({ currentStep, plan }: FormProps) {
         if (matchedSubscription) {
           programId = matchedSubscription.id;
         }
-
-        console.log(programId);
       }
-
 
       const userData = {
         id: userId,
@@ -116,8 +113,6 @@ function Form({ currentStep, plan }: FormProps) {
         .from('user_subscriptions')
         .insert([subscriptionData]);
       if (subscriptionError) throw subscriptionError;
-
-      router.push('/pricing/done');
 
       return true;
     } catch (error) {
