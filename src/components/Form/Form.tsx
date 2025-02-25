@@ -10,6 +10,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useStore } from 'zustand';
+import Confirm from '../Modal/Confirm';
 
 interface FormProps {
   currentStep: number;
@@ -18,10 +19,12 @@ interface FormProps {
 
 function Form({ currentStep, plan }: FormProps) {
   const supabase = createClient();
-  const { resetFormStep, isStepComplete, form } = useStore(formStore);
+  const { resetFormStep, isStepComplete, form, resetForm } =
+    useStore(formStore);
   const router = useRouter();
   const pathname = usePathname();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   /* 현재 단계의 모든 입력값만 초기화 */
   const resetCurrentStep = () => {
@@ -55,19 +58,17 @@ function Form({ currentStep, plan }: FormProps) {
       }
 
       /* 기존 program_id 가져오기 */
-      const { data: userSubscriptions, error: fetchError } = await supabase
+      const { data: program, error: fetchError } = await supabase
         .from('programs')
         .select('id, name');
 
       if (fetchError) throw fetchError;
 
       let programId = '';
-      if (userSubscriptions?.length > 0) {
-        const matchedSubscription = userSubscriptions.find(
-          (sub) => sub.name === plan,
-        );
-        if (matchedSubscription) {
-          programId = matchedSubscription.id;
+      if (program?.length > 0) {
+        const matchedProgram = program.find((sub) => sub.name === plan);
+        if (matchedProgram) {
+          programId = matchedProgram.id;
         }
       }
 
@@ -172,15 +173,28 @@ function Form({ currentStep, plan }: FormProps) {
         router.push(`${pathname}?step=${currentStep + 1}&q=${plan}`);
       }
     } else {
-      const dbSuccess = await postToDb();
-      const slackSuccess = dbSuccess ? await sendFormToSlack(form) : false;
-
-      const success = dbSuccess && slackSuccess;
-
-      if (success) {
-        router.push('/pricing/done');
-      }
+      // 3단계는 confirm 모달창 띄움
+      setShowConfirm(true);
     }
+  };
+
+  /* confirm === true일 때 데이터 전송 */
+  const handlePost = async () => {
+    setShowConfirm(false);
+    const dbSuccess = await postToDb();
+    const slackSuccess = dbSuccess ? await sendFormToSlack(form) : false;
+
+    const success = dbSuccess && slackSuccess;
+
+    if (success) {
+      router.push('/pricing/done');
+      resetForm();
+    }
+  };
+
+  /* 모달창 닫음 */
+  const handleConfirmClose = () => {
+    setShowConfirm(false);
   };
 
   return (
@@ -208,6 +222,13 @@ function Form({ currentStep, plan }: FormProps) {
             신청하기
           </Button>
         )}
+
+        <Confirm
+          title="정말 신청하시겠어요?"
+          isOpened={showConfirm}
+          onClose={handleConfirmClose}
+          onConfirm={handlePost}
+        />
       </div>
     </form>
   );
