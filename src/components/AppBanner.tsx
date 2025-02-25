@@ -13,6 +13,8 @@ function AppBanner() {
     setIsModalOpened((prev) => !prev);
   }, []);
 
+  console.log('AppBanner');
+
   // 모바일에서 앱 다운로드 버튼 클릭 시, 해당 앱스토어로 이동
   const handleDownload = () => {
     if (isMobile) {

@@ -29,6 +29,8 @@ function Community() {
     }
   }, []); // currentWindow 의존성 제거
 
+  console.log('Community');
+
   return (
     <div>
       {currentWindow < 726 ? (

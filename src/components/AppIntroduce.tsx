@@ -8,6 +8,8 @@ function AppIntroduce() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  console.log('AppIntroduce');
+
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -87,7 +89,7 @@ function AppIntroduce() {
       </h1>
 
       <div
-        className="no-scrollbar flex gap-10 sm:flex-col max-sm:max-w-[400px]"
+        className="no-scrollbar flex gap-10 max-sm:max-w-[400px] sm:flex-col"
         ref={imageContainerRef}
         style={{
           transform: `translateX(${-scrollProgress * 100}%)`,
