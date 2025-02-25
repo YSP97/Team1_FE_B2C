@@ -48,6 +48,7 @@ export const sendFormToSlack = async (form: FormData) => {
     }
     return true;
   } catch (error) {
+    console.log(error);
     return false;
   }
 };

@@ -11,12 +11,10 @@ export default async function handler(
 
   const slackWebhookUrl = process.env.SLACK_WEBHOOK_URL;
   if (!slackWebhookUrl) {
-    return res
-      .status(500)
-      .json({
-        success: false,
-        error: 'Slack Webhook URL이 설정되지 않았습니다.',
-      });
+    return res.status(500).json({
+      success: false,
+      error: 'Slack Webhook URL이 설정되지 않았습니다.',
+    });
   }
 
   try {
@@ -32,6 +30,11 @@ export default async function handler(
 
     return res.status(200).json({ success: true, message: 'Slack 전송 성공!' });
   } catch (error) {
-    return res.status(500).json({ success: false, error: error.message });
+    if (error instanceof Error) {
+      return res.status(500).json({ success: false, error: error.message });
+    }
+    return res
+      .status(500)
+      .json({ success: false, error: 'An unknown error occurred' });
   }
 }
