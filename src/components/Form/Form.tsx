@@ -224,7 +224,7 @@ function Form({ currentStep, plan }: FormProps) {
         )}
 
         <Confirm
-          title="정말 신청하시겠어요?"
+          title="이대로 신청하시겠어요?"
           isOpened={showConfirm}
           onClose={handleConfirmClose}
           onConfirm={handlePost}
