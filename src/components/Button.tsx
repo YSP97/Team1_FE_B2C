@@ -17,6 +17,7 @@ type ButtonBaseProps = {
   fontBold?: TailwindFontBold;
   className?: string;
   isClick?: boolean;
+  disabled?: boolean;
   children: ReactNode;
   onClick?: () => void;
 };
@@ -27,6 +28,7 @@ type ButtonProps =
   | (ButtonBaseProps & { isLink?: false; href?: never }); // isLink가 false면 href 필요 없음
 
 export default function Button({
+  disabled = false,
   textColor = 'text-navy-dark',
   bgColor = 'bg-primary',
   type = 'primary',
@@ -63,14 +65,23 @@ export default function Button({
       break;
   }
 
-  const commonClass = `${fontBold} ${fontSize} transition-all px-6 py-[0.72rem] duration-300 text-center ${buttonClass} ${className}`;
+  const commonClass = `${fontBold} ${fontSize} transition-all px-6 py-[0.72rem] duration-300 text-center ${buttonClass} ${className} `;
 
   return isLink ? (
     <Link href={href!} className={commonClass}>
       {children}
     </Link>
   ) : (
-    <button type="button" className={commonClass} onClick={handleClick}>
+    <button
+      type="button"
+      className={`${commonClass} ${
+        !disabled
+          ? ''
+          : 'cursor-not-allowed opacity-50 hover:brightness-100 disabled:border-[1px] disabled:border-solid disabled:border-gray-100 disabled:bg-bg-primary disabled:text-gray-300'
+      }`}
+      disabled={disabled}
+      onClick={handleClick}
+    >
       {children}
     </button>
   );
