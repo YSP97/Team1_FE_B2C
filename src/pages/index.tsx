@@ -1,9 +1,9 @@
 import AppBanner from '@/components/AppBanner';
-// import Apply from '@/components/Apply';
-// import Community from '@/components/Community';
+import Apply from '@/components/Apply';
+import Community from '@/components/Community';
 import Detailed from '@/components/Detailed';
-// import Faq from '@/components/Faq/Faq';
-// import Review from '@/components/Review/Review';
+import Faq from '@/components/Faq/Faq';
+import Review from '@/components/Review/Review';
 import dynamic from 'next/dynamic';
 
 const AppIntroduce = dynamic(() => import('../components/AppIntroduce'), {
@@ -17,10 +17,10 @@ export default function Home() {
       <AppBanner />
       <AppIntroduce />
       <Detailed />
-      {/* <Community />
+      <Community />
       <Review />
       <Apply />
-      <Faq /> */}
+      <Faq />
     </>
   );
 }
