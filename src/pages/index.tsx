@@ -1,4 +1,4 @@
-// import AppBanner from '@/components/AppBanner';
+import AppBanner from '@/components/AppBanner';
 // import Apply from '@/components/Apply';
 // import Community from '@/components/Community';
 // import Detailed from '@/components/Detailed';
@@ -14,9 +14,8 @@ export default function Home() {
   console.log('index');
   return (
     <>
-      <div>안녕하세요</div>
-      {/* <AppBanner />
-      <AppIntroduce />
+      <AppBanner />
+      {/* <AppIntroduce />
       <Detailed />
       <Community />
       <Review />
