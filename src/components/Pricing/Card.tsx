@@ -38,6 +38,7 @@ function Card({
   onClick,
 }: CardProps) {
   return (
+    // id 추가
     <article
       id={`planCard${title}`}
       className={cardClassName(isSelected)}
