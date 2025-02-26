@@ -57,7 +57,7 @@ function Community() {
             className="relative h-full w-full"
           >
             <div className="absolute left-1/2 -translate-x-1/2 transform">
-              <AppImageWithScreen src="/assets/appImage2.png" alt="빈휴대폰" />
+              <AppImageWithScreen src="/assets/appImage3.jpg" alt="빈휴대폰" />
             </div>
           </motion.div>
         </div>
@@ -86,7 +86,7 @@ function Community() {
             >
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
                 <AppImageWithScreen
-                  src="/assets/appImage2.png"
+                  src="/assets/appImage3.jpg"
                   alt="빈휴대폰"
                 />
               </div>
