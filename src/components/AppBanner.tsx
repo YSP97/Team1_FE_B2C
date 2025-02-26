@@ -1,14 +1,20 @@
-import Lottie from 'lottie-react';
-import LottieData from '@/LottieData.json';
 import useWindowSize from '@/hooks/useWindowSize';
 import Button from '@/components/Button';
 import { useCallback, useState } from 'react';
 import Modal from '@/components/Modal/Modal';
 import QRCode from '@/components/QRCode';
+import dynamic from 'next/dynamic';
 
 function AppBanner() {
   const isMobile = useWindowSize();
   const [isModalOpened, setIsModalOpened] = useState(false);
+
+  const LottieAnimation = dynamic(
+    () => import('../components/LottieAnimation'),
+    {
+      ssr: false,
+    },
+  );
 
   const handleToggleModal = useCallback(() => {
     setIsModalOpened((prev) => !prev);
@@ -44,7 +50,7 @@ function AppBanner() {
           </h1>
           <div className="flex flex-col items-center gap-1">
             <div className="max-w-[320px]">
-              <Lottie animationData={LottieData} loop></Lottie>
+              <LottieAnimation />
             </div>
             <p>자기관리의 시작</p>
             <p>나에게 필요한 운동량을 매주 채워보세요</p>

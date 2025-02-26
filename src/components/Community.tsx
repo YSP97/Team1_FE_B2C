@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import CommunityCard from './CommunityCard';
 import { motion, useScroll, useTransform } from 'motion/react';
-import Image from 'next/image';
+import AppImageWithScreen from './AppImageWithScreen';
 function Community() {
   const { scrollYProgress } = useScroll();
   const [currentWindow, setCurrentWindow] = useState(0);
@@ -56,17 +56,7 @@ function Community() {
             viewport={{ amount: 0.3 }}
             className="relative h-full w-full"
           >
-            <Image
-              src="/assets/mobileDevice.png"
-              className="absolute left-[50%] top-[1%] z-10 h-[90%] translate-x-[-50%]"
-              alt=""
-            />
-
-            <Image
-              src="/assets/appImage2.png"
-              className="absolute left-[50%] top-[2%] h-[87%] max-w-[350px] translate-x-[-50%] rounded-[5rem]"
-              alt=""
-            />
+            <AppImageWithScreen src="/assets/appImage2.png" alt="빈휴대폰" />
           </motion.div>
         </div>
       ) : (
@@ -92,17 +82,7 @@ function Community() {
               viewport={{ amount: 0.3 }}
               className="relative h-full w-full"
             >
-              <Image
-                src="/assets/mobileDevice.png"
-                className="absolute left-[50%] top-[1%] z-10 h-[70%] translate-x-[-50%]"
-                alt=""
-              />
-
-              <Image
-                src="/assets/appImage2.png"
-                className="absolute left-[50%] top-[2%] h-[67%] translate-x-[-50%] rounded-[3rem]"
-                alt=""
-              />
+              <AppImageWithScreen src="/assets/appImage2.png" alt="빈휴대폰" />
             </motion.div>
           </div>
         </div>
