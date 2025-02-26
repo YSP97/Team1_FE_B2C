@@ -246,22 +246,26 @@ function Step1({ errors }: ErrorPropsType) {
         </div>
       </fieldset>
 
-      <SelectGender onChange={handleGender} isChecked={form.gender} />
-      {errors.gender && (
-        <div className="mt-2 text-sm text-primary-red md:mt-4">
-          {errors.gender}
-        </div>
-      )}
+      <div>
+        <SelectGender onChange={handleGender} isChecked={form.gender} />
+        {errors.gender && (
+          <div className="mt-2 text-sm text-primary-red md:mt-4">
+            {errors.gender}
+          </div>
+        )}
+      </div>
 
-      <CalendarInput
-        setSelectedDate={handleCalendar}
-        selectedDate={form.start_date}
-      />
-      {errors.start_date && (
-        <div className="mt-2 text-sm text-primary-red md:mt-4">
-          {errors.start_date}
-        </div>
-      )}
+      <div>
+        <CalendarInput
+          setSelectedDate={handleCalendar}
+          selectedDate={form.start_date}
+        />
+        {errors.start_date && (
+          <div className="mt-2 text-sm text-primary-red md:mt-4">
+            {errors.start_date}
+          </div>
+        )}
+      </div>
     </>
   );
 }

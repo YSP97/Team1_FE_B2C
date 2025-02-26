@@ -14,8 +14,8 @@ function AppImageWithScreen({ src, alt, className }: AppImageProps) {
         <Image
           src={src}
           alt={alt}
-          width={250}
-          height={500}
+          fill
+          sizes="(max-width: 1024px) 250px, 350px"
           priority
           className={`absolute top-0 z-10 rounded-xl ${className} lg:h-[690px] lg:w-[340px] lg:px-3`}
         />
@@ -24,8 +24,8 @@ function AppImageWithScreen({ src, alt, className }: AppImageProps) {
       <Image
         src="/assets/mobileDevice.png"
         alt="device frame"
-        width={250}
-        height={500}
+        fill
+        sizes="(max-width: 1024px) 250px, 350px"
         priority
         className="absolute left-0 top-0 z-20 lg:h-[700px] lg:w-[350px]"
       />
