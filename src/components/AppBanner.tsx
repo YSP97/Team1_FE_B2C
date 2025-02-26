@@ -1,9 +1,10 @@
-import { useState, useCallback } from 'react';
-import AppImageWithScreen from './AppImageWithScreen';
+import Lottie from 'lottie-react';
+import LottieData from '@/LottieData.json';
+import useWindowSize from '@/hooks/useWindowSize';
 import Button from '@/components/Button';
+import { useCallback, useState } from 'react';
 import Modal from '@/components/Modal/Modal';
 import QRCode from '@/components/QRCode';
-import useWindowSize from '@/hooks/useWindowSize';
 
 function AppBanner() {
   const isMobile = useWindowSize();
@@ -15,7 +16,6 @@ function AppBanner() {
 
   console.log('AppBanner');
 
-  // 모바일에서 앱 다운로드 버튼 클릭 시, 해당 앱스토어로 이동
   const handleDownload = () => {
     if (isMobile) {
       // 모바일에서의 경우, 사용자 OS에 맞는 링크로 이동
@@ -35,37 +35,39 @@ function AppBanner() {
   };
 
   return (
-    <section className="flex h-[calc(100vh-3rem)] flex-col items-center gap-6 py-8 md:flex-row md:px-20">
-      <div className="flex flex-col items-center gap-4 md:flex-[0.6] md:items-start md:pl-[12%]">
-        <h1 className="text-center text-lg font-bold text-white md:text-left md:text-xl">
-          무조건 운동하게 만드는
-          <br />
-          <strong className="font-bold text-primary">핏큘레이터</strong>
-        </h1>
-
-        {isMobile ? null : (
-          <div className="text-center text-md text-gray-100 md:mb-6 md:text-left">
+    <section className="flex h-[calc(100vh-3rem)] items-center md:relative md:bg-[url('/assets/banner01.webp')] md:bg-cover md:bg-center">
+      {isMobile ? (
+        <div className="flex flex-1 flex-col items-center gap-8">
+          <h1 className="flex flex-col items-center text-lg">
+            <span>무조건 운동하게 만드는</span>
+            <strong className="text-primary">핏큘레이터</strong>
+          </h1>
+          <div className="flex flex-col items-center gap-1">
+            <div className="max-w-[320px]">
+              <Lottie animationData={LottieData} loop></Lottie>
+            </div>
             <p>자기관리의 시작</p>
             <p>나에게 필요한 운동량을 매주 채워보세요</p>
           </div>
-        )}
-
-        {/* 버튼 */}
-        <Button type="primary" rounded="rounded-xl" onClick={handleDownload}>
-          앱 다운로드
-        </Button>
-      </div>
-
-      {/* 이미지 영역 */}
-      <div className="flex flex-1 items-start justify-center overflow-hidden">
-        <AppImageWithScreen src="/assets/appImage1.jpg" alt="화면1" />
-      </div>
-      {isMobile ? (
-        <div className="text-center text-md text-gray-100 md:text-left">
-          <p>자기관리의 시작</p>
-          <p>나에게 필요한 운동량을 매주 채워보세요</p>
+          <Button type="primary" rounded="rounded-xl" onClick={handleDownload}>
+            앱 다운로드
+          </Button>
         </div>
-      ) : null}
+      ) : (
+        <div className="absolute left-[20%] top-1/2 flex -translate-y-1/2 flex-col items-start gap-8">
+          <h1 className="flex flex-row gap-2 text-2xl font-semibold text-[rgba(0,0,0,1)]">
+            <span>무조건 운동하게 만드는</span>
+            <strong className="font-bold text-primary">핏큘레이터</strong>
+          </h1>
+          <div className="flex flex-col gap-1 text-lg text-[rgba(0,0,0,1)]">
+            <p>자기관리의 시작</p>
+            <p>나에게 필요한 운동량을 매주 채워보세요</p>
+          </div>
+          <Button type="primary" rounded="rounded-xl" onClick={handleDownload}>
+            앱 다운로드
+          </Button>
+        </div>
+      )}
       <Modal
         title="핏큘레이터 앱 다운로드"
         isOpened={isModalOpened}

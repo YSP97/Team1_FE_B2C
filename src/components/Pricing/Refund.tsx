@@ -2,7 +2,7 @@ function Refund() {
   return (
     <section
       aria-labelledby="refund-policy"
-      className="flex flex-col gap-2 rounded-base bg-bg-secondary px-6 py-4 md:m-auto md:w-[70.875rem]"
+      className="flex w-full flex-col gap-2 rounded-base bg-bg-secondary px-6 py-4 md:m-auto md:max-w-6xl"
     >
       <h3 id="refund-policy" className="text-base font-bold text-gray-100">
         환불 규정
