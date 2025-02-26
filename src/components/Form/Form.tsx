@@ -17,6 +17,23 @@ interface FormProps {
   plan: string;
 }
 
+
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[];
+  }
+}
+
+const sendStepEvent = (step: number) => {
+  if (typeof window !== 'undefined') {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'form_step',
+      step: step,
+    });
+  }
+};
+
 function Form({ currentStep, plan }: FormProps) {
   const supabase = createClient();
   const { resetFormStep, isStepComplete, form, resetForm } =
@@ -171,6 +188,7 @@ function Form({ currentStep, plan }: FormProps) {
     if (currentStep < 3) {
       if (validateAllFields(currentStep) && isStepComplete(currentStep)) {
         router.push(`${pathname}?step=${currentStep + 1}&q=${plan}`);
+        sendStepEvent(currentStep + 1);
       }
     } else {
       // 3단계는 confirm 모달창 띄움
