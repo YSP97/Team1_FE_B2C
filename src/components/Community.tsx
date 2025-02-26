@@ -56,7 +56,9 @@ function Community() {
             viewport={{ amount: 0.3 }}
             className="relative h-full w-full"
           >
-            <AppImageWithScreen src="/assets/appImage2.png" alt="빈휴대폰" />
+            <div className="absolute left-1/2 -translate-x-1/2 transform">
+              <AppImageWithScreen src="/assets/appImage2.png" alt="빈휴대폰" />
+            </div>
           </motion.div>
         </div>
       ) : (
@@ -82,7 +84,12 @@ function Community() {
               viewport={{ amount: 0.3 }}
               className="relative h-full w-full"
             >
-              <AppImageWithScreen src="/assets/appImage2.png" alt="빈휴대폰" />
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+                <AppImageWithScreen
+                  src="/assets/appImage2.png"
+                  alt="빈휴대폰"
+                />
+              </div>
             </motion.div>
           </div>
         </div>
