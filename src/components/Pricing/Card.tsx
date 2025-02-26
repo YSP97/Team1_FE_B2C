@@ -38,7 +38,11 @@ function Card({
   onClick,
 }: CardProps) {
   return (
-    <article className={cardClassName(isSelected)} onClick={onClick}>
+    <article
+      id={`planCard${title}`}
+      className={cardClassName(isSelected)}
+      onClick={onClick}
+    >
       {isSelected && (
         <SVGIcon
           name="icon-task"
@@ -61,7 +65,7 @@ function Card({
       </dl>
       <ul
         role="list"
-        className="flex flex-1 flex-col gap-2 border-t border-white/30 pt-4"
+        className="border-white/30 flex flex-1 flex-col gap-2 border-t pt-4"
       >
         {list.map((item, index) => (
           <CheckedText key={index} text={item.text} subText={item.subText} />
