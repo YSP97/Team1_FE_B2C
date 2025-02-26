@@ -53,14 +53,15 @@ export default function Pricing() {
   useEffect(() => {
     if (selectedCard === 1) {
       setSelectedPlan('Basic');
-    }
-    if (selectedCard === 2) {
+    } else if (selectedCard === 2) {
       setSelectedPlan('Plus');
-    }
-    if (selectedCard === 3) {
+    } else if (selectedCard === 3) {
       setSelectedPlan('Pro');
+    } else {
+      setSelectedPlan('');
     }
   }, [selectedCard, selectedPlan]);
+
   const handlePushQuery = () => {
     const plan = selectedPlan;
     if (!plan) alert('플랜을 선택해주세요');
@@ -84,6 +85,7 @@ export default function Pricing() {
 
   const handleYesClick = () => {
     console.log('플랜 신청 진행');
+
     // 추천된 플랜에 맞는 카드 선택
     let recommendedCardId = null;
 
@@ -106,6 +108,7 @@ export default function Pricing() {
   const handleNoClick = () => {
     console.log('플랜 신청 취소');
     setSelectedCard(null);
+    setSelectedPlan('');
     resetModal();
     setIsModalOpened(false);
   };
@@ -163,7 +166,9 @@ export default function Pricing() {
         onClick={handlePushQuery}
         disabled={selectedCard ? false : true}
       >
-        선택한 플랜으로 신청하기
+        {selectedPlan !== ''
+          ? `${selectedPlan} 플랜 신청하기`
+          : `플랜을 선택해주세요.`}
       </Button>
 
       <Refund />
