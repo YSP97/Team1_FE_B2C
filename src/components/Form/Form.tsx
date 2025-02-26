@@ -182,7 +182,7 @@ function Form({ currentStep, plan }: FormProps) {
   const handlePost = async () => {
     setShowConfirm(false);
     const dbSuccess = await postToDb();
-    const slackSuccess = dbSuccess ? await sendFormToSlack(form) : false;
+    const slackSuccess = dbSuccess ? await sendFormToSlack(form, plan) : false;
 
     const success = dbSuccess && slackSuccess;
 
