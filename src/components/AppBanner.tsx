@@ -41,7 +41,7 @@ function AppBanner() {
   };
 
   return (
-    <section className="flex h-[calc(100vh-3rem)] items-center md:relative md:bg-[url('/assets/banner01.webp')] md:bg-cover md:bg-center">
+    <section className="flex h-[calc(100vh-3rem)] items-center md:relative md:h-[calc(100vh-3.75rem)] md:bg-[url('/assets/banner01.webp')] md:bg-cover md:bg-center">
       {isMobile ? (
         <div className="flex flex-1 flex-col items-center gap-8">
           <h1 className="flex flex-col items-center text-lg">

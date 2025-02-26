@@ -23,7 +23,7 @@ export default function Apply() {
     <div className="w-full bg-bg-secondary">
       <div className="flex flex-col gap-2 px-4 py-8 md:mx-auto md:max-w-[80rem] md:flex-row md:items-center md:py-16">
         <Image
-          src={'/assets/bike.png'}
+          src={'/assets/icons/completed_01.png'}
           alt=""
           width={280}
           height={280}

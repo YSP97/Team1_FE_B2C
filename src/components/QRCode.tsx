@@ -23,14 +23,14 @@ function QRCode() {
     <>
       {/* 안드로이드 QR 코드 */}
       <QRCodeImage
-        src="/assets/bike.png"
+        src="/assets/qrcode.png"
         alt="안드로이드 앱 다운로드"
         caption="안드로이드 앱 다운로드"
       />
 
       {/* iOS QR 코드 */}
       <QRCodeImage
-        src="/assets/bike.png"
+        src="/assets/qrcode.png"
         alt="iOS 앱 다운로드"
         caption="iOS 앱 다운로드"
       />
