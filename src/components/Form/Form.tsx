@@ -187,8 +187,8 @@ function Form({ currentStep, plan }: FormProps) {
   const handleApply = async () => {
     if (currentStep < 3) {
       if (validateAllFields(currentStep) && isStepComplete(currentStep)) {
+        sendStepEvent(currentStep);
         router.push(`${pathname}?step=${currentStep + 1}&q=${plan}`);
-        sendStepEvent(currentStep + 1);
       }
     } else {
       // 3단계는 confirm 모달창 띄움
