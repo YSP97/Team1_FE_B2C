@@ -14,10 +14,10 @@ type FormData = {
   referral_source: string;
 };
 
-export const formatFormData = (form: FormData) => {
+export const formatFormData = (form: FormData, plan: string) => {
   return `
 📌 *신규 신청서 접수됨!*
-- *프로그램 ID:* ${form.program_id}
+- *프로그램 이름:* ${plan}
 - *이름:* ${form.name}
 - *생년월일:* ${form.birth?.toISOString().split('T')[0]}
 - *전화번호:* ${form.phone_number}
@@ -33,8 +33,8 @@ export const formatFormData = (form: FormData) => {
   `;
 };
 
-export const sendFormToSlack = async (form: FormData) => {
-  const message = formatFormData(form);
+export const sendFormToSlack = async (form: FormData, plan: string) => {
+  const message = formatFormData(form, plan);
 
   try {
     const response = await fetch('/api/webhook', {
