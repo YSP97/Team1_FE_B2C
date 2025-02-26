@@ -3,15 +3,13 @@
 import { useState, useEffect, useRef, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import BundleText from './BundleText';
-import Lottie from 'lottie-react';
-import LottieData from '@/mockData/LottieData.json';
+import Image from 'next/image';
 
 type Section = {
   title: string;
   title2: string;
   caption1: string;
   caption2: string;
-  bg: string;
   img: string;
 };
 
@@ -23,26 +21,21 @@ const SECTIONS: Section[] = [
     caption1:
       '핏큘레이터의 포인트 시스템은\n세계보건기구(WHO)의 신체활동 가이드라인에\n 근거해 만들어졌어요.',
     caption2: '스마트워치를 가지고 있다면\n누구나 사용할 수 있어요.',
-    bg: 'bg-primary',
-    img: '/assets/calculater.png',
+    img: '/assets/icons/calculater.png',
   },
   {
     title: '운동기록을 올리면 실시간으로',
     title2: '운동량이 계산돼요.',
-    caption1:
-      '나의 운동이 부족한지, 과한지 한 눈에 확인하고\n피드백을 받을 수 있어요.',
-    caption2: '',
-    bg: 'bg-white',
-    img: '/assets/bike.png',
+    caption1: '나의 운동이 부족한지, 과한지 한 눈에 확인하고',
+    caption2: '피드백을 받을 수 있어요.',
+    img: '/assets/icons/graph.png',
   },
   {
     title: '운동량 그래프와 피로도 분석을 통한',
     title2: '자기 관리',
-    caption1:
-      '일별, 주제별 그래프를 통해 나의 운동 패턴을 이해하고\n 컨디션에 맞게 조절할 수 있어요.',
-    caption2: '',
-    bg: 'bg-gray-200',
-    img: '/assets/pieGraph.png',
+    caption1: '요일별, 주제별 그래프를 통해 나의 운동 패턴을 이해하고 ',
+    caption2: '컨디션에 맞게 조절할 수 있어요.',
+    img: '/assets/icons/feedback.png',
   },
 ];
 
@@ -200,7 +193,7 @@ function Detailed() {
     >
       {/* 고정 컨텐츠 박스 */}
       <div
-        className="sticky top-0 z-10 flex h-screen items-center justify-center overflow-hidden bg-bg-primary"
+        className="sticky top-0 z-10 flex h-lvh items-center justify-center overflow-hidden px-10 md:py-10"
         ref={stickyRef}
       >
         <ul className="absolute right-7 top-16 z-20 flex flex-col gap-1 p-1 md:right-10 md:top-1/2">
@@ -214,7 +207,7 @@ function Detailed() {
           })}
         </ul>
 
-        <div className="w-full max-w-7xl px-4 sm:px-6 md:flex lg:px-8">
+        <div className="w-full rounded-xl px-4 sm:px-6 md:flex md:py-10 lg:px-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -222,10 +215,10 @@ function Detailed() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex h-screen flex-col items-center justify-center gap-5 bg-bg-primary text-center md:flex-row-reverse"
+              className="h-calc[(lvh-3rem)] mt-20 flex w-full flex-col items-center justify-center rounded-xl bg-bg-secondary p-10 text-center md:mt-0 md:flex-row-reverse md:gap-20 md:py-10"
             >
-              <div className="mt-10 max-w-[400px] flex-1">
-                <Lottie animationData={LottieData} loop></Lottie>
+              <div className="mt-auto flex-1 md:mt-0">
+                <Image src={SECTIONS[activeIndex].img} alt="" fill />
               </div>
               <div className="flex-1">
                 <BundleText
