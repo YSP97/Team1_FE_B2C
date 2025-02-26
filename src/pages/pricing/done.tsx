@@ -15,7 +15,7 @@ export default function done() {
       </h2>
       <div className="text-center">
         <span className="text-gray-100">
-          어플리케이션을 다운로드후 로그인 해주세요!
+          어플리케이션을 다운로드후 로그인 해주세요.
         </span>
       </div>
       <Button type="primary" isLink={true} href="/">
