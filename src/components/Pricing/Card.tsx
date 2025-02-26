@@ -15,8 +15,8 @@ interface CardProps {
   onClick: () => void;
 }
 
-const cardClassName = (isSelected: boolean) =>
-  [
+const cardClassName = (isSelected: boolean, title: string) => {
+  const baseClasses = [
     'relative overflow-hidden flex-1 flex flex-col gap-4 py-6 px-4 md:p-6 bg-bg-primary border border-gray-200 rounded-base box-border',
     'transition-transform duration-300',
     // before
@@ -25,7 +25,20 @@ const cardClassName = (isSelected: boolean) =>
     isSelected ? 'before:bg-primary' : 'before:bg-transparent',
     // hover
     'hover:before:bg-primary hover:scale-105',
-  ].join(' ');
+  ];
+
+  const titleClass = title.toLowerCase();
+  const titleSpecificClass =
+    titleClass === 'basic'
+      ? 'card_basic'
+      : titleClass === 'plus'
+        ? 'card_plus'
+        : titleClass === 'pro'
+          ? 'card_pro'
+          : '';
+
+  return [...baseClasses, titleSpecificClass].join(' ');
+};
 
 function Card({
   emoji,
@@ -39,11 +52,7 @@ function Card({
 }: CardProps) {
   return (
     // id 추가
-    <article
-      id={`planCard${title}`}
-      className={cardClassName(isSelected)}
-      onClick={onClick}
-    >
+    <article className={cardClassName(isSelected, title)} onClick={onClick}>
       {isSelected && (
         <SVGIcon
           name="icon-task"
