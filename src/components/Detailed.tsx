@@ -45,8 +45,31 @@ function Detailed() {
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const [isSnapping, setIsSnapping] = useState(false);
   const touchStartYRef = useRef<number | null>(null);
+  const [sectionHeight, setSectionHeight] = useState(0);
 
-  console.log('Detailed');
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때, 또는 윈도우 크기가 변경될 때마다 섹션 높이를 업데이트
+    const sectionHeight =
+      sectionRefs.current[0]?.getBoundingClientRect().height;
+
+    if (sectionHeight) {
+      setSectionHeight(sectionHeight);
+    }
+
+    // 윈도우 크기 변화에 따라 섹션 높이 재계산
+    const handleResize = () => {
+      if (sectionHeight) {
+        setSectionHeight(sectionHeight);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // 클린업
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     console.log(sectionRefs.current);
@@ -112,26 +135,27 @@ function Detailed() {
     };
 
     if (
-      currentScrollY > sectionHeight &&
-      currentScrollY < sectionHeight + 150 &&
-      !isSnapping
-    ) {
-      snapToPosition(sectionHeight);
-    }
-
-    if (
-      currentScrollY > sectionHeight * 2 &&
-      currentScrollY < sectionHeight * 2 + 150 &&
-      !isSnapping
-    ) {
-      snapToPosition(sectionHeight * 2);
-    }
-    if (
       currentScrollY > sectionHeight * 3 &&
-      currentScrollY < sectionHeight * 3 + 150 &&
+      currentScrollY < sectionHeight * 3 + 50 &&
       !isSnapping
     ) {
       snapToPosition(sectionHeight * 3);
+    }
+
+    if (
+      currentScrollY > sectionHeight * 4 &&
+      currentScrollY < sectionHeight * 4 + 50 &&
+      !isSnapping
+    ) {
+      snapToPosition(sectionHeight * 4);
+    }
+    if (
+      currentScrollY > sectionHeight * 5 &&
+      currentScrollY < sectionHeight * 5 + 50 &&
+      !isSnapping
+    ) {
+      console.log('걸림');
+      snapToPosition(sectionHeight * 5);
     }
   };
 
@@ -193,10 +217,10 @@ function Detailed() {
     >
       {/* 고정 컨텐츠 박스 */}
       <div
-        className="sticky top-0 z-10 flex h-lvh items-center justify-center overflow-hidden px-10 md:py-10"
+        className="sticky top-0 z-20 flex h-lvh items-center justify-center overflow-hidden px-10 md:py-10"
         ref={stickyRef}
       >
-        <ul className="absolute right-7 top-16 z-20 flex flex-col gap-1 p-1 md:right-10 md:top-1/2">
+        <ul className="absolute right-7 top-16 z-30 flex flex-col gap-1 p-1 md:right-10 md:top-1/2">
           {sectionRefs.current.map((_, index) => {
             return (
               <li
@@ -207,7 +231,7 @@ function Detailed() {
           })}
         </ul>
 
-        <div className="w-full rounded-xl px-4 sm:px-6 md:flex md:py-10 lg:px-8">
+        <div className="w-full rounded-xl px-6 md:flex md:py-10 lg:px-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -215,10 +239,16 @@ function Detailed() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="h-calc[(lvh-3rem)] mt-20 flex w-full flex-col items-center justify-center rounded-xl bg-bg-secondary p-10 text-center md:mt-0 md:flex-row-reverse md:gap-20 md:py-10"
+              className="h-calc[(lvh-3rem)] mt-20 flex w-full flex-col items-center justify-center rounded-xl bg-bg-secondary p-10 text-center md:mt-0 md:flex-row-reverse md:gap-20 md:px-20 md:py-10"
             >
-              <div className="mt-auto flex-1 md:mt-0">
-                <Image src={SECTIONS[activeIndex].img} alt="" fill />
+              <div className="relative mt-auto flex h-full w-full flex-1 items-center justify-center md:mt-0">
+                <Image
+                  src={SECTIONS[activeIndex].img}
+                  alt=""
+                  width={400}
+                  height={400}
+                  sizes="100vw"
+                />
               </div>
               <div className="flex-1">
                 <BundleText
@@ -236,7 +266,10 @@ function Detailed() {
       </div>
 
       {/* 스크롤 영역 */}
-      <div className="w-full snap-mandatory overflow-auto">
+      <div
+        className={`relative z-10 w-full snap-mandatory overflow-auto`}
+        style={{ top: -sectionHeight }}
+      >
         {SECTIONS.map((_, i) => {
           return (
             <div
