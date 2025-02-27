@@ -9,20 +9,8 @@ import { useEffect } from 'react';
 
 declare global {
   interface Window {
-    dataLayer: DataLayerEvent[];
+    dataLayer: Record<string, unknown>[];
   }
-}
-
-interface DataLayerEvent {
-  event: string;
-  page?: string;
-  category?: string;
-  action?: string;
-  label?: string;
-  value?: number;
-  depth?: number;
-  section?: string;
-  [key: string]: string | number | boolean | object | undefined; // 추가 속성 허용
 }
 
 const GTM_ID = 'GTM-NK887F89'; // 여기에 실제 GTM ID 입력
