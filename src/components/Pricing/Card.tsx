@@ -1,5 +1,6 @@
 import CheckedText from '@/components/CheckedText';
 import SVGIcon from '@/components/SVGIcon';
+import TagManager from 'react-gtm-module';
 
 interface CardProps {
   emoji: string;
@@ -50,9 +51,32 @@ function Card({
   isSelected = false,
   onClick,
 }: CardProps) {
+  const handleClick = () => {
+    // GTM에 클릭된 카드 정보 전송
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'plan_card_click',
+        card_title: title,
+        card_price: price,
+        card_basis: basis,
+        is_selected: isSelected, // 선택된 카드인지 여부
+      },
+    });
+    console.log(title);
+
+    // 원래의 onClick 핸들러 실행
+    onClick();
+  };
+
   return (
     // id 추가
-    <article className={cardClassName(isSelected, title)} onClick={onClick}>
+    <article
+      className={cardClassName(isSelected, title)}
+      onClick={() => {
+        onClick();
+        handleClick();
+      }}
+    >
       {isSelected && (
         <SVGIcon
           name="icon-task"

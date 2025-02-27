@@ -54,7 +54,6 @@ export const mockDataCardList = [
         text: '피트니스 특화 챗봇',
         subText: ['개별 운동 프로그램 제공 (근력, Hyrox)', '프로그램 피드백'],
       },
-      { text: 'F45 이용권 제공', subText: ['을지로점 한정'] },
     ],
   },
 ];
