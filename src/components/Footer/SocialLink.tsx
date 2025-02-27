@@ -8,8 +8,6 @@ export type SocialLinkProps = {
 };
 
 const SocialLink = ({ social }: SocialLinkProps) => {
-  console.log(social.svgId);
-
   return (
     <li>
       <Link

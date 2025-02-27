@@ -26,7 +26,6 @@ export default function Home() {
   useSectionTime('community');
   useSectionTime('faq');
   useSectionTime('review');
-  console.log('index');
   return (
     <>
       <section id="app-banner">

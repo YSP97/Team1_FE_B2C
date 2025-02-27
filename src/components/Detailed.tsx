@@ -72,7 +72,6 @@ function Detailed() {
   }, []);
 
   useEffect(() => {
-    console.log(sectionRefs.current);
     // 배열 초기화
     sectionRefs.current = sectionRefs.current.slice(0, SECTIONS.length + 2);
     //sectionRefs 의 배열길이를  SECTIONS.length 와 정확히 일치시키기 위한 작업
