@@ -11,7 +11,6 @@ function CardList({ selectedCard, setSelectedCard }: CardListProps) {
   const handleCardClick = useCallback(
     (id: number) => {
       setSelectedCard(id === selectedCard ? null : id);
-      console.log(id === selectedCard ? '카드 선택 해제' : '카드 선택됨', id);
     },
     [selectedCard, setSelectedCard],
   );

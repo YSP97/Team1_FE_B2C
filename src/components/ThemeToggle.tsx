@@ -18,9 +18,7 @@ function ThemeToggle() {
     setTheme(currentTheme === 'dark' ? 'light' : 'dark');
   };
 
-  useEffect(() => {
-    console.log('현재 테마:', theme); // 테마 변경 후 콘솔 출력
-  }, [theme]);
+  useEffect(() => {}, [theme]);
 
   if (!mounted) return null; // mounted가 false일 때는 렌더링 안 함
 

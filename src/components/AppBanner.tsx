@@ -20,8 +20,6 @@ function AppBanner() {
     setIsModalOpened((prev) => !prev);
   }, []);
 
-  console.log('AppBanner');
-
   const handleDownload = () => {
     if (isMobile) {
       // 모바일에서의 경우, 사용자 OS에 맞는 링크로 이동

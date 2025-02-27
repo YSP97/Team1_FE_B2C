@@ -8,8 +8,6 @@ function AppIntroduce() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  console.log('AppIntroduce');
-
   useEffect(() => {
     if (!sectionRef.current) return;
 

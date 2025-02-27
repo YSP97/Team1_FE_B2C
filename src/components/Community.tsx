@@ -4,6 +4,44 @@ import { useEffect, useState } from 'react';
 import CommunityCard from './CommunityCard';
 import { motion, useScroll, useTransform } from 'motion/react';
 import AppImageWithScreen from './AppImageWithScreen';
+
+type ReviewIcon = {
+  icon: string;
+  number: string;
+};
+
+type ReviewItem = {
+  title: string;
+  sub: string;
+  sub2: string;
+  iconArr: ReviewIcon[];
+};
+
+const REVIEW: ReviewItem[] = [
+  {
+    title: '운동으로 연결되고',
+    sub: '다른 맴버들은 어떻게 운동하는지, 자유롭게 정보를 공유해요',
+    sub2: '자유롭게 정보를 공유해요',
+    iconArr: [
+      { icon: '⚽️', number: '11' },
+      { icon: '🏋️‍♂️', number: '52' },
+      { icon: '🚴', number: '30' },
+      { icon: '🥊', number: '25' },
+    ],
+  },
+  {
+    title: '서로 동기 부여해요',
+    sub: '다른 맴버들이 좋은 자극이 돼요',
+    sub2: '서로 응원하면서,열심히 운동해요',
+    iconArr: [
+      { icon: '⚽️', number: '11' },
+      { icon: '🏋️‍♂️', number: '52' },
+      { icon: '🚴', number: '30' },
+      { icon: '🥊', number: '25' },
+    ],
+  },
+];
+
 function Community() {
   const { scrollYProgress } = useScroll();
   const [currentWindow, setCurrentWindow] = useState(0);
@@ -29,8 +67,6 @@ function Community() {
     }
   }, []); // currentWindow 의존성 제거
 
-  console.log('Community');
-
   return (
     <div>
       {currentWindow < 726 ? (
@@ -46,8 +82,15 @@ function Community() {
               style={{ x: cardX }}
               className="pointer-events-none relative top-10 flex gap-10"
             >
-              <CommunityCard />
-              <CommunityCard />
+              {REVIEW.map((data, index) => (
+                <CommunityCard
+                  key={index}
+                  title={data.title}
+                  sub={data.sub}
+                  sub2={data.sub2}
+                  iconArr={data.iconArr}
+                />
+              ))}
             </motion.div>
           </div>
           <motion.div
@@ -73,10 +116,10 @@ function Community() {
           </div>
           <div className="mt-10 h-full">
             <div className="absolute left-[10%]">
-              <CommunityCard />
+              <CommunityCard {...REVIEW[0]} />
             </div>
             <div className="absolute bottom-0 right-[10%]">
-              <CommunityCard />
+              <CommunityCard {...REVIEW[1]} />
             </div>
             <motion.div
               initial={{ y: 0, opacity: 0 }}
